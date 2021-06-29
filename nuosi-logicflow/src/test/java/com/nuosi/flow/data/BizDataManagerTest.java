@@ -22,8 +22,8 @@ public class BizDataManagerTest {
         bizName = "User";
         // 注册User结构的业务对象
         BDataDefine dataDefine = new BizDataDefine(bizName);
-        dataDefine.defineType("name", BDataDefine.BDataType.STRING);
-        dataDefine.defineType("age", BDataDefine.BDataType.INT);
+        dataDefine.defineLimit("name", BizDataLimitManager.createStringLimit());
+        dataDefine.defineLimit("age", BizDataLimitManager.createIntegerLimit());
         BizDataManager.registerDto(dataDefine, true);
     }
 

@@ -1,9 +1,5 @@
 package com.nuosi.flow.data;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-
 /**
  * <p>desc: 业务传输对象数据限制和校验的接口抽象</p>
  * <p>date: 2021/3/16 23:40</p>
@@ -12,4 +8,7 @@ import java.sql.Timestamp;
  */
 public interface BDataLimit {
 
+    public void checkValidity(String bizName, String attr, Object value);
+
+    public BDataDefine.BDataType getDataType();
 }

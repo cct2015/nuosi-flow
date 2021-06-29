@@ -1,7 +1,7 @@
 package com.nuosi.flow.logic.model;
 
 import com.alibaba.fastjson.JSON;
-import com.nuosi.flow.data.BDataDefine;
+import com.nuosi.flow.data.BizDataLimitManager;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.data.impl.BizData;
 import com.nuosi.flow.data.impl.BizDataDefine;
@@ -23,12 +23,12 @@ public class VarTest {
     @Before
     public void before(){
         BizDataDefine bizDataDefine = new BizDataDefine("Var");
-        bizDataDefine.defineType("id", BDataDefine.BDataType.STRING);
-        bizDataDefine.defineType("type",BDataDefine.BDataType.STRING);
-        bizDataDefine.defineType("name",BDataDefine.BDataType.STRING);
-        bizDataDefine.defineType("final",BDataDefine.BDataType.STRING);
-        bizDataDefine.defineType("default",BDataDefine.BDataType.STRING);
-        bizDataDefine.defineType("initial",BDataDefine.BDataType.STRING);
+        bizDataDefine.defineLimit("id", BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineLimit("type",BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineLimit("name",BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineLimit("final",BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineLimit("default",BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineLimit("initial",BizDataLimitManager.createStringLimit());
         BizDataManager.registerDto(bizDataDefine);
     }
 

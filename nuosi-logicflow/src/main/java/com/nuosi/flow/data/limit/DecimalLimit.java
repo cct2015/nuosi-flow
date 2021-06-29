@@ -1,6 +1,8 @@
 package com.nuosi.flow.data.limit;
 
+import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.util.BizDataValidityUtil;
 
 import java.math.BigDecimal;
 
@@ -11,11 +13,15 @@ import java.math.BigDecimal;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class DecimalLimit implements BDataLimit {
+public class DecimalLimit extends AbstractDataLimit {
     private int precision = -1;
     private int scale = -1;
     private BigDecimal maxDecimal = null;
     private BigDecimal minDecimal = null;
+
+    public DecimalLimit() {
+        super(BDataDefine.BDataType.DECIMAL);
+    }
 
     public int getPrecision() {
         return precision;
@@ -51,5 +57,11 @@ public class DecimalLimit implements BDataLimit {
     public DecimalLimit setMinDecimal(BigDecimal minDecimal) {
         this.minDecimal = minDecimal;
         return this;
+    }
+
+    @Override
+    public void checkValidity(String bizName, String attr, Object value) {
+        BigDecimal decimalValue = BizDataValidityUtil.checkDecimal(value, bizName, attr);
+        BizDataValidityUtil.checkDecimalLimit(decimalValue, this, bizName, attr);
     }
 }

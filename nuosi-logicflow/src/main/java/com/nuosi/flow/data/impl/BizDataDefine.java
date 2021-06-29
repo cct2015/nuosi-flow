@@ -2,7 +2,6 @@ package com.nuosi.flow.data.impl;
 
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
-import com.nuosi.flow.util.BizDataValidityUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,26 +15,11 @@ import java.util.Map;
  */
 public class BizDataDefine implements BDataDefine {
     private final String bizName;
-    private final Map<String, BDataType> dataTypes;
     private final Map<String, BDataLimit> dataLimits;
 
     public BizDataDefine(String bizName) {
         this.bizName = bizName;
-        this.dataTypes = new HashMap<String, BDataType>();
         this.dataLimits = new HashMap<String, BDataLimit>();
-    }
-
-    @Override
-    public BizDataDefine defineType(String attr, BDataType dataType, BDataLimit dataLimit) {
-        dataTypes.put(attr, dataType);
-        dataLimits.put(attr, dataLimit);
-        return this;
-    }
-
-    @Override
-    public BizDataDefine defineType(String attr, BDataType dataType) {
-        dataTypes.put(attr, dataType);
-        return this;
     }
 
     @Override
@@ -44,23 +28,9 @@ public class BizDataDefine implements BDataDefine {
     }
 
     @Override
-    public Map<String, BDataDefine.BDataType> getDataTypes() {
-        return dataTypes;
-    }
-
-    @Override
-    public BDataDefine.BDataType getDataType(String bizName) {
-        return dataTypes.get(bizName);
-    }
-
-    @Override
-    public String[] getAllAttr() {
-        return dataTypes.keySet().toArray(new String[]{});
-    }
-
-    @Override
-    public boolean containsAttr(String attr) {
-        return dataTypes.containsKey(attr);
+    public BizDataDefine defineLimit(String attr, BDataLimit dataLimit) {
+        dataLimits.put(attr, dataLimit);
+        return this;
     }
 
     @Override
@@ -74,8 +44,22 @@ public class BizDataDefine implements BDataDefine {
     }
 
     @Override
+    public String[] getAttrs() {
+        return dataLimits.keySet().toArray(new String[]{});
+    }
+
+    @Override
+    public boolean containsAttr(String attr) {
+        return dataLimits.containsKey(attr);
+    }
+
+    @Override
     public boolean checkData(String attr, Object value) {
-        BizDataValidityUtil.checkData(bizName, attr, value);
+        BDataLimit dataLimit = this.getDataLimit(attr);
+        if(dataLimit!=null){
+            dataLimit.checkValidity(bizName, attr, value);
+        }
+        //BizDataValidityUtil.checkData(bizName, attr, value);
         return true;
     }
 }

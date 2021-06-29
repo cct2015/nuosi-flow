@@ -28,9 +28,8 @@ public class BizDataValidityUtil {
      */
     public static void checkData(String bizName, String attr, Object value) {
         BDataDefine dataDefine = BizDataManager.getDataDefine(bizName);
-        BDataDefine.BDataType dataType = dataDefine.getDataType(attr);
         BDataLimit dataLimit = dataDefine.getDataLimit(attr);
-        switch (dataType) {
+        switch (dataLimit.getDataType()) {
             /*校验整数类型*/
             case INT:
                 Integer intValue = checkInt(value, bizName, attr);
@@ -61,7 +60,7 @@ public class BizDataValidityUtil {
         }
     }
 
-    private static Integer checkInt(Object value, String bizName, String attr) {
+    public static Integer checkInt(Object value, String bizName, String attr) {
         Integer val = null;
         try {
             val = Integer.parseInt(String.valueOf(value));
@@ -71,7 +70,7 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    private static void checkIntLimit(Integer val, BDataLimit bdataLimit, String bizName, String attr) {
+    public static void checkIntLimit(Integer val, BDataLimit bdataLimit, String bizName, String attr) {
         if (bdataLimit == null) {
             return;
         }
@@ -84,12 +83,12 @@ public class BizDataValidityUtil {
         }
     }
 
-    private static String checkString(Object value, String bizName, String attr) {
+    public static String checkString(Object value, String bizName, String attr) {
         String val = String.valueOf(value);
         return val;
     }
 
-    private static void checkStringLimit(String val, BDataLimit bdataLimit, String bizName, String attr) {
+    public static void checkStringLimit(String val, BDataLimit bdataLimit, String bizName, String attr) {
         if (bdataLimit == null) {
             return;
         }
@@ -100,7 +99,7 @@ public class BizDataValidityUtil {
         }
     }
 
-    private static BigDecimal checkDecimal(Object value, String bizName, String attr) {
+    public static BigDecimal checkDecimal(Object value, String bizName, String attr) {
         BigDecimal val = null;
         try {
             val = new BigDecimal(String.valueOf(value));
@@ -110,7 +109,7 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    private static void checkDecimalLimit(BigDecimal val, BDataLimit bdataLimit, String bizName, String attr) {
+    public static void checkDecimalLimit(BigDecimal val, BDataLimit bdataLimit, String bizName, String attr) {
         if (bdataLimit == null) {
             return;
         }
@@ -130,7 +129,7 @@ public class BizDataValidityUtil {
         }
     }
 
-    private static java.sql.Date checkDate(Object value, String bizName, String attr) {
+    public static java.sql.Date checkDate(Object value, String bizName, String attr) {
         java.sql.Date val = null;
         try {
             val = java.sql.Date.valueOf(String.valueOf(value));
@@ -140,7 +139,7 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    private static void checkDateLimit(java.sql.Date val, BDataLimit bdataLimit, String bizName, String attr) {
+    public static void checkDateLimit(java.sql.Date val, BDataLimit bdataLimit, String bizName, String attr) {
         if (bdataLimit == null) {
             return;
         }
@@ -155,7 +154,7 @@ public class BizDataValidityUtil {
     }
 
 
-    private static Timestamp checkDatetime(Object value, String bizName, String attr) {
+    public static Timestamp checkDatetime(Object value, String bizName, String attr) {
         Timestamp val = null;
         try {
             val = Timestamp.valueOf(String.valueOf(value));
@@ -165,7 +164,7 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    private static void checkDatetimeLimit(Timestamp val, BDataLimit bdataLimit, String bizName, String attr) {
+    public static void checkDatetimeLimit(Timestamp val, BDataLimit bdataLimit, String bizName, String attr) {
         if (bdataLimit == null) {
             return;
         }

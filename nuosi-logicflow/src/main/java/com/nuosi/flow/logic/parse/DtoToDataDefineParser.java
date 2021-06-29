@@ -2,6 +2,7 @@ package com.nuosi.flow.logic.parse;
 
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.data.BizDataLimitManager;
 import com.nuosi.flow.data.impl.BizDataDefine;
 import com.nuosi.flow.data.limit.*;
 import com.nuosi.flow.logic.LogicFlowManager;
@@ -35,13 +36,12 @@ public class DtoToDataDefineParser {
             BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
             List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
-                dataDefine.defineType(attr.getId(), dataType);
-                continue;
+                dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
+            }else{
+                Limit limit = limits.get(0);
+                BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
+                dataDefine.defineLimit(attr.getId(), dataLimit);
             }
-
-            Limit limit = limits.get(0);
-            BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
-            dataDefine.defineType(attr.getId(), dataType, dataLimit);
         }
         return dataDefine;
     }
@@ -52,13 +52,12 @@ public class DtoToDataDefineParser {
             BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
             List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
-                dataDefine.defineType(attr.getId(), dataType);
-                continue;
+                dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
+            }else{
+                Limit limit = limits.get(0);
+                BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
+                dataDefine.defineLimit(attr.getId(), dataLimit);
             }
-
-            Limit limit = limits.get(0);
-            BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
-            dataDefine.defineType(attr.getId(), dataType, dataLimit);
         }
         return dataDefine;
     }

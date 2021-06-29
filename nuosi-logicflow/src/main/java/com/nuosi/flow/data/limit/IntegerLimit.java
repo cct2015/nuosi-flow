@@ -1,7 +1,9 @@
 package com.nuosi.flow.data.limit;
 
 import com.ai.ipu.basic.util.IpuUtility;
+import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.util.BizDataValidityUtil;
 import com.nuosi.flow.util.LogicFlowConstants;
 
 /**
@@ -11,9 +13,13 @@ import com.nuosi.flow.util.LogicFlowConstants;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class IntegerLimit implements BDataLimit {
+public class IntegerLimit extends AbstractDataLimit {
     private Integer max = null;
     private Integer min = null;
+
+    public IntegerLimit() {
+        super(BDataDefine.BDataType.INT);
+    }
 
     public Integer getMax() {
         return max;
@@ -33,4 +39,9 @@ public class IntegerLimit implements BDataLimit {
         return this;
     }
 
+    @Override
+    public void checkValidity(String bizName, String attr, Object value) {
+        Integer intValue = BizDataValidityUtil.checkInt(value, bizName, attr);
+        BizDataValidityUtil.checkIntLimit(intValue, this, bizName, attr);
+    }
 }

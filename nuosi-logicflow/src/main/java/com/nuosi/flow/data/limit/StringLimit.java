@@ -1,7 +1,9 @@
 package com.nuosi.flow.data.limit;
 
 import com.ai.ipu.basic.util.IpuUtility;
+import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.util.BizDataValidityUtil;
 import com.nuosi.flow.util.LogicFlowConstants;
 
 /**
@@ -11,8 +13,12 @@ import com.nuosi.flow.util.LogicFlowConstants;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class StringLimit implements BDataLimit {
+public class StringLimit extends AbstractDataLimit {
     private int size = -1;
+
+    public StringLimit() {
+        super(BDataDefine.BDataType.STRING);
+    }
 
     public int getSize() {
         return size;
@@ -21,5 +27,11 @@ public class StringLimit implements BDataLimit {
     public StringLimit setSize(int size) {
         this.size = size;
         return this;
+    }
+
+    @Override
+    public void checkValidity(String bizName, String attr, Object value) {
+        String stringValue = BizDataValidityUtil.checkString(value, bizName, attr);
+        BizDataValidityUtil.checkStringLimit(stringValue, this, bizName, attr);
     }
 }

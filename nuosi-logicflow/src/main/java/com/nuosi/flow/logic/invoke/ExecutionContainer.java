@@ -6,7 +6,6 @@ import com.ai.ipu.data.impl.JsonMap;
 import com.ai.ipu.database.conn.SqlSessionManager;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
-import com.nuosi.flow.data.impl.BizDataDefine;
 import com.nuosi.flow.logic.invoke.processer.IActionProcesser;
 import com.nuosi.flow.logic.invoke.processer.ProcesserManager;
 import com.nuosi.flow.logic.model.LogicFlow;
@@ -33,7 +32,7 @@ import java.util.*;
  * @version v1.0.0
  */
 public class ExecutionContainer {
-    private BDataDefine bDataDefine;    //将define中的var定义转化成BDataDefine，使用其数据校验逻辑
+    private BDataDefine databusDataDefine;    //将define中的var定义转化成BDataDefine，使用其数据校验逻辑
     private Map<String, Object> databus = new HashMap<String, Object>();    //数据总线
 
     private Set<String> importSet = new HashSet<String>();  //记录引用的业务对象
@@ -71,15 +70,7 @@ public class ExecutionContainer {
 
     private void initGlobalAttr(List<Attr> attrs) {
         if (attrs != null) {
-            this.bDataDefine = new DtoToDataDefineParser().parseByAttrs(logicFlow.getId(), attrs);
-            if (!BizDataManager.contains(logicFlow.getId())) {
-                BizDataManager.registerDto(bDataDefine);
-            }
-        }else{
-            this.bDataDefine = new BizDataDefine(logicFlow.getId());
-            if (!BizDataManager.contains(logicFlow.getId())) {
-                BizDataManager.registerDto(bDataDefine);
-            }
+            this.databusDataDefine = new DtoToDataDefineParser().parseByAttrs(logicFlow.getId(), attrs);
         }
     }
 
@@ -116,9 +107,7 @@ public class ExecutionContainer {
         String[] keys = param.getKeys();
         for (String key : keys) {
             //入参存储到数据总线前的校验
-            if (bDataDefine.getDataTypes().containsKey(key)) {
-                bDataDefine.checkData(key, param.get(key));
-            }
+            checkData(key, param.get(key));
             //入参存储到数据总线
             databus.put(key, param.get(key));
         }
@@ -146,9 +135,7 @@ public class ExecutionContainer {
                     bDataDefine.checkData(var.getAttr(), databus.get(key));
                 } else {
                     // 根据定义的数据模型做数据校验
-                    if (bDataDefine.getDataTypes().containsKey(key)) {
-                        bDataDefine.checkData(key, databus.get(key));
-                    }
+                    checkData(key, databus.get(key));
                 }
             }
         }
@@ -215,9 +202,7 @@ public class ExecutionContainer {
             value = databus.get(key);
             value = value == null ? var.getInitial() : value;
             // 入参使用默认值的校验
-            if (bDataDefine.getDataTypes().containsKey(key)) {
-                bDataDefine.checkData(key, value);
-            }
+            checkData(key, value);
             key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
             param.put(key, value);
         }
@@ -278,9 +263,8 @@ public class ExecutionContainer {
                 if (key == null) {
                     IpuUtility.errorCode(LogicFlowConstants.FLOW_NODE_OUTPUT_VAR_NULL, logicFlow.getId(), end.getId());
                 }
-                if (bDataDefine.getDataTypes().containsKey(key)) {
-                    bDataDefine.checkData(key, databus.get(key));
-                }
+                checkData(key, databus.get(key));
+
                 result.put(key, databus.get(key));
             }
         }
@@ -301,5 +285,14 @@ public class ExecutionContainer {
             IpuUtility.errorCode(LogicFlowConstants.FLOW_END_SINGLE, logicFlow.getId());
         }
         return ends.get(0);
+    }
+
+    private void checkData(String key, Object value){
+        if(databusDataDefine==null){
+            return;
+        }
+        if (databusDataDefine.getDataLimits().containsKey(key)) {
+            databusDataDefine.checkData(key, value);
+        }
     }
 }

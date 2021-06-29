@@ -22,11 +22,11 @@ public class BizDataDefineTest {
         bizName = "User";
         // 注册User结构的业务对象
         BDataDefine userDefine = new BizDataDefine(bizName);
-        userDefine.defineType("name", BDataDefine.BDataType.STRING);
-        userDefine.defineType("age", BDataDefine.BDataType.INT);
-        userDefine.defineType("height", BDataDefine.BDataType.DECIMAL);
-        userDefine.defineType("birthday", BDataDefine.BDataType.DATE);
-        userDefine.defineType("create_date", BDataDefine.BDataType.DATETIME);
+        userDefine.defineLimit("name", BizDataLimitManager.createStringLimit());
+        userDefine.defineLimit("age", BizDataLimitManager.createIntegerLimit());
+        userDefine.defineLimit("height", BizDataLimitManager.createDecimalLimit());
+        userDefine.defineLimit("birthday", BizDataLimitManager.createDateLimit());
+        userDefine.defineLimit("create_date", BizDataLimitManager.createDatetimeLimit());
         BizDataManager.registerDto(userDefine, true);
     }
 
@@ -38,7 +38,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(true);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(false);
         }
     }
@@ -51,7 +51,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(true);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(false);
         }
     }
@@ -64,7 +64,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(false);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(true);
         }
     }
@@ -77,7 +77,8 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(true);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(false);
         }
     }
@@ -90,7 +91,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(false);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(true);
         }
     }
@@ -103,7 +104,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(true);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(false);
         }
     }
@@ -116,7 +117,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(false);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(true);
         }
     }
@@ -129,7 +130,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(true);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(false);
         }
     }
@@ -142,7 +143,7 @@ public class BizDataDefineTest {
             System.out.println(bizName + ":" + user);
             Assert.assertTrue(false);
         }catch (Exception e){
-            System.out.println("Ex:" + e.getMessage());
+            System.out.println("Ex信息:" + e.getMessage());
             Assert.assertTrue(true);
         }
     }

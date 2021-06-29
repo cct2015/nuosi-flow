@@ -1,6 +1,8 @@
 package com.nuosi.flow.data.limit;
 
+import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.util.BizDataValidityUtil;
 
 import java.sql.Timestamp;
 
@@ -11,9 +13,13 @@ import java.sql.Timestamp;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class DatetimeLimit implements BDataLimit {
+public class DatetimeLimit extends AbstractDataLimit {
     private Timestamp startDatetime = null;
     private Timestamp endDatetime = null;
+
+    public DatetimeLimit() {
+        super(BDataDefine.BDataType.DATETIME);
+    }
 
     public Timestamp getStartDatetime() {
         return startDatetime;
@@ -31,5 +37,11 @@ public class DatetimeLimit implements BDataLimit {
     public DatetimeLimit setEndDatetime(Timestamp endDatetime) {
         this.endDatetime = endDatetime;
         return this;
+    }
+
+    @Override
+    public void checkValidity(String bizName, String attr, Object value) {
+        Timestamp timestampValue = BizDataValidityUtil.checkDatetime(value, bizName, attr);
+        BizDataValidityUtil.checkDatetimeLimit(timestampValue, this, bizName, attr);
     }
 }

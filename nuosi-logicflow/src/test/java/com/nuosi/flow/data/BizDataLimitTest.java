@@ -45,11 +45,11 @@ public class BizDataLimitTest {
 
         // 注册User结构的业务对象
         BDataDefine userDefine = new BizDataDefine(bizName);
-        userDefine.defineType("name", BDataDefine.BDataType.STRING, stringLimit);
-        userDefine.defineType("age", BDataDefine.BDataType.INT, intLimit);
-        userDefine.defineType("height", BDataDefine.BDataType.DECIMAL, decimalLimit);
-        userDefine.defineType("birthday", BDataDefine.BDataType.DATE, dateLimit);
-        userDefine.defineType("create_date", BDataDefine.BDataType.DATETIME, datetimeLimit);
+        userDefine.defineLimit("name", stringLimit);
+        userDefine.defineLimit("age", intLimit);
+        userDefine.defineLimit("height", decimalLimit);
+        userDefine.defineLimit("birthday", dateLimit);
+        userDefine.defineLimit("create_date", datetimeLimit);
         BizDataManager.registerDto(userDefine, true);
     }
 
