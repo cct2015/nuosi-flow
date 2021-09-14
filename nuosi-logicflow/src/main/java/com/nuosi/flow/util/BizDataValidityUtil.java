@@ -81,6 +81,18 @@ public class BizDataValidityUtil {
         if (dataLimit.getMin() != null && val < dataLimit.getMin()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
         }
+        if (dataLimit.getMore() != null && val >= dataLimit.getMore()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        }
+        if (dataLimit.getLess() != null && val <= dataLimit.getLess()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        }
+        if (dataLimit.getEqual() != null && val >= dataLimit.getEqual()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        }
+        if (dataLimit.getUnequal() != null && val <= dataLimit.getUnequal()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        }
     }
 
     public static String checkString(Object value, String bizName, String attr) {
@@ -94,8 +106,23 @@ public class BizDataValidityUtil {
         }
         StringLimit dataLimit = (StringLimit) bdataLimit;
 
-        if (dataLimit.getSize() != -1 && val.length() > dataLimit.getSize()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH, bizName, attr, String.valueOf(dataLimit.getSize()));
+        if (dataLimit.getMin() != null && val.length() < dataLimit.getMin()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        }
+        if (dataLimit.getMax() != null && val.length() > dataLimit.getMax()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        }
+        if (dataLimit.getLess() != null && val.length() <= dataLimit.getLess()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        }
+        if (dataLimit.getMore() != null && val.length() >= dataLimit.getMore()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        }
+        if (dataLimit.getEqual() != null && val.length()!=dataLimit.getEqual()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        }
+        if (dataLimit.getUnequal() != null && val.length()==dataLimit.getUnequal()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
         }
     }
 

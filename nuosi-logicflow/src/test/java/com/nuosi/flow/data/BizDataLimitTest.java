@@ -28,7 +28,7 @@ public class BizDataLimitTest {
         LogicFlowEngine.init();
         bizName = "User";
 
-        BDataLimit stringLimit = new StringLimit().setSize(10);
+        BDataLimit stringLimit = new StringLimit().setMax(10);
         BDataLimit intLimit = new IntegerLimit().setMax(200).setMin(0);
         BDataLimit decimalLimit = new DecimalLimit().setPrecision(4).setScale(2)
                 .setMaxDecimal(new BigDecimal("1111.11")).setMinDecimal(new BigDecimal("1.11"));

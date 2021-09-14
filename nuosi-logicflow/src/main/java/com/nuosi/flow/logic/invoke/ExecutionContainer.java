@@ -76,6 +76,9 @@ public class ExecutionContainer {
 
     private void initGlobalAction() {
         List<Action> actions = logicFlow.getActions();
+        if(actions==null){
+            //校验逻辑流程的配置，逻辑事件不能为空
+        }
         for (Action action : actions) {
             actionMap.put(action.getId(), action);
         }

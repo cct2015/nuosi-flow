@@ -2,13 +2,12 @@ package com.nuosi.flow.logic.parse;
 
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
-import com.nuosi.flow.data.BizDataLimitManager;
 import com.nuosi.flow.data.impl.BizDataDefine;
 import com.nuosi.flow.data.limit.*;
 import com.nuosi.flow.logic.LogicFlowManager;
 import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.domain.DomainModel;
-import com.nuosi.flow.logic.model.domain.Limit;
+import com.nuosi.flow.logic.model.limit.*;
 
 import java.util.List;
 
@@ -34,14 +33,14 @@ public class DtoToDataDefineParser {
         List<Attr> attrs = domainModel.getAttrs();
         for (Attr attr : attrs) {
             BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
-            List<Limit> limits = attr.getLimits();
+            /*List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
                 dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
             }else{
                 Limit limit = limits.get(0);
                 BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
                 dataDefine.defineLimit(attr.getId(), dataLimit);
-            }
+            }*/
         }
         return dataDefine;
     }
@@ -50,102 +49,73 @@ public class DtoToDataDefineParser {
         BDataDefine dataDefine = new BizDataDefine(bizName);
         for (Attr attr : attrs) {
             BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
-            List<Limit> limits = attr.getLimits();
+
+            List<LimitInteger> limitIntegers = attr.getLimitIntegers();
+            List<LimitString> limitStrings = attr.getLimitStrings();
+            List<LimitDecimal> LimitDecimals = attr.getLimitDecimals();
+            List<LimitDate> LimitDates = attr.getLimitDates();
+            List<LimitDatetime> LimitDatetime = attr.getLimitDatetimes();
+
+            BDataLimit dataLimit = null;
+            if(limitIntegers!=null&&!limitIntegers.isEmpty()){
+                LimitInteger limitInt = limitIntegers.get(0);
+                dataLimit = parseIntegerLimit(limitInt);
+            }else if(limitStrings!=null&&!limitStrings.isEmpty()){
+                LimitString limitString = limitStrings.get(0);
+                dataLimit = parseStringLimit(limitString);
+            }else if(LimitDecimals!=null&&!LimitDecimals.isEmpty()){
+                LimitDecimal limitDecimal = LimitDecimals.get(0);
+                dataLimit = parseDecimalLimit(limitDecimal);
+            }else if(LimitDates!=null&&!LimitDates.isEmpty()){
+                LimitDate limitDate = LimitDates.get(0);
+                dataLimit = parseDateLimit(limitDate);
+            }else if(LimitDatetime!=null&&!LimitDatetime.isEmpty()){
+                LimitDecimal limitDecimal = LimitDecimals.get(0);
+                parseDecimalLimit(limitDecimal);
+            }
+
+            if(dataLimit != null)
+                dataDefine.defineLimit(attr.getId(), dataLimit);
+
+            /*List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
                 dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
             }else{
                 Limit limit = limits.get(0);
                 BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
                 dataDefine.defineLimit(attr.getId(), dataLimit);
-            }
+            }*/
         }
         return dataDefine;
     }
 
-    private BDataLimit parseLimitToBDataLimit(BDataDefine.BDataType dataType, Limit limit) {
-        BDataLimit dataLimit = null;
-        switch (dataType) {
-            /*校验整数类型*/
-            case INT:
-                dataLimit = parseIntegerLimit(limit);
-                break;
-            /*校验字符类型*/
-            case STRING:
-                dataLimit = parseStringLimit(limit);
-                break;
-            /*校验小数类型*/
-            case DECIMAL:
-                dataLimit = parseDecimalLimit(limit);
-                break;
-            /*校验日期类型*/
-            case DATE:
-                dataLimit = parseDateLimit(limit);
-                break;
-            /*校验日期时间类型*/
-            case DATETIME:
-                dataLimit = parseDatetimeLimit(limit);
-                break;
-            default:
-                break;
-        }
-        return dataLimit;
-    }
-
-    private BDataLimit parseIntegerLimit(Limit limit) {
+    private BDataLimit parseIntegerLimit(LimitInteger limitInt) {
         IntegerLimit integerLimit = new IntegerLimit();
-        if (limit.getMax() != null) {
-            integerLimit.setMax(limit.getMax());
-        }
-        if (limit.getMin() != null) {
-            integerLimit.setMin(limit.getMin());
-        }
+        org.springframework.beans.BeanUtils.copyProperties(limitInt, integerLimit);
         return integerLimit;
     }
 
-    private BDataLimit parseStringLimit(Limit limit) {
+    private BDataLimit parseStringLimit(LimitString limitString) {
         StringLimit stringLimit = new StringLimit();
-        if (limit.getSize() != null) {
-            stringLimit.setSize(limit.getSize());
-        }
+        org.springframework.beans.BeanUtils.copyProperties(limitString, stringLimit);
         return stringLimit;
     }
 
-    private BDataLimit parseDecimalLimit(Limit limit) {
+    private BDataLimit parseDecimalLimit(LimitDecimal limitDecimal) {
         DecimalLimit decimalLimit = new DecimalLimit();
-        if (limit.getScale() != null) {
-            decimalLimit.setScale(limit.getScale());
-        }
-        if (limit.getPrecision() != null) {
-            decimalLimit.setPrecision(limit.getPrecision());
-        }
-        if (limit.getMaxDecimal() != null) {
-            decimalLimit.setMaxDecimal(limit.getMaxDecimal());
-        }
-        if (limit.getMinDecimal() != null) {
-            decimalLimit.setMinDecimal(limit.getMinDecimal());
-        }
+        org.springframework.beans.BeanUtils.copyProperties(limitDecimal, decimalLimit);
         return decimalLimit;
     }
 
-    private BDataLimit parseDateLimit(Limit limit) {
+    private BDataLimit parseDateLimit(LimitDate limitDate) {
         DateLimit dateLimit = new DateLimit();
-        if (limit.getStartDate() != null) {
-            dateLimit.setStartDate(limit.getStartDate());
-        }
-        if (limit.getEndDate() != null) {
-            dateLimit.setEndDate(limit.getEndDate());
-        }
+        org.springframework.beans.BeanUtils.copyProperties(limitDate, dateLimit);
         return dateLimit;
     }
 
-    private BDataLimit parseDatetimeLimit(Limit limit) {
+    private BDataLimit parseDatetimeLimit(LimitDatetime limitDatetime) {
         DatetimeLimit datetimeLimit = new DatetimeLimit();
-        if (limit.getStartDatetime() != null) {
-            datetimeLimit.setStartDatetime(limit.getStartDatetime());
-        }
-        if (limit.getEndDatetime() != null) {
-            datetimeLimit.setEndDatetime(limit.getEndDatetime());
-        }
+        org.springframework.beans.BeanUtils.copyProperties(limitDatetime, datetimeLimit);
         return datetimeLimit;
     }
 }

@@ -1,5 +1,7 @@
 package com.nuosi.flow.logic.model.domain;
 
+import com.nuosi.flow.logic.model.limit.*;
+
 import java.util.List;
 
 /**
@@ -14,6 +16,11 @@ public class Attr {
     private String type;
     private String name;
     private List<Limit> limits;
+    private List<LimitInteger> limitIntegers;
+    private List<LimitString> limitStrings;
+    private List<LimitDecimal> LimitDecimals;
+    private List<LimitDate> LimitDates;
+    private List<LimitDatetime> LimitDatetimes;
 
     public String getId() {
         return id;
@@ -45,5 +52,45 @@ public class Attr {
 
     public void setLimits(List<Limit> limits) {
         this.limits = limits;
+    }
+
+    public List<LimitInteger> getLimitIntegers() {
+        return limitIntegers;
+    }
+
+    public void setLimitIntegers(List<LimitInteger> limitIntegers) {
+        this.limitIntegers = limitIntegers;
+    }
+
+    public List<LimitString> getLimitStrings() {
+        return limitStrings;
+    }
+
+    public void setLimitStrings(List<LimitString> limitStrings) {
+        this.limitStrings = limitStrings;
+    }
+
+    public List<LimitDecimal> getLimitDecimals() {
+        return LimitDecimals;
+    }
+
+    public void setLimitDecimals(List<LimitDecimal> limitDecimals) {
+        LimitDecimals = limitDecimals;
+    }
+
+    public List<LimitDate> getLimitDates() {
+        return LimitDates;
+    }
+
+    public void setLimitDates(List<LimitDate> limitDates) {
+        LimitDates = limitDates;
+    }
+
+    public List<LimitDatetime> getLimitDatetimes() {
+        return LimitDatetimes;
+    }
+
+    public void setLimitDatetimes(List<LimitDatetime> limitDatetimes) {
+        LimitDatetimes = limitDatetimes;
     }
 }

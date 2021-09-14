@@ -16,23 +16,23 @@ public class BizDataLimitManager {
         switch (dataType) {
             /*校验整数类型*/
             case INT:
-                dataLimit = new IntegerLimit();
+                dataLimit = createIntegerLimit();
                 break;
             /*校验字符类型*/
             case STRING:
-                dataLimit = new StringLimit();
+                dataLimit = createStringLimit();
                 break;
             /*校验小数类型*/
             case DECIMAL:
-                dataLimit = new DecimalLimit();
+                dataLimit = createDecimalLimit();
                 break;
             /*校验日期类型*/
             case DATE:
-                dataLimit = new DateLimit();
+                dataLimit = createDateLimit();
                 break;
             /*校验日期时间类型*/
             case DATETIME:
-                dataLimit = new DatetimeLimit();
+                dataLimit = createDatetimeLimit();
                 break;
             default:
                 break;
@@ -41,22 +41,22 @@ public class BizDataLimitManager {
     }
 
     public static BDataLimit createIntegerLimit(){
-        return create(BDataDefine.BDataType.INT);
+        return new IntegerLimit();
     }
 
     public static BDataLimit createStringLimit(){
-        return create(BDataDefine.BDataType.STRING);
+        return new StringLimit();
     }
 
     public static BDataLimit createDecimalLimit(){
-        return create(BDataDefine.BDataType.DECIMAL);
+        return new DecimalLimit();
     }
 
     public static BDataLimit createDateLimit(){
-        return create(BDataDefine.BDataType.DATE);
+        return new DateLimit();
     }
 
     public static BDataLimit createDatetimeLimit(){
-        return create(BDataDefine.BDataType.DATETIME);
+        return new DatetimeLimit();
     }
 }

@@ -29,11 +29,22 @@ public class LogicFlowConstants {
     public static final String BDATA_STRUCTURE_EXISTS = "BDATA_STRUCTURE_EXISTS";
     public static final String BDATA_ATTR_DEFINE_NO_EXISTS = "BDATA_ATTR_DEFINE_NO_EXISTS";
     public static final String BDATA_ATTR_FORMAT_ERROR = "BDATA_ATTR_FORMAT_ERROR";
-
+    /**整型校验提示信息*/
     public static final String BDATA_CHECK_INT = "BDATA_CHECK_INT";
     public static final String BDATA_CHECK_INT_MAX = "BDATA_CHECK_INT_MAX";
     public static final String BDATA_CHECK_INT_MIN = "BDATA_CHECK_INT_MIN";
-    public static final String BDATA_CHECK_STRING_LENGTH = "BDATA_CHECK_STRING_LENGTH";
+    public static final String BDATA_CHECK_INT_MORE = "BDATA_CHECK_INT_MORE";
+    public static final String BDATA_CHECK_INT_LESS = "BDATA_CHECK_INT_LESS";
+    public static final String BDATA_CHECK_INT_EQUAL = "BDATA_CHECK_INT_EQUAL";
+    public static final String BDATA_CHECK_INT_UNEQUAL = "BDATA_CHECK_INT_UNEQUAL";
+    /**字符串校验提示信息*/
+    public static final String BDATA_CHECK_STRING_LENGTH_MIN = "BDATA_CHECK_STRING_LENGTH_MIN";
+    public static final String BDATA_CHECK_STRING_LENGTH_MAX = "BDATA_CHECK_STRING_LENGTH_MAX";
+    public static final String BDATA_CHECK_STRING_LENGTH_LESS = "BDATA_CHECK_STRING_LENGTH_LESS";
+    public static final String BDATA_CHECK_STRING_LENGTH_MORE = "BDATA_CHECK_STRING_LENGTH_MORE";
+    public static final String BDATA_CHECK_STRING_LENGTH_EQUAL = "BDATA_CHECK_STRING_LENGTH_EQUAL";
+    public static final String BDATA_CHECK_STRING_LENGTH_UNEQUAL = "BDATA_CHECK_STRING_LENGTH_UNEQUAL";
+
     public static final String BDATA_CHECK_DECIMAL = "BDATA_CHECK_DECIMAL";
     public static final String BDATA_CHECK_DECIMAL_PRECISION = "BDATA_CHECK_DECIMAL_PRECISION";
     public static final String BDATA_CHECK_DECIMAL_SCALE = "BDATA_CHECK_DECIMAL_SCALE";

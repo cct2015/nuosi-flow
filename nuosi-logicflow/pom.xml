@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>nuosi-flow</artifactId>
-        <groupId>com.nuosi.flow</groupId>
+        <groupId>io.github.reynolds2019</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -32,6 +32,7 @@
         <ipu-db>3.2-SNAPSHOT</ipu-db>
         <junit>4.12</junit>
         <mvel2>2.4.10.Final</mvel2>
+        <spring-beans>5.3.9</spring-beans>
     </properties>
     <!-- IPU Jar引入 -->
     <dependencies>
@@ -67,6 +68,11 @@
             <groupId>org.mvel</groupId>
             <artifactId>mvel2</artifactId>
             <version>${mvel2}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-beans}</version>
         </dependency>
     </dependencies>
 
