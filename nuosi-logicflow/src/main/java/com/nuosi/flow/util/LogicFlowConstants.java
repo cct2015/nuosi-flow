@@ -50,6 +50,11 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DECIMAL_SCALE = "BDATA_CHECK_DECIMAL_SCALE";
     public static final String BDATA_CHECK_DECIMAL_MAX = "BDATA_CHECK_DECIMAL_MAX";
     public static final String BDATA_CHECK_DECIMAL_MIN = "BDATA_CHECK_DECIMAL_MIN";
+    public static final String BDATA_CHECK_DECIMAL_LESS = "BDATA_CHECK_DECIMAL_LESS";
+    public static final String BDATA_CHECK_DECIMAL_MORE = "BDATA_CHECK_DECIMAL_MORE";
+    public static final String BDATA_CHECK_DECIMAL_EQUAL = "BDATA_CHECK_DECIMAL_EQUAL";
+    public static final String BDATA_CHECK_DECIMAL_UNEQUAL = "BDATA_CHECK_DECIMAL_UNEQUAL";
+
     public static final String BDATA_CHECK_DATE = "BDATA_CHECK_DATE";
     public static final String BDATA_CHECK_DATE_START = "BDATA_CHECK_DATE_START";
     public static final String BDATA_CHECK_DATE_END = "BDATA_CHECK_DATE_END";

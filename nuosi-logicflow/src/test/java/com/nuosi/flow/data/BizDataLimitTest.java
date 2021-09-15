@@ -31,7 +31,7 @@ public class BizDataLimitTest {
         BDataLimit stringLimit = new StringLimit().setMax(10);
         BDataLimit intLimit = new IntegerLimit().setMax(200).setMin(0);
         BDataLimit decimalLimit = new DecimalLimit().setPrecision(4).setScale(2)
-                .setMaxDecimal(new BigDecimal("1111.11")).setMinDecimal(new BigDecimal("1.11"));
+                .setMax(new BigDecimal("1111.11")).setMin(new BigDecimal("1.11"));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = new Date(dateFormat.parse("1982-1-1").getTime());

@@ -142,17 +142,29 @@ public class BizDataValidityUtil {
         }
         DecimalLimit dataLimit = (DecimalLimit) bdataLimit;
 
-        if (dataLimit.getPrecision() != -1 && val.precision() > dataLimit.getPrecision()) {
+        if (dataLimit.getPrecision() != null && val.precision() > dataLimit.getPrecision()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_PRECISION, bizName, attr, String.valueOf(dataLimit.getPrecision()));
         }
-        if (dataLimit.getScale() != -1 && val.scale() > dataLimit.getScale()) {
+        if (dataLimit.getScale() != null && val.scale() > dataLimit.getScale()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_SCALE, bizName, attr, String.valueOf(dataLimit.getScale()));
         }
-        if (dataLimit.getMaxDecimal() != null && val.compareTo(dataLimit.getMaxDecimal()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MAX, bizName, attr, String.valueOf(dataLimit.getMaxDecimal()));
+        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
         }
-        if (dataLimit.getMinDecimal() != null && val.compareTo(dataLimit.getMinDecimal()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MIN, bizName, attr, String.valueOf(dataLimit.getMinDecimal()));
+        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        }
+        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        }
+        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        }
+        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        }
+        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
         }
     }
 
