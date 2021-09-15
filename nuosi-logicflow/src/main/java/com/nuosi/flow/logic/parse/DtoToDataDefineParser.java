@@ -74,7 +74,7 @@ public class DtoToDataDefineParser {
                 bDataLimit = parseDateLimit(limitDate);
             }else if(LimitDatetimes!=null&&!LimitDatetimes.isEmpty()){
                 LimitDatetime limitDatetime = LimitDatetimes.get(0);
-                parseDatetimeLimit(limitDatetime);
+                bDataLimit = parseDatetimeLimit(limitDatetime);
             }
 
             if(bDataLimit == null){

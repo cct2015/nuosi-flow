@@ -36,12 +36,12 @@ public class BizDataLimitTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = new Date(dateFormat.parse("1982-1-1").getTime());
         Date endDate = new Date(dateFormat.parse("1984-12-30").getTime());
-        BDataLimit dateLimit = new DateLimit().setStartDate(startDate).setEndDate(endDate);
+        BDataLimit dateLimit = new DateLimit().setMin(startDate).setMax(endDate);
 
         SimpleDateFormat datetimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Timestamp startDatetime = new Timestamp(dateFormat.parse("2021-3-19 00:00:00").getTime());
         Timestamp endDatetime = new Timestamp(dateFormat.parse("2021-3-20 23:59:59").getTime());
-        BDataLimit datetimeLimit = new DatetimeLimit().setStartDatetime(startDatetime).setEndDatetime(endDatetime);
+        BDataLimit datetimeLimit = new DatetimeLimit().setMin(startDatetime).setMax(endDatetime);
 
         // 注册User结构的业务对象
         BDataDefine userDefine = new BizDataDefine(bizName);

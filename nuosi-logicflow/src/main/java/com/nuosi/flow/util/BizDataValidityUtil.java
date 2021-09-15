@@ -184,11 +184,23 @@ public class BizDataValidityUtil {
         }
         DateLimit dataLimit = (DateLimit) bdataLimit;
 
-        if (dataLimit.getStartDate() != null && val.compareTo(dataLimit.getStartDate()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_START, bizName, attr, String.valueOf(dataLimit.getStartDate()));
+        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
         }
-        if (dataLimit.getEndDate() != null && val.compareTo(dataLimit.getEndDate()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_END, bizName, attr, String.valueOf(dataLimit.getEndDate()));
+        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        }
+        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        }
+        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        }
+        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        }
+        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
         }
     }
 
@@ -209,11 +221,23 @@ public class BizDataValidityUtil {
         }
         DatetimeLimit dataLimit = (DatetimeLimit) bdataLimit;
 
-        if (dataLimit.getStartDatetime() != null && val.compareTo(dataLimit.getStartDatetime()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_START, bizName, attr, String.valueOf(dataLimit.getStartDatetime()));
+        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
         }
-        if (dataLimit.getEndDatetime() != null && val.compareTo(dataLimit.getEndDatetime()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_END, bizName, attr, String.valueOf(dataLimit.getEndDatetime()));
+        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        }
+        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        }
+        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        }
+        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        }
+        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
         }
     }
 }

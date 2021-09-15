@@ -30,7 +30,7 @@ public class LogicFlowConstants {
     public static final String BDATA_STRUCTURE_EXISTS = "BDATA_STRUCTURE_EXISTS";
     public static final String BDATA_ATTR_DEFINE_NO_EXISTS = "BDATA_ATTR_DEFINE_NO_EXISTS";
     public static final String BDATA_ATTR_FORMAT_ERROR = "BDATA_ATTR_FORMAT_ERROR";
-    /**整型校验提示信息*/
+    /**整数校验提示信息*/
     public static final String BDATA_CHECK_INT = "BDATA_CHECK_INT";
     public static final String BDATA_CHECK_INT_MAX = "BDATA_CHECK_INT_MAX";
     public static final String BDATA_CHECK_INT_MIN = "BDATA_CHECK_INT_MIN";
@@ -45,7 +45,7 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_STRING_LENGTH_MORE = "BDATA_CHECK_STRING_LENGTH_MORE";
     public static final String BDATA_CHECK_STRING_LENGTH_EQUAL = "BDATA_CHECK_STRING_LENGTH_EQUAL";
     public static final String BDATA_CHECK_STRING_LENGTH_UNEQUAL = "BDATA_CHECK_STRING_LENGTH_UNEQUAL";
-
+    /**小数校验提示信息*/
     public static final String BDATA_CHECK_DECIMAL = "BDATA_CHECK_DECIMAL";
     public static final String BDATA_CHECK_DECIMAL_PRECISION = "BDATA_CHECK_DECIMAL_PRECISION";
     public static final String BDATA_CHECK_DECIMAL_SCALE = "BDATA_CHECK_DECIMAL_SCALE";
@@ -55,13 +55,22 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DECIMAL_MORE = "BDATA_CHECK_DECIMAL_MORE";
     public static final String BDATA_CHECK_DECIMAL_EQUAL = "BDATA_CHECK_DECIMAL_EQUAL";
     public static final String BDATA_CHECK_DECIMAL_UNEQUAL = "BDATA_CHECK_DECIMAL_UNEQUAL";
-
+    /**日期校验提示信息*/
     public static final String BDATA_CHECK_DATE = "BDATA_CHECK_DATE";
-    public static final String BDATA_CHECK_DATE_START = "BDATA_CHECK_DATE_START";
-    public static final String BDATA_CHECK_DATE_END = "BDATA_CHECK_DATE_END";
+    public static final String BDATA_CHECK_DATE_MIN = "BDATA_CHECK_DATE_MIN";
+    public static final String BDATA_CHECK_DATE_MAX = "BDATA_CHECK_DATE_MAX";
+    public static final String BDATA_CHECK_DATE_LESS = "BDATA_CHECK_DATE_LESS";
+    public static final String BDATA_CHECK_DATE_MORE = "BDATA_CHECK_DATE_MORE";
+    public static final String BDATA_CHECK_DATE_EQUAL = "BDATA_CHECK_DATE_EQUAL";
+    public static final String BDATA_CHECK_DATE_UNEQUAL = "BDATA_CHECK_DATE_UNEQUAL";
+    /**日期时间校验提示信息*/
     public static final String BDATA_CHECK_DATETIME = "BDATA_CHECK_DATETIME";
-    public static final String BDATA_CHECK_DATETIME_START = "BDATA_CHECK_DATETIME_START";
-    public static final String BDATA_CHECK_DATETIME_END = "BDATA_CHECK_DATETIME_END";
+    public static final String BDATA_CHECK_DATETIME_MIN = "BDATA_CHECK_DATETIME_MIN";
+    public static final String BDATA_CHECK_DATETIME_MAX = "BDATA_CHECK_DATETIME_MAX";
+    public static final String BDATA_CHECK_DATETIME_LESS = "BDATA_CHECK_DATETIME_LESS";
+    public static final String BDATA_CHECK_DATETIME_MORE = "BDATA_CHECK_DATETIME_MORE";
+    public static final String BDATA_CHECK_DATETIME_EQUAL = "BDATA_CHECK_DATETIME_EQUAL";
+    public static final String BDATA_CHECK_DATETIME_UNEQUAL = "BDATA_CHECK_DATETIME_UNEQUAL";
 
     public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
     public static final String FOREACH_ITERATOR_TYPE_ERROR = "FOREACH_ITERATOR_TYPE_ERROR";
