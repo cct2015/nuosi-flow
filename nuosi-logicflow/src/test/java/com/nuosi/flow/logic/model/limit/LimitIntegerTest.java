@@ -21,6 +21,19 @@ import java.io.InputStream;
 public class LimitIntegerTest {
 
     @Test
+    public void testIntFormatLimit(){
+        JMap param = new JsonMap();
+        param.put("int_param","abc");
+        try {
+            LogicFlowEngine.execute("int_format_limit",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
     public void testIntMinLimit(){
         JMap param = new JsonMap();
         param.put("int_param","6");
@@ -101,6 +114,7 @@ public class LimitIntegerTest {
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
+                "limit/int/int_format_limit.xml",
                 "limit/int/int_min_limit.xml",
                 "limit/int/int_max_limit.xml",
                 "limit/int/int_less_limit.xml",

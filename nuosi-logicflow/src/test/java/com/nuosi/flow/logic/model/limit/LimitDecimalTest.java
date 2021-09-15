@@ -18,6 +18,20 @@ import java.io.InputStream;
  * @version v1.0.0
  */
 public class LimitDecimalTest {
+
+    @Test
+    public void testDecimalFormatLimit(){
+        JMap param = new JsonMap();
+        param.put("decimal_param","abc");
+        try {
+            LogicFlowEngine.execute("decimal_format_limit",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Test
     public void testDecimalPrecisionLimit(){
         JMap param = new JsonMap();
@@ -125,6 +139,7 @@ public class LimitDecimalTest {
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
+                "limit/decimal/decimal_format_limit.xml",
                 "limit/decimal/decimal_precision_limit.xml",
                 "limit/decimal/decimal_scale_limit.xml",
                 "limit/decimal/decimal_min_limit.xml",

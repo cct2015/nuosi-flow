@@ -1,6 +1,7 @@
 package com.nuosi.flow.logic.parse;
 
 import com.nuosi.flow.data.BDataDefine;
+import com.nuosi.flow.data.BDataDefine.BDataType;
 import com.nuosi.flow.data.BDataLimit;
 import com.nuosi.flow.data.impl.BizDataDefine;
 import com.nuosi.flow.data.limit.*;
@@ -10,6 +11,8 @@ import com.nuosi.flow.logic.model.domain.DomainModel;
 import com.nuosi.flow.logic.model.limit.*;
 
 import java.util.List;
+
+import static com.nuosi.flow.data.BDataDefine.BDataType.valueOf;
 
 /**
  * <p>desc: Dto XML文件转换为DataDefine </p>
@@ -32,7 +35,7 @@ public class DtoToDataDefineParser {
         BDataDefine dataDefine = new BizDataDefine(domainModel.getId());
         List<Attr> attrs = domainModel.getAttrs();
         for (Attr attr : attrs) {
-            BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
+            BDataType dataType = valueOf(attr.getType().toUpperCase());
             /*List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
                 dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
@@ -48,34 +51,36 @@ public class DtoToDataDefineParser {
     public BDataDefine parseByAttrs(String bizName, List<Attr> attrs){
         BDataDefine dataDefine = new BizDataDefine(bizName);
         for (Attr attr : attrs) {
-            BDataDefine.BDataType dataType = BDataDefine.BDataType.valueOf(attr.getType().toUpperCase());
+            BDataType dataType = valueOf(attr.getType().toUpperCase());
 
             List<LimitInteger> limitIntegers = attr.getLimitIntegers();
             List<LimitString> limitStrings = attr.getLimitStrings();
             List<LimitDecimal> LimitDecimals = attr.getLimitDecimals();
             List<LimitDate> LimitDates = attr.getLimitDates();
-            List<LimitDatetime> LimitDatetime = attr.getLimitDatetimes();
+            List<LimitDatetime> LimitDatetimes = attr.getLimitDatetimes();
 
-            BDataLimit dataLimit = null;
+            BDataLimit bDataLimit = null;
             if(limitIntegers!=null&&!limitIntegers.isEmpty()){
                 LimitInteger limitInt = limitIntegers.get(0);
-                dataLimit = parseIntegerLimit(limitInt);
+                bDataLimit = parseIntegerLimit(limitInt);
             }else if(limitStrings!=null&&!limitStrings.isEmpty()){
                 LimitString limitString = limitStrings.get(0);
-                dataLimit = parseStringLimit(limitString);
+                bDataLimit = parseStringLimit(limitString);
             }else if(LimitDecimals!=null&&!LimitDecimals.isEmpty()){
                 LimitDecimal limitDecimal = LimitDecimals.get(0);
-                dataLimit = parseDecimalLimit(limitDecimal);
+                bDataLimit = parseDecimalLimit(limitDecimal);
             }else if(LimitDates!=null&&!LimitDates.isEmpty()){
                 LimitDate limitDate = LimitDates.get(0);
-                dataLimit = parseDateLimit(limitDate);
-            }else if(LimitDatetime!=null&&!LimitDatetime.isEmpty()){
-                LimitDecimal limitDecimal = LimitDecimals.get(0);
-                parseDecimalLimit(limitDecimal);
+                bDataLimit = parseDateLimit(limitDate);
+            }else if(LimitDatetimes!=null&&!LimitDatetimes.isEmpty()){
+                LimitDatetime limitDatetime = LimitDatetimes.get(0);
+                parseDatetimeLimit(limitDatetime);
             }
 
-            if(dataLimit != null)
-                dataDefine.defineLimit(attr.getId(), dataLimit);
+            if(bDataLimit == null){
+                bDataLimit = createEmptyBDataLimit(dataType);    //BDataLimit不为空则可触发基础类型的校验
+            }
+            dataDefine.defineLimit(attr.getId(), bDataLimit);
 
             /*List<Limit> limits = attr.getLimits();
             if (limits == null || limits.isEmpty()) {
@@ -118,4 +123,32 @@ public class DtoToDataDefineParser {
         org.springframework.beans.BeanUtils.copyProperties(limitDatetime, datetimeLimit);
         return datetimeLimit;
     }
+
+    private BDataLimit createEmptyBDataLimit(BDataType dataType){
+        BDataLimit bdataLimit = null;
+        switch(dataType){
+            case INT:
+                bdataLimit = new IntegerLimit();
+                break;
+            case STRING:
+                bdataLimit = new StringLimit();
+                break;
+            case DECIMAL:
+                bdataLimit = new DecimalLimit();
+                break;
+            case DATE:
+                bdataLimit = new DateLimit();
+                break;
+            case DATETIME:
+                bdataLimit = new DatetimeLimit();
+                break;
+            case BDATA:
+                bdataLimit = null;  //有待补充
+                break;
+            default:
+                break;
+        }
+        return bdataLimit;
+    }
+
 }

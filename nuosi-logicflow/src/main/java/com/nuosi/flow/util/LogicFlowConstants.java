@@ -16,6 +16,7 @@ public class LogicFlowConstants {
     public static final String QB = "QB";
 
     /*LogicFlow异常编码*/
+    public static final String FLOW_NO_EXISTS = "FLOW_NO_EXISTS";
     public static final String FLOW_DATABUS_VAR_NO_EXISTS = "FLOW_DATABUS_VAR_NO_EXISTS";
     public static final String FLOW_NODE_TAG_ARRT_EXCEPT = "FLOW_NODE_TAG_ARRT_EXCEPT";
     public static final String FLOW_NODE_OUTPUT_VAR_NULL = "FLOW_NODE_OUTPUT_VAR_NULL";
