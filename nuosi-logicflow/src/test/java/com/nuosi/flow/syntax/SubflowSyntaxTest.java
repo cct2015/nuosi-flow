@@ -26,13 +26,13 @@ public class SubflowSyntaxTest {
     public void testSubflowSimple() throws Exception {
         JMap param = new JsonMap();
         param.put("staff_id","zhangs");
-        Object result = LogicFlowEngine.execute("subflow_simple",param);
+        Object result = LogicFlowEngine.execute("subflow_syntax",param);
         System.out.println("result===" + result);
     }
 
     @Before
     public void setUp() {
-        String flowConfig = "syntax/subflow_simple.xml";
+        String flowConfig = "syntax/subflow_syntax.xml";
         InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
         LogicFlowManager.registerLogicFlow(is);
 

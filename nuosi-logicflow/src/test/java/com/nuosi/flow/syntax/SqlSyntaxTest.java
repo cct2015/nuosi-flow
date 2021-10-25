@@ -22,13 +22,13 @@ public class SqlSyntaxTest {
     public void testSqlSimple() throws Exception {
         JMap param = new JsonMap();
         param.put("fill_staff","zhangs");
-        Object result = LogicFlowEngine.execute("sql_simple",param);
+        Object result = LogicFlowEngine.execute("sql_syntax",param);
         System.out.println("result===" + result);
     }
 
     @Before
     public void setUp() {
-        String flowConfig = "syntax/sql_simple.xml";
+        String flowConfig = "syntax/sql_syntax.xml";
         InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
         LogicFlowManager.registerLogicFlow(is);
     }
