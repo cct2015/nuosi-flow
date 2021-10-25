@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="" name="" desc="">
+    <!-- 全局域 -->
+    <databus>
+        <!-- 引入模型 -->
+        <import model=""/>
+        <!-- 定义属性类型 -->
+        <attr id="" type="" name=""/>
+        <!-- 定义整型的限制条件 -->
+        <attr id="" type="int" name="">
+            <limitInteger max="" min="" more="" less="" equal="" unequal=""/>
+        </attr>
+        <!-- 定义字符串型的限制条件 -->
+        <attr id="" type="string" name="">
+            <limitString max="" min="" more="" less="" equal="" unequal=""/>
+        </attr>
+        <!-- 定义小数型的限制条件 -->
+        <attr id="" type="decimal" name="">
+            <limitDecimal scale="" precision="" max="" min="" more="" less="" equal="" unequal=""/>
+        </attr>
+        <!-- 定义日期类型的限制条件 -->
+        <attr id="" type="date" name="">
+            <limitDate max="" min="" more="" less="" equal="" unequal=""/>
+        </attr>
+        <!-- 定义时间戳类型的限制条件 -->
+        <attr id="" type="datetime" name="">
+            <limitDatetime max="" min="" more="" less="" equal="" unequal=""/>
+        </attr>
+    </databus>
+
+    <!-- 1.开始节点 -->
+    <start id="" name="" next="">
+        <!-- 使用模型属性做校验 -->
+        <var model="" attr=""/>
+        <var key=""/>
+    </start>
+
+    <!-- 2.sql节点 -->
+    <action id="" name="" next="">
+        <input>
+            <var key="" initial=""/>
+        </input>
+        <sql conn="">
+            <![CDATA[]]>
+        </sql>
+        <output>
+            <var key=""/>
+        </output>
+    </action>
+
+    <!-- 3.表达式节点 -->
+    <action id="" name="" next="">
+        <input>
+            <var key="" initial=""/>
+        </input>
+        <expression>
+            <![CDATA[]]>
+        </expression>
+    </action>
+
+    <!-- 4.条件节点 -->
+    <action id="" name="" next="">
+        <if test="" interrupt=""/>
+        <if test="" next=""/>
+    </action>
+
+    <!-- 5.循环节点 -->
+    <action id="" name="" next="">
+        <foreach iterator="" resultType="">
+            <![CDATA[]]>
+        </foreach>
+        <output>
+            <var key=""/>
+        </output>
+    </action>
+
+    <!-- 6.业务行为节点 -->
+    <action id="" name="" next="">
+        <input>
+            <var key=""/>
+        </input>
+        <behavior model="" id=""/>
+        <output>
+            <var key=""/>
+        </output>
+    </action>
+
+    <!-- 7.函数节点 -->
+    <action id="" name="" next="">
+        <function domain="" name="" outkey="">
+            <param value="" type=""/>
+            <param value="" type=""/>
+            <param key="" type=""/>
+        </function>
+    </action>
+
+    <!-- 8.子流程节点 -->
+    <action id="" name="" next="">
+        <!-- 调用子流程需要在action-input中准备入参 -->
+        <input>
+            <var key=""/>
+        </input>
+        <subflow flow=""/>
+        <output mapping="">
+            <var key=""/>
+        </output>
+    </action>
+
+    <!-- 结束节点 -->
+    <end id="" name="">
+        <var key=""/>
+    </end>
+</logic-flow>

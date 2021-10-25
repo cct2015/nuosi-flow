@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model id="goods_info" name="货物信息">
+    <!-- 定义属性类型 -->
+    <attr id="" type="" name=""/>
+    <!-- 定义整型的限制条件 -->
+    <attr id="" type="int" name="">
+        <limitInteger max="" min="" more="" less="" equal="" unequal=""/>
+    </attr>
+    <!-- 定义字符串型的限制条件 -->
+    <attr id="" type="string" name="">
+        <limitString max="" min="" more="" less="" equal="" unequal=""/>
+    </attr>
+    <!-- 定义小数型的限制条件 -->
+    <attr id="" type="decimal" name="">
+        <limitDecimal scale="" precision="" max="" min="" more="" less="" equal="" unequal=""/>
+    </attr>
+    <!-- 定义日期类型的限制条件 -->
+    <attr id="" type="date" name="">
+        <limitDate max="" min="" more="" less="" equal="" unequal=""/>
+    </attr>
+    <!-- 定义时间戳类型的限制条件 -->
+    <attr id="" type="datetime" name="">
+        <limitDatetime max="" min="" more="" less="" equal="" unequal=""/>
+    </attr>
+
+    <!-- sql行为 -->
+    <behavior id="" name="">
+        <sql>
+        </sql>
+    </behavior>
+
+    <!-- 函数行为 -->
+    <behavior id="" name="">
+        <function domain="" name="" outkey="">
+            <param value="" type=""/>
+            <param key="" type=""/>
+        </function>
+    </behavior>
+</model>
