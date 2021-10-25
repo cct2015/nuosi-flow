@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="sql_syntax" name="SQL逻辑调用" desc="SQL逻辑调用范例">
+
+    <databus>
+        <attr id="fill_staff" type="string" name="工号信息">
+            <limit size="10"/>
+        </attr>
+    </databus>
+
+    <start id="start" name="开始节点" next="action_sql_simple">
+        <var key="fill_staff" />
+    </start>
+
+    <action id="action_sql_simple" name="SQL逻辑查询工时信息" next="end">
+        <!-- 调用子流程需要在action-input中准备入参 -->
+        <input>
+            <var key="fill_staff"/>
+        </input>
+        <sql conn="quickbuild">
+            <![CDATA[
+            SELECT fill_id, fill_staff, fill_date, project_stage_code, project_name
+	            , project_stage, fill_hours
+            FROM man_hour_fill
+            WHERE fill_staff = #{fill_staff};
+        ]]>
+        </sql>
+        <output>
+            <var key="working_hours_infos"/>
+        </output>
+    </action>
+    <end id="end" name="结束节点">
+        <var key="working_hours_infos" />
+    </end>
+</logic-flow>
