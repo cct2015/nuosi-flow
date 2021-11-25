@@ -16,7 +16,7 @@ import java.util.List;
 public class Action {
 
     public static enum ActionType{
-        SQL,EXPRESSION,IF,FOREACH,BEHAVIOR,SUBFLOW,FUNCTION,SERVICE,RULE,MAPPING,EVENT
+        SQL,EXPRESSION,IF,FOREACH,BEHAVIOR,SUBFLOW,FUNCTION,HTTP,SERVICE,RULE,MAPPING,EVENT
     }
 
     private ActionType actionType;
@@ -33,6 +33,7 @@ public class Action {
     private List<Behavior> behaviors;
     private List<Subflow> subflows;
     private List<Function> functions;
+    private List<Http> https;
 
     public ActionType getActionType() {
         return actionType;
@@ -147,6 +148,16 @@ public class Action {
     public Action setFunctions(List<Function> functions) {
         this.functions = functions;
         this.actionType = ActionType.FUNCTION;
+        return this;
+    }
+
+    public List<Http> getHttps() {
+        return https;
+    }
+
+    public Action setHttps(List<Http> https) {
+        this.https = https;
+        this.actionType = ActionType.HTTP;
         return this;
     }
 }

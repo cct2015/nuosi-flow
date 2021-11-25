@@ -1,4 +1,4 @@
-package com.nuosi.flow.logic.model.action;
+package com.nuosi.flow.logic.model.action.sub;
 
 /**
  * <p>desc: 逻辑流元素：函数功能入参 </p>

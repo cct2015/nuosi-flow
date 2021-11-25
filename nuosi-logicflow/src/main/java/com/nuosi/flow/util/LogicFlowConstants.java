@@ -15,6 +15,12 @@ public class LogicFlowConstants {
     public static final String INPUT = "INPUT";
     public static final String QB = "QB";
 
+    /*默认值常量*/
+    public static class Default {
+        public static final int CONN_TIMEOUT = 5000;
+        public static final int READ_TIMEOUT = 10000;
+    }
+
     /*LogicFlow异常编码*/
     public static final String FLOW_NO_EXISTS = "FLOW_NO_EXISTS";
     public static final String FLOW_DATABUS_VAR_NO_EXISTS = "FLOW_DATABUS_VAR_NO_EXISTS";

@@ -2,7 +2,7 @@ package com.nuosi.flow.logic.inject.function;
 
 import com.ai.ipu.basic.reflect.ReflectUtil;
 import com.nuosi.flow.logic.model.action.Function;
-import com.nuosi.flow.logic.model.action.Param;
+import com.nuosi.flow.logic.model.action.sub.Param;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
