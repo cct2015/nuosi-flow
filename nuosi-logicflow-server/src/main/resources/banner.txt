@@ -1,0 +1,4 @@
+======================
+Nuosi Logicflow Server is running
+${spring-boot.formatted-version}
+======================

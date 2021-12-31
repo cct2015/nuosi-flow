@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<caches>
+	<!-- ====================redis缓存============================ -->
+	<cache name="ssn" type="redis">
+		<servers>
+			<!-- 如果不是cluster，则只使用第一个redis -->
+			<server ip="121.42.183.206" port="7101" />
+			<server ip="121.42.183.206" port="7102" />
+			<server ip="121.42.183.206" port="7103" />
+			<server ip="121.42.183.206" port="7104" />
+			<server ip="121.42.183.206" port="7105" />
+			<server ip="121.42.183.206" port="7106" />
+		</servers>
+		<!-- 客户端类型:Jedis,JedisCluster -->
+		<config name="clientType" value="JedisCluster" />
+		<!-- 访问redis的密码，可以为空 -->
+		<config name="auth" value="Ipu@321!" />
+		<!-- redis池的可用连接实例的最大数目，缺省为8 -->
+		<config name="poolSize" value="10" />
+		<!-- redis池最多有多少个状态为idle(空闲的)的jedis实例，缺省为8,空闲连接大于这个数会进行回收 -->
+		<config name="maxIdle" />
+		<!-- 最小空闲数，空闲连接小于这个数会建立新的连接，缺省为0 -->
+		<config name="minIdle" />
+		<!-- 等待Response超时时间,默认5000ms -->
+		<config name="soTimeout" />
+		<!-- 连接Redis Server超时时间,默认5000ms -->
+		<config name="connTimeout" />
+		<!-- 出现异常最大重试次数 -->
+		<config name="maxAttempts" />
+	</cache>
+
+</caches>

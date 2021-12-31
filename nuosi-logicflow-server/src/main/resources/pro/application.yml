@@ -1,0 +1,54 @@
+#一、context-path配置的版本差异
+#2.x：server.servlet.context-path=/ipu
+#1.x：server.context-path=/ipu
+#二、默认:server.servlet-path=/
+server:
+  servlet:
+    context-path: /ipu
+  #通过启动命令传参指定端口
+  port: unknown
+spring:
+  application:
+    #使用maven中的变量project.artifactId
+    name: ${project.artifactId}
+  mvc:
+    #无拦截
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/${web.root}
+  session:
+    #session使用redis
+    store-type: redis
+  #sba监控
+  boot:
+    admin:
+      client:
+        metadata:
+          user:
+            name: ${security.user.name}
+            password: ${security.user.password}
+      url: http://www.aiipu.com:8888
+  #redis集群和连接池相关配置
+  redis:
+    cluster:
+      max-redirects: 3
+      nodes: 123.57.35.51:11001,123.57.35.51:11002,123.57.35.51:11003,123.57.35.51:11004,123.57.35.51:11005,123.57.35.51:11006
+      timeout: 5
+    password: ipu
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      #默认0，不回收
+      min-idle: 8
+web:
+  root: webapp/
+logging:
+  file: target/logs/${project.artifactId}.log
+management:
+  security:
+    enabled: false
+security:
+  user:
+    name: ipu
+    password: ipu

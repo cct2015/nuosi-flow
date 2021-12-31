@@ -1,0 +1,78 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <!-- <format>zip</format> -->
+        <format>tar.gz</format>
+    </formats>
+    <fileSets>
+    	<!-- 把项目相关的说明文件，打包进zip文件的根目录 -->
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <!-- /${project.build.finalName}/conf => /conf -->
+        
+        <!-- 把项目的配置文件，打包进zip包的conf目录 -->
+        <fileSet>
+            <directory>${project.build.directory}/conf</directory>
+            <outputDirectory>/conf</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+        </fileSet>
+        
+        <!-- 把项目依赖的jar包，打包进zip包的lib目录 -->
+        <fileSet>
+            <directory>${project.build.directory}/lib</directory>
+            <outputDirectory>/lib</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+        </fileSet>
+    
+        <!-- 把项目编译的jar包，打包进zip包的根目录 -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>${project.build.finalName}.jar</include>
+            </includes>
+        </fileSet>
+        
+        <!-- 把项目的脚本文件，打包进zip包的bin目录 -->
+         <fileSet>
+             <directory>${project.basedir}/src/bin</directory>
+             <outputDirectory>/bin</outputDirectory>
+             <directoryMode>0755</directoryMode>
+             <fileMode>0755</fileMode>
+             <lineEnding>unix</lineEnding>
+             <includes>
+                 <include>*.sh</include>
+                 <include>*.conf</include>
+             </includes>
+         </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/bin</directory>
+            <outputDirectory>/bin</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <lineEnding>dos</lineEnding>
+            <includes>
+                <include>*.bat</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    
+    <!-- 把工程编译的jar打包进zip包的根目录 -->
+    <!-- 
+    <files>
+		<file>
+			<source>${project.build.directory}/${project.artifactId}.jar</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+	</files> 
+	-->
+</assembly>

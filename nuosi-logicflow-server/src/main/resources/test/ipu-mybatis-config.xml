@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+		<setting name="defaultFetchSize" value="1000" /> <!-- 结果集获取数量提示值，分批传输 -->
+		<!-- 当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型。 某些驱动需要指定列的 JDBC 类型，多数情况直接用一般类型即可，比如 NULL、VARCHAR 或 OTHER。mybatis缺省为OTHER -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+    <plugins>
+        <!-- 分页插件，可根据参数定制化 -->
+	    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+	        <!-- config params as the following -->
+		</plugin>
+	</plugins>
+	<environments default="test">
+		<environment id="test">
+			<transactionManager type="JDBC" />
+			<dataSource type="com.ai.ipu.database.datasource.C3P0DataSourceFactory">
+				<property name="driverClass" value="com.mysql.jdbc.Driver" />
+				<property name="jdbcUrl" value="jdbc:mysql://121.42.183.206:3307/test" />
+				<property name="user" value="ipu" />
+				<property name="password" value="ipumysql" />
+				<!-- 连接池用完时,等待获取新连接的时间 (毫秒) -->
+				<property name="checkoutTimeout" value="5000" />
+				<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+				<property name="acquireRetryAttempts" value="5" />
+				<!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
+				<property name="acquireRetryDelay" value="1000" />
+				<property name="initialPoolSize" value="3" />
+				<property name="minPoolSize" value="3" />
+				<property name="maxPoolSize" value="3" />
+				<property name="maxIdleTime" value="600" />
+				<property name="idleConnectionTestPeriod" value="60" />
+				<property name="preferredTestQuery" value="SELECT 1" />
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>

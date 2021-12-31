@@ -4,12 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.ai.ipu.server</groupId>
+        <artifactId>ipu-assembly-parent</artifactId>
+        <version>3.3-SNAPSHOT</version>
+    </parent>
+
     <groupId>io.github.reynolds2019</groupId>
     <artifactId>nuosi-flow</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>nuosi-logicflow</module>
+        <module>nuosi-logicflow-server</module>
     </modules>
 
     <properties>

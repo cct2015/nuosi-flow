@@ -1,0 +1,43 @@
+[
+  {
+    "id": "1",
+    "name": "帮助ReadMe",
+    "path": "/help",
+    "icon": "aid-help-circle",
+    "type": "R",
+    "remark": "",
+    "subMenu": []
+  },
+  {
+    "id": "2",
+    "name": "百度",
+    "path": "/iframe",
+    "icon": "aid-search-web",
+    "type": "F",
+    "remark": "https://www.baidu.com/",
+    "subMenu": []
+  },
+  {
+    "id": "3",
+    "name": "二级菜单",
+    "path": "",
+    "icon": "aid-air-conditioner",
+    "remark": "",
+    "subMenu": [
+      {
+        "id": "1",
+        "name": "帮助ReadMe2",
+        "path": "/help2",
+        "type": "R",
+        "remark": "备注"
+      },
+      {
+        "id": "2",
+        "name": "百度2",
+        "path": "/iframe2",
+        "type": "F",
+        "remark": "https://www.baidu.com/"
+      }
+    ]
+  }
+]
