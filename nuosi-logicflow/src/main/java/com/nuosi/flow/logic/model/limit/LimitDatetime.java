@@ -18,6 +18,8 @@ public class LimitDatetime {
     private Timestamp equal = null;
     private Timestamp unequal = null;
 
+    private boolean nullable = true;
+
     public Timestamp getMin() {
         return min;
     }
@@ -64,5 +66,13 @@ public class LimitDatetime {
 
     public void setUnequal(Timestamp unequal) {
         this.unequal = unequal;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
     }
 }

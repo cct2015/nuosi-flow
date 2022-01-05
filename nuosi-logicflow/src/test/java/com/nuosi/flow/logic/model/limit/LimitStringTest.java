@@ -97,6 +97,19 @@ public class LimitStringTest {
         }
     }
 
+    @Test
+    public void testStringNullableLimit() throws Exception {
+        JMap param = new JsonMap();
+        param.put("string_param", null);
+        try {
+            LogicFlowEngine.execute("string_nullable_limit",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
@@ -105,7 +118,8 @@ public class LimitStringTest {
                 "limit/string/string_less_limit.xml",
                 "limit/string/string_more_limit.xml",
                 "limit/string/string_equal_limit.xml",
-                "limit/string/string_unequal_limit.xml"
+                "limit/string/string_unequal_limit.xml",
+                "limit/string/string_nullable_limit.xml"
         };
         for(String flowConfig : flowConfigs){
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);

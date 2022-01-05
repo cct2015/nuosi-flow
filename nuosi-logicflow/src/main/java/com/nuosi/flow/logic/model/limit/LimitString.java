@@ -13,6 +13,7 @@ public class LimitString {
     private Integer more = null;
     private Integer equal = null;
     private Integer unequal = null;
+    private boolean nullable = true;
 
     public Integer getMin() {
         return min;
@@ -60,5 +61,13 @@ public class LimitString {
 
     public void setUnequal(Integer unequal) {
         this.unequal = unequal;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
     }
 }

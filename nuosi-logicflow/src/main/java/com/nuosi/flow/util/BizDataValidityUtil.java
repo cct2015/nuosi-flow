@@ -1,5 +1,6 @@
 package com.nuosi.flow.util;
 
+import com.ai.ipu.basic.string.StringUtil;
 import com.ai.ipu.basic.util.IpuUtility;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
@@ -96,7 +97,7 @@ public class BizDataValidityUtil {
     }
 
     public static String checkString(Object value, String bizName, String attr) {
-        String val = String.valueOf(value);
+        String val = (String)value;
         return val;
     }
 
@@ -105,6 +106,13 @@ public class BizDataValidityUtil {
             return;
         }
         StringLimit dataLimit = (StringLimit) bdataLimit;
+
+        if(StringUtil.isEmpty(val)){
+            if(dataLimit.isNullable()==false){
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr);
+            }
+            return;
+        }
 
         if (dataLimit.getMin() != null && val.length() < dataLimit.getMin()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
@@ -170,6 +178,9 @@ public class BizDataValidityUtil {
 
     public static java.sql.Date checkDate(Object value, String bizName, String attr) {
         java.sql.Date val = null;
+        if(StringUtil.isEmpty((String)value)){
+            return null;
+        }
         try {
             val = java.sql.Date.valueOf(String.valueOf(value));
         } catch (Exception e) {
@@ -183,6 +194,13 @@ public class BizDataValidityUtil {
             return;
         }
         DateLimit dataLimit = (DateLimit) bdataLimit;
+
+        if(val==null){
+            if(dataLimit.isNullable()==false){
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
+            }
+            return;
+        }
 
         if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
@@ -207,6 +225,9 @@ public class BizDataValidityUtil {
 
     public static Timestamp checkDatetime(Object value, String bizName, String attr) {
         Timestamp val = null;
+        if(StringUtil.isEmpty((String)value)){
+            return null;
+        }
         try {
             val = Timestamp.valueOf(String.valueOf(value));
         } catch (Exception e) {
@@ -220,6 +241,13 @@ public class BizDataValidityUtil {
             return;
         }
         DatetimeLimit dataLimit = (DatetimeLimit) bdataLimit;
+
+        if(val==null){
+            if(dataLimit.isNullable()==false){
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
+            }
+            return;
+        }
 
         if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));

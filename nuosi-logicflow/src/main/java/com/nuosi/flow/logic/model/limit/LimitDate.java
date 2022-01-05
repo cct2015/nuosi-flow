@@ -18,6 +18,8 @@ public class LimitDate {
     private java.sql.Date equal = null;
     private java.sql.Date unequal = null;
 
+    private boolean nullable = true;
+
     public Date getMin() {
         return min;
     }
@@ -64,5 +66,13 @@ public class LimitDate {
 
     public void setUnequal(Date unequal) {
         this.unequal = unequal;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
     }
 }

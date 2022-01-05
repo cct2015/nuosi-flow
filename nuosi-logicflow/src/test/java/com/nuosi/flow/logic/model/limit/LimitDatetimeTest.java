@@ -110,6 +110,19 @@ public class LimitDatetimeTest {
         }
     }
 
+    @Test
+    public void testDatetimeNullableLimit() throws Exception {
+        JMap param = new JsonMap();
+        param.put("datetime_param", null);
+        try {
+            LogicFlowEngine.execute("datetime_nullable_limit",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
@@ -119,7 +132,8 @@ public class LimitDatetimeTest {
                 "limit/datetime/datetime_less_limit.xml",
                 "limit/datetime/datetime_more_limit.xml",
                 "limit/datetime/datetime_equal_limit.xml",
-                "limit/datetime/datetime_unequal_limit.xml"
+                "limit/datetime/datetime_unequal_limit.xml",
+                "limit/datetime/datetime_nullable_limit.xml"
         };
         for(String flowConfig : flowConfigs){
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);

@@ -21,6 +21,8 @@ public class DatetimeLimit extends AbstractDataLimit {
     private Timestamp equal = null;
     private Timestamp unequal = null;
 
+    private boolean nullable = true;
+
     public DatetimeLimit() {
         super(BDataDefine.BDataType.DATETIME);
     }
@@ -82,6 +84,15 @@ public class DatetimeLimit extends AbstractDataLimit {
 
     public DatetimeLimit setUnequal(Timestamp unequal) {
         this.unequal = unequal;
+        return this;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public DatetimeLimit setNullable(boolean nullable) {
+        this.nullable = nullable;
         return this;
     }
 }

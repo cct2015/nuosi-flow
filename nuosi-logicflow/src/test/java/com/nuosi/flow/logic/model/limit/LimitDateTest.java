@@ -110,6 +110,19 @@ public class LimitDateTest {
         }
     }
 
+    @Test
+    public void testDateNullableLimit() throws Exception {
+        JMap param = new JsonMap();
+        param.put("date_param", null);
+        try {
+            LogicFlowEngine.execute("date_nullable_limit",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
@@ -119,7 +132,8 @@ public class LimitDateTest {
                 "limit/date/date_less_limit.xml",
                 "limit/date/date_more_limit.xml",
                 "limit/date/date_equal_limit.xml",
-                "limit/date/date_unequal_limit.xml"
+                "limit/date/date_unequal_limit.xml",
+                "limit/date/date_nullable_limit.xml"
         };
         for(String flowConfig : flowConfigs){
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);

@@ -16,6 +16,7 @@ public class StringLimit extends AbstractDataLimit {
     private Integer more = null;
     private Integer equal = null;
     private Integer unequal = null;
+    private boolean nullable = true;
 
     public StringLimit() {
         super(BDataDefine.BDataType.STRING);
@@ -78,6 +79,15 @@ public class StringLimit extends AbstractDataLimit {
 
     public StringLimit setUnequal(Integer unequal) {
         this.unequal = unequal;
+        return this;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public StringLimit setNullable(boolean nullable) {
+        this.nullable = nullable;
         return this;
     }
 }

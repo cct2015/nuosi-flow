@@ -1,7 +1,6 @@
 package com.nuosi.flow.data.limit;
 
 import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BDataLimit;
 import com.nuosi.flow.util.BizDataValidityUtil;
 
 import java.sql.Date;
@@ -21,6 +20,8 @@ public class DateLimit extends AbstractDataLimit {
     private java.sql.Date more = null;
     private java.sql.Date equal = null;
     private java.sql.Date unequal = null;
+
+    private boolean nullable = true;
 
     public DateLimit() {
         super(BDataDefine.BDataType.DATE);
@@ -83,6 +84,15 @@ public class DateLimit extends AbstractDataLimit {
 
     public DateLimit setUnequal(Date unequal) {
         this.unequal = unequal;
+        return this;
+    }
+
+    public boolean isNullable() {
+        return nullable;
+    }
+
+    public DateLimit setNullable(boolean nullable) {
+        this.nullable = nullable;
         return this;
     }
 }

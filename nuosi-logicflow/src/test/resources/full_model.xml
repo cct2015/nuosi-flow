@@ -8,7 +8,7 @@
     </attr>
     <!-- 定义字符串型的限制条件 -->
     <attr id="" type="string" name="">
-        <limitString max="" min="" more="" less="" equal="" unequal=""/>
+        <limitString max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
     <!-- 定义小数型的限制条件 -->
     <attr id="" type="decimal" name="">
@@ -16,11 +16,11 @@
     </attr>
     <!-- 定义日期类型的限制条件 -->
     <attr id="" type="date" name="">
-        <limitDate max="" min="" more="" less="" equal="" unequal=""/>
+        <limitDate max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
     <!-- 定义时间戳类型的限制条件 -->
     <attr id="" type="datetime" name="">
-        <limitDatetime max="" min="" more="" less="" equal="" unequal=""/>
+        <limitDatetime max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
 
     <!-- sql行为 -->
