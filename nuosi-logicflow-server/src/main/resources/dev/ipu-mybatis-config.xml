@@ -14,6 +14,16 @@
 	    <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
 	</plugins>
 	<environments default="test">
+		<environment id="auth">
+			<transactionManager type="jdbc" />
+			<dataSource type="com.ai.ipu.database.datasource.DruidDataSourceFactory">
+				<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3307/auth" />
+				<property name="username" value="root" />
+				<property name="password" value="rootroot" />
+				<!-- 配置获取连接的等待超时时间 -->
+				<property name="maxWait" value="5000" />
+			</dataSource>
+		</environment>
 		<environment id="quickbuild">
 			<transactionManager type="jdbc" />
 			<dataSource type="com.ai.ipu.database.datasource.DruidDataSourceFactory">

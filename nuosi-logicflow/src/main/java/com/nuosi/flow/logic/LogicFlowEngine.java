@@ -4,6 +4,7 @@ import com.ai.ipu.basic.util.IpuBaseException;
 import com.ai.ipu.basic.util.IpuUtility;
 import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.inject.function.FunctionManager;
+import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
 import com.nuosi.flow.logic.invoke.ExecutionContainer;
 import com.nuosi.flow.logic.model.LogicFlow;
 import com.nuosi.flow.mgmt.message.MessageManager;
@@ -20,6 +21,7 @@ public class LogicFlowEngine {
         init();
         MessageManager.init();
         FunctionManager.init();
+        InitialMethodManager.init();
     }
 
     public static JMap execute(String flowName, JMap param) throws Exception {

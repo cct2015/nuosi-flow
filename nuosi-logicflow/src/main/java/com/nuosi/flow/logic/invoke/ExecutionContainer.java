@@ -6,6 +6,7 @@ import com.ai.ipu.data.impl.JsonMap;
 import com.ai.ipu.database.conn.SqlSessionManager;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
+import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
 import com.nuosi.flow.logic.invoke.processer.IActionProcesser;
 import com.nuosi.flow.logic.invoke.processer.ProcesserManager;
 import com.nuosi.flow.logic.model.LogicFlow;
@@ -198,12 +199,26 @@ public class ExecutionContainer {
         Object value = null;
         for (Var var : vars) {
             key = var.getKey();
-            if (!databus.containsKey(key) && var.getInitial() == null) {
+            if (!databus.containsKey(key) && var.getInitial() == null && var.getInitialMethod()==null) {
                 IpuUtility.errorCode(LogicFlowConstants.FLOW_DATABUS_VAR_NO_EXISTS, logicFlow.getId(), key);
             }
 
             value = databus.get(key);
-            value = value == null ? var.getInitial() : value;
+            if(value == null){
+                value = var.getInitial();
+            }
+            if(value == null){
+                String method = var.getInitialMethod();
+                if(method!=null){
+                    try{
+                        value = InitialMethodManager.getInitialMethod().invoke(method);
+                    }catch (Exception e){
+                        Throwable tr = IpuUtility.getBottomException(e);
+                        IpuUtility.error(tr);
+                    }
+                }
+            }
+
             // 入参使用默认值的校验
             checkData(key, value);
             key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名

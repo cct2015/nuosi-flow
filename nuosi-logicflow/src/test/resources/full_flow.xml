@@ -38,7 +38,7 @@
     <!-- 2.sql节点 -->
     <action id="" name="" next="">
         <input>
-            <var key="" initial=""/>
+            <var key="" initialMethod=""/>
         </input>
         <sql conn="">
             <![CDATA[]]>

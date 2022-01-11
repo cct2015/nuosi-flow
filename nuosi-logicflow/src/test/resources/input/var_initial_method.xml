@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="var_initial_method"
+            name="初始化方法使用范例"
+            desc="初始化方法使用范例">
+    <!-- 全局域 -->
+    <databus>
+        <!-- 引入model定义 -->
+        <attr id="user_id" type="int" name="用户标识"/>
+        <attr id="user_name" type="string" name="用户名称"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="printUser">
+        <!-- 逻辑入口参数校验 -->
+    </start>
+
+    <action id="printUser" name="打印用户已" next="end">
+        <input>
+            <var key="user_id" initial="123456"/>
+            <var key="user_name" initialMethod="getDatetime"/>
+        </input>
+        <expression>
+        <![CDATA[
+            System.out.println("user_id==="+INPUT.user_id);
+            System.out.println("user_name==="+INPUT.user_name);
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>
