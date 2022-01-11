@@ -106,6 +106,19 @@
         </output>
     </action>
 
+    <!-- 9.数据聚合节点 -->
+    <action id="" name="" next="">
+        <!-- 需要聚合的数据在action-input中准备-->
+        <input>
+            <var key=""/>
+            <var key=""/>
+        </input>
+        <aggregate convert="" type=""/>
+        <output>
+            <var key=""/>
+        </output>
+    </action>
+
     <!-- 结束节点 -->
     <end id="" name="">
         <var key=""/>

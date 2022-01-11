@@ -27,6 +27,7 @@ public class ProcesserManager {
         actionMap.put(Action.ActionType.SUBFLOW, new SubflowProcesser());
         actionMap.put(Action.ActionType.FUNCTION, new FunctionProcesser());
         actionMap.put(Action.ActionType.HTTP, new HttpProcesser());
+        actionMap.put(Action.ActionType.AGGREGATE, new AggregateProcesser());
         actionProcessers = Collections.unmodifiableMap(actionMap);
 
         Map<Action.ActionType, IBehaviorProcesser> behaviorMap = new HashMap<Action.ActionType, IBehaviorProcesser>(3);
