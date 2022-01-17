@@ -28,8 +28,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ipu>3.1-SNAPSHOT</ipu>
-        <ipu-db>3.2-SNAPSHOT</ipu-db>
+        <ipu>3.3-SNAPSHOT</ipu>
+        <ipu-db>3.3-SNAPSHOT</ipu-db>
         <junit>4.12</junit>
         <mvel2>2.4.10.Final</mvel2>
         <spring-beans>5.3.9</spring-beans>

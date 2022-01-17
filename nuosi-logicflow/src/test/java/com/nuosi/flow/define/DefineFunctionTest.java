@@ -25,6 +25,7 @@ public class DefineFunctionTest {
     public void testInvokeFunctionTest(){
         FunctionManager.registerDomainFunction("Define", new DefineFunction());
         JMap param = new JsonMap();
+        param.put("user_id", 123456);
         try {
             LogicFlowEngine.execute("define_function", param);
             Assert.assertTrue(true);

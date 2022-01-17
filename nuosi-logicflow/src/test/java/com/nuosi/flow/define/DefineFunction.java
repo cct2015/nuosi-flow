@@ -14,9 +14,15 @@ import java.util.Map;
  */
 public class DefineFunction extends AbstractDomainFunction {
 
-    public void print(JMap input, Map<String, Object> databus, Integer userId) throws Exception {
-        System.out.println("input===" + input);
-        System.out.println("databus===" + databus);
+    public void printContext(Integer userId) throws Exception {
+        System.out.println("input===" + getInput());
+        System.out.println("databus===" + getDatabus());
+        System.out.println("userId===" + userId);
+    }
+
+    public void printNullContext(Integer userId) throws Exception {
+        System.out.println("input===" + getInput());
+        System.out.println("databus===" + getDatabus());
         System.out.println("userId===" + userId);
     }
 }

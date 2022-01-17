@@ -1,7 +1,9 @@
 package com.nuosi.flow.logic.inject.function;
 
+import com.ai.ipu.basic.instance.InstanceUtil;
 import com.ai.ipu.basic.reflect.ReflectUtil;
 import com.ai.ipu.data.JMap;
+import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.model.action.Function;
 import com.nuosi.flow.logic.model.action.sub.Param;
 
@@ -21,6 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class AbstractDomainFunction implements IDomainFunction{
     private static final Map<String, Class<?>> typeClass = new HashMap();
+    private ThreadLocal<JMap> inputLocal = new ThreadLocal<JMap>();
+    private ThreadLocal<Map<String, Object>> databusLocal = new ThreadLocal<Map<String, Object>>();
 
     static {
         typeClass.put("string", String.class);
@@ -29,9 +33,20 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
         typeClass.put("list", List.class);
     }
 
-    private Map<String, Method> methodMap = new ConcurrentHashMap<String, Method>();
+    private Map<String, Method> methodCache = new ConcurrentHashMap<String, Method>();
 
     public Object invoke(Function function, JMap input, Map<String, Object> databus) throws Exception {
+        if(function.getIsContext()!=null){
+            if("true".equals(function.getIsContext())){
+                //深度克隆使用对象，防止被串改
+                inputLocal.set((JMap) InstanceUtil.deepClone(input));
+                databusLocal.set((Map<String, Object>) InstanceUtil.deepClone(databus));
+            }else{
+                inputLocal.set(null);
+                databusLocal.set(null);
+            }
+        }
+
         List<Param> params = function.getParams();
         int size = params.size();
         Object[] args = new Object[size];  //入参数据
@@ -40,20 +55,8 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
         for(Param param : params){
             if(param.getValue()!=null){
                 args[index] = param.getValue();
-                argsClass[index] = typeClass.get(param.getType());
             }else if(param.getKey()!=null){
                 args[index] = databus.get(param.getKey());
-                argsClass[index] = typeClass.get(param.getType());
-            }else if(param.getContext()!=null){
-                if("input".equals(param.getContext())){
-                    args[index] = input;
-                    argsClass[index] = JMap.class;
-                }else if("databus".equals(param.getContext())){
-                    args[index] = databus;
-                    argsClass[index] = Map.class;
-                }else{
-                    args[index] = null;
-                }
             }else{
 
             }
@@ -65,6 +68,7 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
                     // param.getKey(),args[index].getClass(),typeClass.get(param.getType())。
                 }
             }
+            argsClass[index] = typeClass.get(param.getType());
             index++;
         }
 
@@ -74,15 +78,23 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
 
     private Method getMethod(String methodName, Class ... cls){
         String key = methodName + Arrays.hashCode(cls);
-        Method method = methodMap.get(key);
+        Method method = methodCache.get(key);
         if(method==null){
             synchronized (methodName){
                 if(method==null){
                     method = ReflectUtil.getMethod(this.getClass(), methodName, cls);
-                    methodMap.put(key, method);
+                    methodCache.put(key, method);
                 }
             }
         }
         return method;
+    }
+
+    protected JMap getInput(){
+        return inputLocal.get();
+    }
+
+    protected Map<String, Object> getDatabus(){
+        return databusLocal.get();
     }
 }

@@ -16,6 +16,7 @@ public class Function {
     private String name;
     private String outkey;
     private List<Param> params;
+    private String isContext;
 
     public String getDomain() {
         return domain;
@@ -47,5 +48,13 @@ public class Function {
 
     public void setParams(List<Param> params) {
         this.params = params;
+    }
+
+    public String getIsContext() {
+        return isContext;
+    }
+
+    public void setIsContext(String isContext) {
+        this.isContext = isContext;
     }
 }
