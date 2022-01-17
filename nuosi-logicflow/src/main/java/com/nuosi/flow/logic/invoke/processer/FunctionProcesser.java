@@ -36,7 +36,7 @@ public class FunctionProcesser implements IActionProcesser, IBehaviorProcesser {
         Object result = null;
         for (Function function : functions) {
             domainFunction = FunctionManager.getDomainFunction(function.getDomain());
-            result = domainFunction.invoke(databus, function);
+            result = domainFunction.invoke(function, input, databus);
             if (function.getOutkey() != null) {
                 databus.put(function.getOutkey(), result);
             }

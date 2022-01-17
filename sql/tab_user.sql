@@ -1,6 +1,6 @@
 create table TAB_USER
 (
-   USER_ID              bigint(20) not null auto_increment comment '用户标识',
+   USER_ID              int(20) not null auto_increment comment '用户标识',
    USER_NAME            varchar(256) comment '用户名称',
    GENDER               varchar(2) comment '性别',
    user_state           varchar(4) comment '用户状态',

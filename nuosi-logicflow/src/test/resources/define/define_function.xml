@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="define_function"
+            name="自定义方法使用范例"
+            desc="自定义方法使用范例">
+    <!-- 全局域 -->
+    <databus>
+        <!-- 引入model定义 -->
+        <attr id="user_id" type="int" name="用户标识"/>
+        <attr id="datetime" type="string" name="用户名称"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="invokeDefineFunction">
+        <!-- 逻辑入口参数校验 -->
+    </start>
+
+    <action id="invokeDefineFunction" name="执行自定义方法" next="end">
+        <input>
+            <var key="user_id" initial="123456"/>
+            <var key="datetime" initial="2022-01-17 16:14:04"/>
+        </input>
+        <function domain="Define" name="print">
+            <param context="input"/>
+            <param context="databus"/>
+            <param key="user_id" type="int"/>
+        </function>
+        <output>
+            <var key="user_info"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>

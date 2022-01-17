@@ -1,6 +1,7 @@
 package com.nuosi.flow.logic.inject.function;
 
 import com.ai.ipu.basic.reflect.ReflectUtil;
+import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.model.action.Function;
 import com.nuosi.flow.logic.model.action.sub.Param;
 
@@ -30,14 +31,33 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
 
     private Map<String, Method> methodMap = new ConcurrentHashMap<String, Method>();
 
-    public Object invoke(Map<String, Object> databus, Function function) throws Exception {
+    public Object invoke(Function function, JMap input, Map<String, Object> databus) throws Exception {
         List<Param> params = function.getParams();
         int size = params.size();
         Object[] args = new Object[size];  //入参数据
         Class[] argsClass = new Class[size];    //入参类型
         int index = 0;
         for(Param param : params){
-            args[index] = param.getValue()!=null?param.getValue():databus.get(param.getKey());
+            if(param.getValue()!=null){
+                args[index] = param.getValue();
+                argsClass[index] = typeClass.get(param.getType());
+            }else if(param.getKey()!=null){
+                args[index] = databus.get(param.getKey());
+                argsClass[index] = typeClass.get(param.getType());
+            }else if(param.getContext()!=null){
+                if("input".equals(param.getContext())){
+                    args[index] = input;
+                    argsClass[index] = JMap.class;
+                }else if("databus".equals(param.getContext())){
+                    args[index] = databus;
+                    argsClass[index] = Map.class;
+                }else{
+                    args[index] = null;
+                }
+            }else{
+
+            }
+
             if(args[index]!=null){
                 if(!args[index].getClass().equals(typeClass.get(param.getType()))){
                     //判断args[index]类型。
@@ -45,7 +65,6 @@ public abstract class AbstractDomainFunction implements IDomainFunction{
                     // param.getKey(),args[index].getClass(),typeClass.get(param.getType())。
                 }
             }
-            argsClass[index] = typeClass.get(param.getType());
             index++;
         }
 

@@ -1,5 +1,6 @@
 package com.nuosi.flow.logic.inject.function;
 
+import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.model.action.Function;
 
 import java.util.Map;
@@ -13,5 +14,5 @@ import java.util.Map;
  */
 public interface IDomainFunction {
 
-    public Object invoke(Map<String, Object> databus, Function function) throws Exception;
+    public Object invoke(Function function, JMap input, Map<String, Object> databus) throws Exception;
 }

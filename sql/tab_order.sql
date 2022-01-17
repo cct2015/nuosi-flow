@@ -1,6 +1,6 @@
 create table TAB_ORDER
 (
-   ORDER_ID              bigint(20) not null auto_increment comment '订单标识',
+   ORDER_ID              int(20) not null auto_increment comment '订单标识',
    ACCEPT_MONTH           int(2) comment '受理月份',
    ORDER_TYPE_CODE      varchar(256) comment '订单类型',
    USER_ID              bigint(20) not null  comment '用户标识',
