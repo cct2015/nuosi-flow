@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="working_hours_query"
+            name="工时信息查询"
+            desc="工时信息查询">
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="working_hours_entity"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="queryWorkingHours">
+        <var key="staff_id" model="working_hours_entity" attr="fill_staff"/>
+    </start>
+    <action id="queryWorkingHours" name="查询工时信息" next="end">
+        <input>
+            <var key="staff_id" alias="fill_staff"/>
+        </input>
+        <behavior model="working_hours_entity" id="queryWorkingHours"/>
+        <output>
+            <var key="working_hours_infos"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="working_hours_infos"/>
+    </end>
+</logic-flow>

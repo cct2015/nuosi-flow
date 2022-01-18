@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="working_hours_report"
+            name="工时填报"
+            desc="工时填报">
+    <!-- 全局域 -->
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="working_hours_entity"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="parameterVerification">
+        <!-- 逻辑入口参数校验 -->
+        <!-- 重新定义报错信息：【项目阶段编码不能为空!】；【填报时长需要在0~24范围之内】-->
+        <var model="fill_date" attr="fill_date"/>
+        <var model="fill_hours" attr="fill_hours"/>
+        <var model="fill_staff" attr="fill_staff"/>
+        <var model="project_name" attr="project_name"/>
+        <var model="project_stage" attr="project_stage"/>
+        <var model="project_stage_code" attr="project_stage_code"/>
+    </start>
+    <!-- 判断是否有重复提交 -->
+    <action id="parameterVerification" name="参数校验" next="switchGoodsInfo">
+        <foreach iterable="goods_infos" resultType="int">
+            <![CDATA[
+            System.out.println("第"+INDEX+"个元素："+ITERATOR.price);
+            int price = ITERATOR.price;
+            RESULT = RESULT+price;
+        ]]>
+        </foreach>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="goods_infos"/>
+        <var key="total_price"/>
+    </end>
+</logic-flow>

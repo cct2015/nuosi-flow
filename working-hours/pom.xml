@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>nuosi-flow</artifactId>
+        <groupId>io.github.reynolds2019</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>working-hours</artifactId>
+
+    <repositories>
+        <repository>
+            <id>ipu</id>
+            <name>ipu repository</name>
+            <url>http://114.215.100.48:9090/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <ipu>3.3-SNAPSHOT</ipu>
+        <ipu-db>3.3-SNAPSHOT</ipu-db>
+        <junit>4.12</junit>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <version>${junit}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ai.ipu</groupId>
+            <artifactId>ipu-data</artifactId>
+            <version>${ipu}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ai.ipu</groupId>
+            <artifactId>ipu-basic</artifactId>
+            <version>${ipu}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ai.ipu</groupId>
+            <artifactId>ipu-common</artifactId>
+            <version>${ipu}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.reynolds2019</groupId>
+            <artifactId>nuosi-logicflow</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

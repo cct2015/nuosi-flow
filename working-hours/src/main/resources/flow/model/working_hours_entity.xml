@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model id="working_hours_entity" name="工时实体模型">
+    <attr id="fill_id" type="int" name="填报ID"/>
+    <attr id="fill_date" type="datetime" name="填报日期"/>
+    <attr id="fill_hours" type="int" name="填报时长">
+        <limit min="0" max="24"/>
+    </attr>
+    <attr id="fill_staff" type="string" name="填报人"/>
+    <attr id="project_name" type="string" name="项目名称"/>
+    <attr id="project_stage" type="string" name="项目阶段"/>
+    <attr id="project_stage_code" type="string" name="项目阶段编码"/>
+
+    <behavior id="queryWorkingHours" name="查询工时信息">
+        <sql conn="quickbuild">
+        <![CDATA[
+            SELECT fill_id, fill_staff, fill_date, project_stage_code, project_name
+	            , project_stage, fill_hours
+            FROM man_hour_fill
+            WHERE fill_staff = #{fill_staff}
+        ]]>
+        </sql>
+    </behavior>
+
+    <behavior id="queryWorkingHoursByPrimaryKey" name="查询工时信息">
+        <function domain="DB" name="select" outkey="working_hours_info">
+            <param value="quickbuild" type="string"/>
+            <param value="man_hour_fill" type="string"/>
+            <param key="param" type="map"/>
+        </function>
+    </behavior>
+
+    <behavior id="insertWorkingHours" name="新增工时信息">
+        <function domain="DB" name="insert" outkey="working_hours_num">
+            <param value="quickbuild" type="string"/>
+            <param value="man_hour_fill" type="string"/>
+            <param key="working_hours" type="map"/>
+        </function>
+    </behavior>
+</model>

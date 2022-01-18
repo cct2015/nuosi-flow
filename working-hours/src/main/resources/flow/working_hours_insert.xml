@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="working_hours_insert"
+            name="工时信息新增"
+            desc="工时信息新增">
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="working_hours_entity"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="insertWorkingHours">
+        <var key="working_hours"/>
+    </start>
+
+    <action id="insertWorkingHours" name="新增工时信息" next="end">
+        <behavior model="working_hours_entity" id="insertWorkingHours"/>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="working_hours_num"/>
+    </end>
+</logic-flow>

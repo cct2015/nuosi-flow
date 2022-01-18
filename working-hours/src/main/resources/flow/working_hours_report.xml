@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="working_hours_report"
+            name="工时填报"
+            desc="工时填报">
+    <!-- 全局域 -->
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="working_hours_entity"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="checkWorkingHoursParam">
+        <var key="working_hours_infos"/>
+    </start>
+
+    <action id="checkWorkingHoursParam" name="工时填报参数校验" next="switchGoodsInfo">
+        <foreach iterable="working_hours_infos" resultType="map">
+            <![CDATA[
+            if(ITERATOR.project_stage_code==null){
+                QB.errorCode("PROJECT_STAGE_CODE_NULL",ITERATOR.fill_staff);
+            }
+            if(ITERATOR.fill_hours>24 || ITERATOR.fill_hours <0){
+                QB.errorCode("FILL_HOURS_RANGE",ITERATOR.fill_staff);
+            }
+            //计算以天为单位的工时总和
+            Map staffDateHourMap = new HashMap();
+            var staffDateHourKey=ITERATOR.fill_staff+"@@"+ITERATOR.fill_date;
+            int hour = RESULT.get(staffDateHourKey);
+            hour = ITERATOR.fill_hours+hour;
+            staffDateHourMap.put(staffDateHourKey,hour);
+            DATABUS.put("staffDateHour", staffDateHourMap);
+
+            //计算每个员工的最小工时填写时间
+            Map minDateMap = new HashMap();
+            var fill_staff = ITERATOR.fill_staff;
+            var min_date = RESULT.get(fill_staff);
+            min_date = min_date<ITERATOR.fill_date?min_date:ITERATOR.fill_date;
+            minDateMap.put(fill_staff,min_date);
+            DATABUS.put("minDate", minDateMap);
+            ]]>
+        </foreach>
+    </action>
+
+    <action id="parameterVerification" name="工时填报参数校验" next="switchGoodsInfo">
+        <foreach iterable="staffDateHour">
+            <![CDATA[
+            if(ITERATOR.staff_date_key<7 || ITERATOR.staff_date_key>24){
+                //throw exception (当天累计时长不足7小时，不允许提交);
+            }
+            ]]>
+        </foreach>
+    </action>
+
+    <action id="parameterVerification" name="工时填报参数校验" next="switchGoodsInfo">
+        <foreach iterable="minDate">
+            var fill_staff = ITERATOR.key;
+            var min_date = ITERATOR.value;
+            Map param = new HashMap();
+            param.put("fill_staff", fill_staff);
+            param.put("min_date", min_date);
+            var result = invokeAction("id", param);
+            if(result.maxDate-min_date>1){
+                //throw exception (请先补填20XX-XX-XX（填报日期后一天）的日报);
+            }
+        </foreach>
+    </action>
+
+    <!--<action id="insertWorkingHours" name="记录填报工时" next="end">
+        <behavior api="inertBatch" key="staff_date_hours"/>
+        <output>
+            <var key="recordWorkingHoursNumber"/>
+        </output>
+    </action>-->
+
+    <end id="end" name="结束节点">
+        <var key="goods_infos"/>
+        <var key="total_price"/>
+    </end>
+</logic-flow>
