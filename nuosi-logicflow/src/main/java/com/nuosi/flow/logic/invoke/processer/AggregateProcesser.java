@@ -21,10 +21,12 @@ public class AggregateProcesser implements IActionProcesser {
     public Object execute(Map<String, Object> databus, Action action, JMap input, Object... param) throws Exception {
         Aggregate aggregate = action.getAggregates().get(0);
         String convert = aggregate.getConvert();
-        JMap result = input;
+        JMap result = null;
         if(convert!=null){
             String json = JsonConvert.convert(convert, input);
             result = new JsonMap(json);
+        }else{
+            result = input; //不转换时直接聚合为JMap
         }
         /*if("map".equals(aggregate.getType())){
         }*/

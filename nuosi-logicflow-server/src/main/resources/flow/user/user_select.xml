@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="user_select"
+            name="用户查询"
+            desc="用户查询">
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="tab_user"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="aggregateUser">
+    </start>
+
+    <action id="aggregateUser" name="聚合用户信息" next="selectUser">
+        <input>
+            <var key="user_id" />
+        </input>
+        <aggregate />
+        <output>
+            <var key="user_param"/>
+        </output>
+    </action>
+
+    <action id="selectUser" name="查询用户" next="end">
+        <behavior model="tab_user" id="selectUser"/>
+        <output>
+            <var key="user_info"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="user_info"/>
+    </end>
+</logic-flow>

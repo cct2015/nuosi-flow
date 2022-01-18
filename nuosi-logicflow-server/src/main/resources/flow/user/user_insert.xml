@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="user_insert"
+            name="用户新增"
+            desc="用户新增">
+    <databus>
+        <!-- 引入model定义 -->
+        <import model="tab_user"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="aggregateUser">
+    </start>
+
+    <action id="aggregateUser" name="聚合用户信息" next="insertUser">
+        <input>
+            <var key="user_id" />
+            <var key="user_name"/>
+            <var key="gender" />
+            <var key="user_state"/>
+            <var key="email" />
+            <var key="link_phone"/>
+            <var key="valid_date" initialMethod="getDatetime"/>
+        </input>
+        <aggregate />
+        <output>
+            <var key="user_param"/>
+        </output>
+    </action>
+
+    <action id="insertUser" name="新增用户" next="end">
+        <behavior model="tab_user" id="insertUser"/>
+        <output>
+            <var key="insert_num"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="insert_num"/>
+    </end>
+</logic-flow>

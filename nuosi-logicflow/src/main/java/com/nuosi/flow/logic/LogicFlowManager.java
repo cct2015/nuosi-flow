@@ -33,11 +33,12 @@ public class LogicFlowManager {
         domainModelCache.put(domainModel.getId(), domainModel);
     }
 
-    public static void registerDomainModel(InputStream is) {
+    public static DomainModel registerDomainModel(InputStream is) {
         try {
             JSONObject beanJson = new XmlToBizDataParser(is).getBeanJson();
             DomainModel domainModel = JSON.toJavaObject(beanJson, DomainModel.class);
             LogicFlowManager.registerDomainModel(domainModel);
+            return domainModel;
         } catch (Exception e) {
             IpuUtility.error(e);
         } finally {
@@ -49,6 +50,7 @@ public class LogicFlowManager {
                 }
             }
         }
+        return null;
     }
 
     public static DomainModel getDomainModel(String dtoName) {
@@ -59,11 +61,12 @@ public class LogicFlowManager {
         logicFlowlCache.put(logicFlow.getId(), logicFlow);
     }
 
-    public static void registerLogicFlow(InputStream is) {
+    public static LogicFlow registerLogicFlow(InputStream is) {
         try {
             JSONObject flowJson = new XmlToLogicFlowParser(is).getBeanJson();
             LogicFlow logicFlow = JSON.toJavaObject(flowJson, LogicFlow.class);
             LogicFlowManager.registerLogicFlow(logicFlow);
+            return logicFlow;
         } catch (Exception e) {
             IpuUtility.error(e);
         } finally {
@@ -75,6 +78,7 @@ public class LogicFlowManager {
                 }
             }
         }
+        return null;
     }
 
     public static LogicFlow getLogicFlow(String logicFlow) {

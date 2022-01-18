@@ -19,7 +19,9 @@ spring:
     static-locations: classpath:/${web.root}
   session:
     #session使用redis
-    store-type: redis
+    #store-type: redis
+    #Demo不处理Session
+    store-type: none
   #redis集群和连接池相关配置
   redis:
     host: 47.105.160.21

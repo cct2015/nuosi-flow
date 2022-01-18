@@ -18,6 +18,12 @@ import com.nuosi.flow.util.LogicFlowConstants;
  */
 public class LogicFlowEngine {
     static {
+        /*
+        * 解决javax.xml.parsers.DocumentBuilderFactory.setFeature(Ljava/lang/String;Z)V异常
+        * https://www.cnblogs.com/kzd666/p/14364287.html
+        */
+        System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
+                "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
         init();
         MessageManager.init();
         FunctionManager.init();

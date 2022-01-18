@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model id="tab_user" name="用户信息">
+    <attr id="user_id" type="int" name="用户标识"/>
+    <attr id="user_name" type="string" name="用户名称">
+        <limitString size="10"/>
+    </attr>
+    <attr id="gender" type="string" name="性别"/>
+    <attr id="user_state" type="string" name="用户状态"/>
+    <attr id="email" type="string" name="邮箱"/>
+    <attr id="link_phone" type="string" name="电话号码">
+        <limitString equal="11"/>
+    </attr>
+    <attr id="valid_date" type="datetime" name="生效日期"/>
+
+    <behavior id="insertUser" name="新增用户信息">
+        <function domain="DB" name="insert">
+            <param value="logicflow" type="string"/>
+            <param value="tab_user" type="string"/>
+            <param key="user_param" type="map"/>
+        </function>
+    </behavior>
+
+    <behavior id="selectUser" name="查询用户信息">
+        <function domain="DB" name="select">
+            <param value="logicflow" type="string"/>
+            <param value="tab_user" type="string"/>
+            <param key="user_param" type="map"/>
+        </function>
+    </behavior>
+
+    <behavior id="selectUserByName" name="通过用户名称查询用户信息">
+        <sql conn="logicflow">
+        <![CDATA[
+            SELECT user_id, user_name, email, link_phone, valid_date
+            FROM tab_user
+            WHERE user_name like '%${user_name}%';
+        ]]>
+        </sql>
+    </behavior>
+</model>

@@ -17,6 +17,7 @@
     <modules>
         <module>nuosi-logicflow</module>
         <module>nuosi-logicflow-server</module>
+        <module>working-hours</module>
     </modules>
 
     <properties>

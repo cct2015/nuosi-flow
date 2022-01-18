@@ -1,5 +1,7 @@
 package com.nuosi.server.util;
 
+import com.nuosi.flow.util.LogicFlowUtil;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,17 +24,22 @@ public class LogicFlowConfig {
 
     public static void initModel(){
         modelPathMap.put("goods_info", "flow/model/goods_model.xml");
+        modelPathMap.put("tab_user", "flow/user/model/tab_user.xml");
 
-        Iterator<String> it = modelPathMap.keySet().iterator();
+        Iterator<String> it = modelPathMap.values().iterator();
         while(it.hasNext()){
             LogicFlowUtil.loadLogicModel(it.next());
+
         }
     }
 
     public static void initFlow(){
         flowPathMap.put("simple_logic_flow_example", "flow/simple_flow.xml");
+        flowPathMap.put("user_insert", "flow/user/user_insert.xml");
+        flowPathMap.put("user_select", "flow/user/user_select.xml");
+        flowPathMap.put("user_select_by_name", "flow/user/user_select_by_name.xml");
 
-        Iterator<String> it = flowPathMap.keySet().iterator();
+        Iterator<String> it = flowPathMap.values().iterator();
         while(it.hasNext()){
             LogicFlowUtil.loadLogicFlow(it.next());
         }
