@@ -10,5 +10,6 @@
             <AppenderRef ref="Console"/>
         </Root>
         <logger name="com.ai" level="DEBUG"></logger>
+        <logger name="org" level="ERROR"></logger>
     </Loggers>
 </Configuration>

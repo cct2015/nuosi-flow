@@ -1,5 +1,6 @@
 package com.nuosi.flow.logic.invoke.processer;
 
+import com.ai.ipu.basic.util.IpuUtility;
 import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.inject.function.FunctionManager;
 import com.nuosi.flow.logic.inject.function.IDomainFunction;
@@ -36,7 +37,13 @@ public class FunctionProcesser implements IActionProcesser, IBehaviorProcesser {
         Object result = null;
         for (Function function : functions) {
             domainFunction = FunctionManager.getDomainFunction(function.getDomain());
-            result = domainFunction.invoke(function, input, databus);
+            try{
+                result = domainFunction.invoke(function, input, databus);
+            }catch (Exception e){
+                /*在反射处需要单独捕获异常，并抓取底部异常*/
+                Throwable tr = IpuUtility.getBottomException(e);
+                throw (Exception)tr;
+            }
             if (function.getOutkey() != null) {
                 databus.put(function.getOutkey(), result);
             }

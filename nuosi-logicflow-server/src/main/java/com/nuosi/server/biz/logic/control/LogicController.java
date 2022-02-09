@@ -29,7 +29,7 @@ public class LogicController {
     private LogicService logicService;
 
     @ResponseBody
-        @RequestMapping("/logic/{logicId}")
+    @RequestMapping("/logic/{logicId}")
     public Object logic(@PathVariable("logicId") String logicId, @RequestParam Map input) throws Exception {
         System.out.println("logicId="+logicId);
         System.out.println("input="+input);
