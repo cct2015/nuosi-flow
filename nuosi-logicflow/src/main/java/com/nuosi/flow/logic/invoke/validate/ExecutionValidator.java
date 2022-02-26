@@ -65,7 +65,7 @@ public class ExecutionValidator {
         List<Action> actions = logicFlow.getActions();
         if (actions == null) {
             //校验：逻辑事件不能为空
-            IpuUtility.error(logicFlow.getName() + "逻辑流的事件不能为空");
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_ACTION_NULL, logicFlow.getId(), logicFlow.getName());
         }
         /*记录流程节点*/
         for (Action action : actions) {
@@ -85,23 +85,34 @@ public class ExecutionValidator {
                 } else {
                     model = var.getModel();
                     if (model == null) {
-                        //校验：变量var没有被定义
-                        IpuUtility.error("开始节点" + key + "变量没有被定义");
+                        //校验：变量键值没有被定义
+                        IpuUtility.errorCode(LogicFlowConstants.VALIDATE_START_VAR_ATTR_UNDEFINE, key);
                     } else {
                         if (!modelMap.containsKey(model)) {
-                            IpuUtility.error("开始节点" + model + "模型没有被定义");
+                            //校验：变量模型没有被定义
+                            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_START_VAR_MODEL_UNDEFINE, model);
                         }
                     }
                 }
             }
         }
-        return start.getNext();
+
+        String next = start.getNext();
+        Action action = actionMap.get(next);
+        if (action == null) {
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_ACTION_NEXT_NOT_EXIST, next);
+        }
+        return next;
     }
 
     private String validateAction(String next) throws Exception {
         Action action = actionMap.get(next);
         if (action == null) {
-            IpuUtility.error(next + "节点作为next不存在");
+            End end = getEnd();
+            if (next.equals(end.getId())) {
+                return next;
+            }
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_ACTION_NEXT_NOT_EXIST, next);
         }
         validateNodeInput(action);
         validateNodeOutput(action);
@@ -127,12 +138,12 @@ public class ExecutionValidator {
             } else {
                 model = var.getModel();
                 if (model == null) {
-                    //校验：变量var没有被定义
-                    IpuUtility.error(action.getId() + "[" + action.getName() + "]节点的" + key + "变量没有被定义");
+                    //校验：节点变量键值没有被定义
+                    IpuUtility.errorCode(LogicFlowConstants.VALIDATE_INPUT_VAR_ATTR_UNDEFINE, action.getId(), action.getName(), key);
                 } else {
                     if (!modelMap.containsKey(model)) {
-                        //LogicFlowConstants.FLOW_DATABUS_VAR_NO_EXISTS
-                        IpuUtility.error(action.getId() + "[" + action.getName() + "]节点的" + model + "模型没有被定义");
+                        //校验：节点变量模型没有被定义
+                        IpuUtility.errorCode(LogicFlowConstants.VALIDATE_INPUT_VAR_MODEL_UNDEFINE, action.getId(), action.getName(), model);
                     }
                 }
             }
@@ -153,26 +164,17 @@ public class ExecutionValidator {
 
     public void validateEnd(String next) {
         End end = getEnd();
-        if (!next.equals(end.getId())) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_END_NO_MATCH, logicFlow.getId());
-        }
-
         List<Var> vars = end.getVars();
-        if (vars != null) {
-            String key;
-            for (Var var : vars) {
-                key = var.getKey();
-                if (key == null) {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NODE_OUTPUT_VAR_NULL, logicFlow.getId(), end.getId());
-                }
-            }
+        if (vars == null||vars.size()<1) {
+            //校验：结束节点的返回值不能为空
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_END_VAR_NULL, logicFlow.getId());
         }
     }
 
     private Start getStart() {
         List<Start> starts = logicFlow.getStarts();
         if (starts == null || starts.size() != 1) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_START_SINGLE, logicFlow.getId());
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_START_SINGLE, logicFlow.getId());
         }
         return starts.get(0);
     }
@@ -180,7 +182,7 @@ public class ExecutionValidator {
     private End getEnd() {
         List<End> ends = logicFlow.getEnds();
         if (ends == null || ends.size() != 1) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_END_SINGLE, logicFlow.getId());
+            IpuUtility.errorCode(LogicFlowConstants.VALIDATE_END_SINGLE, logicFlow.getId());
         }
         return ends.get(0);
     }

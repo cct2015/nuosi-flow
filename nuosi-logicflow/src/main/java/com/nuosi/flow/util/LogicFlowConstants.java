@@ -84,4 +84,14 @@ public class LogicFlowConstants {
     public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
     public static final String FOREACH_ITERATOR_TYPE_ERROR = "FOREACH_ITERATOR_TYPE_ERROR";
 
+    public static final String VALIDATE_ACTION_NULL = "VALIDATE_ACTION_NULL";
+    public static final String VALIDATE_START_VAR_ATTR_UNDEFINE = "VALIDATE_START_VAR_ATTR_UNDEFINE";
+    public static final String VALIDATE_START_VAR_MODEL_UNDEFINE = "VALIDATE_START_VAR_MODEL_UNDEFINE";
+    public static final String VALIDATE_ACTION_NEXT_NOT_EXIST = "VALIDATE_ACTION_NEXT_NOT_EXIST";
+    public static final String VALIDATE_INPUT_VAR_ATTR_UNDEFINE = "VALIDATE_INPUT_VAR_ATTR_UNDEFINE";
+    public static final String VALIDATE_INPUT_VAR_MODEL_UNDEFINE = "VALIDATE_INPUT_VAR_MODEL_UNDEFINE";
+    public static final String VALIDATE_END_VAR_NULL = "VALIDATE_END_VAR_NULL";
+    public static final String VALIDATE_START_SINGLE = "VALIDATE_START_SINGLE";
+    public static final String VALIDATE_END_SINGLE = "VALIDATE_END_SINGLE";
+
 }

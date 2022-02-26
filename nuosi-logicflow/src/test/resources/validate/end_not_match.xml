@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="end_not_match"
+            name="结束节点不匹配"
+            desc="结束节点不匹配">
+    <!-- 全局域 -->
+    <databus>
+    </databus>
+
+    <start id="start" name="开始节点" next="action1">
+    </start>
+
+    <action id="action1" name="表达式" next="end1">
+        <expression>
+            <![CDATA[
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

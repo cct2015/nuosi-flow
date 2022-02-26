@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="start_next_not_exist"
+            name="下一个节点不存在"
+            desc="下一个节点不存在">
+    <!-- 全局域 -->
+    <databus>
+    </databus>
+
+    <start id="start" name="开始节点" next="next1">
+    </start>
+
+    <action id="next2" name="第一节点" next="end">
+        <expression>
+            <![CDATA[
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="start_multiple"
+            name="开始节点不能多个"
+            desc="开始节点不能多个">
+    <!-- 全局域 -->
+    <databus>
+    </databus>
+
+    <start id="start1" name="开始节点1" next="action">
+    </start>
+    <start id="start2" name="开始节点2" next="action">
+    </start>
+
+    <action id="action" name="表达式" next="end">
+        <expression>
+            <![CDATA[
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

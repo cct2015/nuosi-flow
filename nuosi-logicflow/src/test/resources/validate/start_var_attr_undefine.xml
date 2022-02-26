@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<logic-flow id="var_model_undefine"
-            name="变量模型没有定义"
-            desc="变量模型没有定义">
+<logic-flow id="start_var_attr_undefine"
+            name="变量属性没有定义"
+            desc="变量属性没有定义">
     <!-- 全局域 -->
     <databus>
-        <import model="model1"/>
+        <attr id="param1" type="string" name="定义参数"/>
     </databus>
 
     <start id="start" name="开始节点" next="action1">
-        <var key="param" model="model1" attr="param"/>
-        <var key="param" model="model2" attr="param"/>
+        <var key="param1"/>
+        <var key="param2"/>
     </start>
 
     <action id="action1" name="表达式" next="end">
