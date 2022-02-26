@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="input_var_attr_undefine"
+            name="节点入参变量属性没有定义"
+            desc="节点入参变量属性没有定义">
+    <!-- 全局域 -->
+    <databus>
+        <attr id="param1" type="string" name="定义参数"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="action1">
+        <var key="param1"/>
+    </start>
+
+    <action id="action1" name="表达式" next="end">
+        <input>
+            <var key="param1"/>
+            <var key="param2"/>
+        </input>
+        <expression>
+            <![CDATA[
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

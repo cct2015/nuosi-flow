@@ -1,5 +1,6 @@
 package com.nuosi.flow.logic.parse;
 
+import com.nuosi.flow.logic.invoke.validate.LogicFlowValidator;
 import org.junit.Assert;
 import org.junit.Test;
 

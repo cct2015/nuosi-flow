@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="action_null"
+            name="Action为空校验"
+            desc="Action为空校验">
+    <!-- 全局域 -->
+    <databus>
+    </databus>
+
+    <start id="start" name="开始节点" next="end">
+    </start>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

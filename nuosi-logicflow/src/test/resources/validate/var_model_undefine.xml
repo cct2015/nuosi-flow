@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="var_model_undefine"
+            name="变量模型没有定义"
+            desc="变量模型没有定义">
+    <!-- 全局域 -->
+    <databus>
+        <import model="model1"/>
+    </databus>
+
+    <start id="start" name="开始节点" next="action1">
+        <var key="param" model="model1" attr="param"/>
+        <var key="param" model="model2" attr="param"/>
+    </start>
+
+    <action id="action1" name="表达式" next="end">
+        <expression>
+        <![CDATA[
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>
