@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="expression_return"
+            name="表达式逻辑返回语法"
+            desc="表达式逻辑返回语法">
+    <databus/>
+
+    <start id="start" name="开始节点" next="action_expression_return"/>
+
+    <action id="action_expression_return" name="表达式返回数据" next="end">
+        <expression>
+            <![CDATA[
+            return "abc";
+        ]]>
+        </expression>
+        <output>
+            <var key="result"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="result"/>
+    </end>
+</logic-flow>
