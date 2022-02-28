@@ -23,13 +23,9 @@ public class LogicFlowConstants {
 
     /*LogicFlow异常编码*/
     public static final String FLOW_NO_EXISTS = "FLOW_NO_EXISTS";
-    public static final String FLOW_DATABUS_VAR_NO_EXISTS = "FLOW_DATABUS_VAR_NO_EXISTS";
-    public static final String FLOW_NODE_TAG_ARRT_EXCEPT = "FLOW_NODE_TAG_ARRT_EXCEPT";
-    public static final String FLOW_NODE_OUTPUT_VAR_NULL = "FLOW_NODE_OUTPUT_VAR_NULL";
-    public static final String FLOW_END_NO_MATCH = "FLOW_END_NO_MATCH";
-    public static final String FLOW_START_SINGLE = "FLOW_START_SINGLE";
-    public static final String FLOW_END_SINGLE = "FLOW_END_SINGLE";
     public static final String FLOW_NOT_SUPPORT_MULTIPLE_KEY = "FLOW_NOT_SUPPORT_MULTIPLE_KEY";
+    public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
+    public static final String FOREACH_ITERATOR_TYPE_ERROR = "FOREACH_ITERATOR_TYPE_ERROR";
 
     /*BData异常编码*/
     public static final String BDATA_DEFINE_NO_EXISTS = "BDATA_DEFINE_NO_EXISTS";
@@ -80,9 +76,6 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DATETIME_EQUAL = "BDATA_CHECK_DATETIME_EQUAL";
     public static final String BDATA_CHECK_DATETIME_UNEQUAL = "BDATA_CHECK_DATETIME_UNEQUAL";
     public static final String BDATA_CHECK_DATETIME_NULLABLE = "BDATA_CHECK_DATETIME_NULLABLE";
-
-    public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
-    public static final String FOREACH_ITERATOR_TYPE_ERROR = "FOREACH_ITERATOR_TYPE_ERROR";
 
     public static final String VALIDATE_ACTION_NULL = "VALIDATE_ACTION_NULL";
     public static final String VALIDATE_START_VAR_ATTR_UNDEFINE = "VALIDATE_START_VAR_ATTR_UNDEFINE";

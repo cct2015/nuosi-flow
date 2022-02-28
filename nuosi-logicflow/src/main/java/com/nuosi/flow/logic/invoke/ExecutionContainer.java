@@ -77,9 +77,6 @@ public class ExecutionContainer {
 
     private void initGlobalAction() {
         List<Action> actions = logicFlow.getActions();
-        if(actions==null){
-            //校验逻辑流程的配置，逻辑事件不能为空
-        }
         for (Action action : actions) {
             actionMap.put(action.getId(), action);
         }
@@ -125,13 +122,6 @@ public class ExecutionContainer {
             String key;
             for (Var var : vars) {
                 key = var.getKey();
-                if (key == null) {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NODE_TAG_ARRT_EXCEPT, logicFlow.getId(), "start", "var");
-                }
-
-                if (!databus.containsKey(key)) {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_DATABUS_VAR_NO_EXISTS, logicFlow.getId(), key);
-                }
 
                 if (var.getModel() != null && var.getAttr() != null) {
                     // 根据引入的业务模型做数据校验
@@ -174,12 +164,9 @@ public class ExecutionContainer {
             IActionProcesser actionProcesser = ProcesserManager.getActionProcesser(action.getActionType());
             result = actionProcesser.execute(databus, action, input);
         }catch (Exception e){
-            /**
-             * NullPointerException异常时，e.getMessage()为null,会导致后续异常报错。
-             */
+            /* NullPointerException异常时，e.getMessage()为null,会导致后续异常报错。 */
             String eMsg = e.getMessage()==null?"空信息":e.getMessage();
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_ACTION_ERROR,
-                    logicFlow.getId(), action.getId(), eMsg);
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_ACTION_ERROR, logicFlow.getId(), action.getId(), eMsg);
         }
         return result;
     }
@@ -199,9 +186,6 @@ public class ExecutionContainer {
         Object value = null;
         for (Var var : vars) {
             key = var.getKey();
-            if (!databus.containsKey(key) && var.getInitial() == null && var.getInitialMethod()==null) {
-                IpuUtility.errorCode(LogicFlowConstants.FLOW_DATABUS_VAR_NO_EXISTS, logicFlow.getId(), key);
-            }
 
             value = databus.get(key);
             if(value == null){
@@ -247,9 +231,6 @@ public class ExecutionContainer {
                 String key;
                 for (Var var : vars) {
                     key = var.getKey();
-                    if (key == null) {
-                        IpuUtility.errorCode(LogicFlowConstants.FLOW_NODE_OUTPUT_VAR_NULL, logicFlow.getId(), action.getId());
-                    }
                     if (databus.containsKey(key)) {
                         // 覆盖数据总线的数据需要记录日志，便于debug。
                     }
@@ -267,9 +248,6 @@ public class ExecutionContainer {
 
     public JMap checkEnd(String next) {
         End end = getEnd();
-        if (!next.equals(end.getId())) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_END_NO_MATCH, logicFlow.getId());
-        }
 
         JMap result = null;
         List<Var> vars = end.getVars();
@@ -278,11 +256,7 @@ public class ExecutionContainer {
             String key;
             for (Var var : vars) {
                 key = var.getKey();
-                if (key == null) {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NODE_OUTPUT_VAR_NULL, logicFlow.getId(), end.getId());
-                }
                 checkData(key, databus.get(key));
-
                 result.put(key, databus.get(key));
             }
         }
@@ -291,17 +265,11 @@ public class ExecutionContainer {
 
     private Start getStart() {
         List<Start> starts = logicFlow.getStarts();
-        if (starts == null || starts.size() != 1) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_START_SINGLE, logicFlow.getId());
-        }
         return starts.get(0);
     }
 
     private End getEnd() {
         List<End> ends = logicFlow.getEnds();
-        if (ends == null || ends.size() != 1) {
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_END_SINGLE, logicFlow.getId());
-        }
         return ends.get(0);
     }
 
