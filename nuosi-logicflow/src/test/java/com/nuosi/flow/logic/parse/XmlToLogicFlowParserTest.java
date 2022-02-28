@@ -25,7 +25,7 @@ public class XmlToLogicFlowParserTest {
     @Test
     public void testGetBeanJson(){
         try{
-            String flowConfig = "flow/simple_flow.xml";
+            String flowConfig = "logicflow/simple_flow.xml";
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
             JSONObject flowJson = new XmlToLogicFlowParser(is).getBeanJson();
             System.out.println("flowJson==="+flowJson);
