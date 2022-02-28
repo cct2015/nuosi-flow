@@ -1,4 +1,4 @@
-package com.nuosi.flow.define;
+package com.nuosi.flow.extend;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
@@ -39,7 +39,7 @@ public class DefineFunctionTest {
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
-                "define/define_function.xml"
+                "extend/function/extend_function.xml"
         };
         for(String flowConfig : flowConfigs){
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);

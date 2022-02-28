@@ -1,9 +1,6 @@
-package com.nuosi.flow.define;
+package com.nuosi.flow.extend;
 
-import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.inject.function.AbstractDomainFunction;
-
-import java.util.Map;
 
 /**
  * <p>desc: 在流程中新增的自定义方法类 </p>
