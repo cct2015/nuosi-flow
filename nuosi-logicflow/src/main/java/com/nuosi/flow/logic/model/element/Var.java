@@ -13,6 +13,7 @@ public class Var {
     private String alias;
     private String initial;
     private String initialMethod;
+    private String calculateMethod;
 
     public String getModel() {
         return model;
@@ -60,5 +61,13 @@ public class Var {
 
     public void setInitialMethod(String initialMethod) {
         this.initialMethod = initialMethod;
+    }
+
+    public String getCalculateMethod() {
+        return calculateMethod;
+    }
+
+    public void setCalculateMethod(String calculateMethod) {
+        this.calculateMethod = calculateMethod;
     }
 }

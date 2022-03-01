@@ -27,7 +27,18 @@ public class VarTest {
             LogicFlowEngine.execute("var_initial_method", param);
             Assert.assertTrue(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testVarCalculateMethod(){
+        JMap param = new JsonMap();
+        try {
+            LogicFlowEngine.execute("var_calculate_method", param);
+            Assert.assertTrue(true);
+        } catch (Exception e) {
             System.out.println("校验信息：" + e.getMessage());
             Assert.assertTrue(false);
         }
@@ -36,7 +47,8 @@ public class VarTest {
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
-                "logicflow/var/var_initial_method.xml"
+                "logicflow/var/var_initial_method.xml",
+                "logicflow/var/var_calculate_method.xml"
         };
         for(String flowConfig : flowConfigs){
             InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
