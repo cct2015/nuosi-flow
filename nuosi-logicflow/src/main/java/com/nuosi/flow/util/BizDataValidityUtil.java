@@ -268,4 +268,11 @@ public class BizDataValidityUtil {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
         }
     }
+
+    public static Boolean checkBoolean(Object value, String bizName, String attr) {
+        if(!"true".equals(value)&&!"false".equals(value)&&!(value instanceof Boolean)){
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_BOOLEAN, bizName, attr);
+        }
+        return "true".equals(value);
+    }
 }

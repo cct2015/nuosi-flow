@@ -76,6 +76,8 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DATETIME_EQUAL = "BDATA_CHECK_DATETIME_EQUAL";
     public static final String BDATA_CHECK_DATETIME_UNEQUAL = "BDATA_CHECK_DATETIME_UNEQUAL";
     public static final String BDATA_CHECK_DATETIME_NULLABLE = "BDATA_CHECK_DATETIME_NULLABLE";
+    /**布尔校验提示信息*/
+    public static final String BDATA_CHECK_BOOLEAN = "BDATA_CHECK_BOOLEAN";
 
     public static final String VALIDATE_ACTION_NULL = "VALIDATE_ACTION_NULL";
     public static final String VALIDATE_START_VAR_ATTR_UNDEFINE = "VALIDATE_START_VAR_ATTR_UNDEFINE";

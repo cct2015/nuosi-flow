@@ -53,43 +53,54 @@ public class DtoToDataDefineParser {
         for (Attr attr : attrs) {
             BDataType dataType = valueOf(attr.getType().toUpperCase());
 
-            List<LimitInteger> limitIntegers = attr.getLimitIntegers();
-            List<LimitString> limitStrings = attr.getLimitStrings();
-            List<LimitDecimal> LimitDecimals = attr.getLimitDecimals();
-            List<LimitDate> LimitDates = attr.getLimitDates();
-            List<LimitDatetime> LimitDatetimes = attr.getLimitDatetimes();
-
             BDataLimit bDataLimit = null;
-            if(limitIntegers!=null&&!limitIntegers.isEmpty()){
-                LimitInteger limitInt = limitIntegers.get(0);
-                bDataLimit = parseIntegerLimit(limitInt);
-            }else if(limitStrings!=null&&!limitStrings.isEmpty()){
-                LimitString limitString = limitStrings.get(0);
-                bDataLimit = parseStringLimit(limitString);
-            }else if(LimitDecimals!=null&&!LimitDecimals.isEmpty()){
-                LimitDecimal limitDecimal = LimitDecimals.get(0);
-                bDataLimit = parseDecimalLimit(limitDecimal);
-            }else if(LimitDates!=null&&!LimitDates.isEmpty()){
-                LimitDate limitDate = LimitDates.get(0);
-                bDataLimit = parseDateLimit(limitDate);
-            }else if(LimitDatetimes!=null&&!LimitDatetimes.isEmpty()){
-                LimitDatetime limitDatetime = LimitDatetimes.get(0);
-                bDataLimit = parseDatetimeLimit(limitDatetime);
+            switch (dataType) {
+                case STRING:
+                    List<LimitString> limitStrings = attr.getLimitStrings();
+                    if (limitStrings != null && !limitStrings.isEmpty()) {
+                        LimitString limitString = limitStrings.get(0);
+                        bDataLimit = parseStringLimit(limitString);
+                    }
+                    break;
+                case INT:
+                    List<LimitInteger> limitIntegers = attr.getLimitIntegers();
+                    if (limitIntegers != null && !limitIntegers.isEmpty()) {
+                        LimitInteger limitInt = limitIntegers.get(0);
+                        bDataLimit = parseIntegerLimit(limitInt);
+                    }
+                    break;
+                case DECIMAL:
+                    List<LimitDecimal> LimitDecimals = attr.getLimitDecimals();
+                    if (LimitDecimals != null && !LimitDecimals.isEmpty()) {
+                        LimitDecimal limitDecimal = LimitDecimals.get(0);
+                        bDataLimit = parseDecimalLimit(limitDecimal);
+                    }
+                    break;
+                case DATE:
+                    List<LimitDate> LimitDates = attr.getLimitDates();
+                    if (LimitDates != null && !LimitDates.isEmpty()) {
+                        LimitDate limitDate = LimitDates.get(0);
+                        bDataLimit = parseDateLimit(limitDate);
+                    }
+                    break;
+                case DATETIME:
+                    List<LimitDatetime> LimitDatetimes = attr.getLimitDatetimes();
+                    if (LimitDatetimes != null && !LimitDatetimes.isEmpty()) {
+                        LimitDatetime limitDatetime = LimitDatetimes.get(0);
+                        bDataLimit = parseDatetimeLimit(limitDatetime);
+                    }
+                    break;
+                case BOOLEAN:
+                    break;
+                case BDATA:
+                    break;
+                default:
+                    break;
             }
-
-            if(bDataLimit == null){
+            if (bDataLimit == null) {
                 bDataLimit = createEmptyBDataLimit(dataType);    //BDataLimit不为空则可触发基础类型的校验
             }
             dataDefine.defineLimit(attr.getId(), bDataLimit);
-
-            /*List<Limit> limits = attr.getLimits();
-            if (limits == null || limits.isEmpty()) {
-                dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
-            }else{
-                Limit limit = limits.get(0);
-                BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
-                dataDefine.defineLimit(attr.getId(), dataLimit);
-            }*/
         }
         return dataDefine;
     }
@@ -141,6 +152,9 @@ public class DtoToDataDefineParser {
                 break;
             case DATETIME:
                 bdataLimit = new DatetimeLimit();
+                break;
+            case BOOLEAN:
+                bdataLimit = new BooleanLimit();
                 break;
             case BDATA:
                 bdataLimit = null;  //有待补充

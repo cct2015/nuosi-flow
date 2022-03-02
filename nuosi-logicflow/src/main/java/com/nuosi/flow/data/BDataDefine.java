@@ -13,7 +13,7 @@ import java.util.Map;
 public interface BDataDefine {
 
     public enum BDataType {
-        INT, STRING, DECIMAL, DATE, DATETIME, BDATA; //后续扩展更多类型
+        INT, STRING, DECIMAL, DATE, DATETIME, BOOLEAN, BDATA; //后续扩展更多类型
     }
 
     public String getBizName();
