@@ -3,9 +3,9 @@
             name="变量模型没有定义"
             desc="变量模型没有定义">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <import model="model1"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action1">
         <var key="param" model="model1" attr="param"/>

@@ -3,11 +3,11 @@
             name="数据聚合和转换使用范例"
             desc="数据聚合和转换使用范例">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <attr id="id" type="int" name="用户标识"/>
         <attr id="name" type="string" name="用户名称"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="aggregateUser">
         <!-- 逻辑入口参数校验 -->

@@ -2,10 +2,10 @@
 <logic-flow id="user_select_by_name"
             name="根据用户名查询用户信息"
             desc="根据用户名查询用户信息">
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="tab_user"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="aggregateUser">
     </start>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="string_nullable_limit" name="字符串不为空限制" desc="字符串不为空限制">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="string_param" type="string" name="字符串参数">
             <limitString nullable="false"/>
         </attr>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printParam">
         <!-- 逻辑入口参数校验 -->

@@ -3,10 +3,10 @@
             name="自定义方法使用范例"
             desc="自定义方法使用范例">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <attr id="user_id" type="int" name="用户标识"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printContext">
         <!-- 逻辑入口参数校验 -->

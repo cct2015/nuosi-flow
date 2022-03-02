@@ -3,8 +3,8 @@
             name="结束节点不匹配"
             desc="结束节点不匹配">
     <!-- 全局域 -->
-    <databus>
-    </databus>
+    <declare>
+    </declare>
 
     <start id="start" name="开始节点" next="action1">
     </start>

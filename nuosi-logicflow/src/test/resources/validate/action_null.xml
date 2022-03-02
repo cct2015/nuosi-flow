@@ -3,8 +3,8 @@
             name="Action为空校验"
             desc="Action为空校验">
     <!-- 全局域 -->
-    <databus>
-    </databus>
+    <declare>
+    </declare>
 
     <start id="start" name="开始节点" next="end">
     </start>

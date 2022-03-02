@@ -3,8 +3,8 @@
             name="开始节点不能多个"
             desc="开始节点不能多个">
     <!-- 全局域 -->
-    <databus>
-    </databus>
+    <declare>
+    </declare>
 
     <start id="start1" name="开始节点1" next="action">
     </start>

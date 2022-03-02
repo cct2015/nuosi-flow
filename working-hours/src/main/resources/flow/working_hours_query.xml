@@ -2,10 +2,10 @@
 <logic-flow id="working_hours_query"
             name="工时信息查询"
             desc="工时信息查询">
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="working_hours_entity"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="queryWorkingHours">
         <var key="staff_id" model="working_hours_entity" attr="fill_staff"/>

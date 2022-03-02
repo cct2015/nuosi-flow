@@ -10,7 +10,7 @@ import java.util.List;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class Databus {
+public class Declare {
     private List<Import> imports;
     private List<Attr> attrs;
 

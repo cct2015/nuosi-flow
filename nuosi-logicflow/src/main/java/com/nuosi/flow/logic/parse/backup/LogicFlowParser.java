@@ -7,7 +7,7 @@ import com.nuosi.flow.logic.model.action.Sql;
 import com.nuosi.flow.logic.model.body.Action;
 import com.nuosi.flow.logic.model.body.End;
 import com.nuosi.flow.logic.model.body.Start;
-import com.nuosi.flow.logic.model.global.Databus;
+import com.nuosi.flow.logic.model.global.Declare;
 import com.nuosi.flow.logic.util.DtoUtil;
 import com.nuosi.flow.logic.util.XmlToJsonHelper;
 
@@ -115,7 +115,7 @@ public class LogicFlowParser {
         return null;
     }
 
-    public Databus parserGlobalDomain(JSONObject node) {
+    public Declare parserGlobalDomain(JSONObject node) {
         // 生成node的Java对象。
 
         //判断children并循环。
@@ -123,7 +123,7 @@ public class LogicFlowParser {
         return null;
     }
 
-    public Databus parserNodeChildren(JSONObject node) {
+    public Declare parserNodeChildren(JSONObject node) {
 
         return null;
     }

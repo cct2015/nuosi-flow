@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="date_more_limit" name="日期大于等于值限制" desc="日期大于等于值限制">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="date_param" type="date" name="日期参数">
             <limitDate more="2021-07-07"/>
         </attr>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printParam">
         <!-- 逻辑入口参数校验 -->

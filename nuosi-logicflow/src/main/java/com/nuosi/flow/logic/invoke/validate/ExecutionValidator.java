@@ -9,7 +9,7 @@ import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.element.Input;
 import com.nuosi.flow.logic.model.element.Output;
 import com.nuosi.flow.logic.model.element.Var;
-import com.nuosi.flow.logic.model.global.Databus;
+import com.nuosi.flow.logic.model.global.Declare;
 import com.nuosi.flow.logic.model.global.Import;
 import com.nuosi.flow.util.LogicFlowConstants;
 
@@ -43,8 +43,8 @@ public class ExecutionValidator {
     }
 
     private void validateGlobalDatabus() {
-        List<Databus> databuses = logicFlow.getDatabuses();
-        Databus bus = databuses.get(0);
+        List<Declare> declares = logicFlow.getDeclares();
+        Declare bus = declares.get(0);
         /*记录数据模型*/
         List<Import> imports = bus.getImports();
         if (imports != null) {

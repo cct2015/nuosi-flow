@@ -3,7 +3,7 @@
             name="简单逻辑流程范例"
             desc="简单逻辑流程范例">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="goods_info"/>
         <attr id="goods_type" type="int" name="货物类型">
@@ -11,7 +11,7 @@
         </attr>
         <attr id="user_id" type="int" name="用户标识"/>
         <attr id="user_name" type="string" name="用户名称"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="queryGoodsInfo">
         <!-- 逻辑入口参数校验 -->

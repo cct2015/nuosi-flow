@@ -2,8 +2,8 @@
 <logic-flow id="foreach_except"
             name="循环逻辑异常语法"
             desc="循环逻辑异常语法">
-    <databus>
-    </databus>
+    <declare>
+    </declare>
 
     <start id="start" name="开始节点" next="action_foreach_except"/>
 

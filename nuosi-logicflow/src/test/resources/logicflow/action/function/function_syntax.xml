@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="function_syntax" name="函数功能调用" desc="函数功能调用范例">
 
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="working_hours_entity"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action_param_preparation">
         <var key="fill_id" />

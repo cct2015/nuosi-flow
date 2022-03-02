@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="" name="" desc="">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <!-- 引入模型 -->
         <import model=""/>
         <!-- 定义属性类型 -->
@@ -26,7 +26,7 @@
         <attr id="" type="datetime" name="">
             <limitDatetime max="" min="" more="" less="" equal="" unequal="" nullable=""/>
         </attr>
-    </databus>
+    </declare>
 
     <!-- 1.开始节点 -->
     <start id="" name="" next="">

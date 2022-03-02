@@ -3,7 +3,7 @@ package com.nuosi.flow.logic.model;
 import com.nuosi.flow.logic.model.body.Action;
 import com.nuosi.flow.logic.model.body.End;
 import com.nuosi.flow.logic.model.body.Start;
-import com.nuosi.flow.logic.model.global.Databus;
+import com.nuosi.flow.logic.model.global.Declare;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class LogicFlow {
     private String id;
     private String name;
     private String desc;
-    private List<Databus> databuses;
+    private List<Declare> declares;
     private List<Start> starts;
     private List<End> ends;
     private List<Action> actions;
@@ -46,12 +46,12 @@ public class LogicFlow {
         this.desc = desc;
     }
 
-    public List<Databus> getDatabuses() {
-        return databuses;
+    public List<Declare> getDeclares() {
+        return declares;
     }
 
-    public void setDatabuses(List<Databus> databuses) {
-        this.databuses = databuses;
+    public void setDeclares(List<Declare> declares) {
+        this.declares = declares;
     }
 
     public List<Start> getStarts() {

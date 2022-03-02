@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="http_syntax" name="请求接口调用" desc="请求接口调用">
-    <databus>
+    <declare>
         <attr id="fill_staff" type="string" name="填报人"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action_http_syntax">
         <var key="fill_staff"/>

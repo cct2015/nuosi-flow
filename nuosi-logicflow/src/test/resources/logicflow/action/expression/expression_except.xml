@@ -2,7 +2,7 @@
 <logic-flow id="expression_except"
             name="表达式逻辑异常语法"
             desc="表达式逻辑异常语法">
-    <databus/>
+    <declare/>
 
     <start id="start" name="开始节点" next="action_expression_except"/>
 

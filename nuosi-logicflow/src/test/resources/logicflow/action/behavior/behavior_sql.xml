@@ -2,10 +2,10 @@
 <logic-flow id="behavior_sql"
             name="SQL行为调用"
             desc="业务模型SQL行为调用">
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="working_hours_entity"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action_behavior_sql">
         <var key="fill_staff"/>

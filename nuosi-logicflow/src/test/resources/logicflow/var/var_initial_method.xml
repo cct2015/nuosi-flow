@@ -3,10 +3,10 @@
             name="初始化方法使用范例"
             desc="初始化方法使用范例">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="user_id" type="int" name="用户标识"/>
         <attr id="user_name" type="string" name="用户名称"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printUser">
         <!-- 逻辑入口参数校验 -->

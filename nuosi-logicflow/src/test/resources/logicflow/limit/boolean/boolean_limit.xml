@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="boolean_limit" name="布尔数据限制" desc="布尔数据限制">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="boolean_param" type="boolean" name="布尔参数"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printParam">
         <var key="boolean_param"/>

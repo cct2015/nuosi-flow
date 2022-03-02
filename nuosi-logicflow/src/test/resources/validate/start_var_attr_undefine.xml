@@ -3,9 +3,9 @@
             name="变量属性没有定义"
             desc="变量属性没有定义">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="param1" type="string" name="定义参数"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action1">
         <var key="param1"/>

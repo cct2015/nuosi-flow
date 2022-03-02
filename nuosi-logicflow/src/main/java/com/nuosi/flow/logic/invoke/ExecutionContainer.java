@@ -19,7 +19,7 @@ import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.element.Input;
 import com.nuosi.flow.logic.model.element.Output;
 import com.nuosi.flow.logic.model.element.Var;
-import com.nuosi.flow.logic.model.global.Databus;
+import com.nuosi.flow.logic.model.global.Declare;
 import com.nuosi.flow.logic.model.global.Import;
 import com.nuosi.flow.logic.parse.DtoToDataDefineParser;
 import com.nuosi.flow.util.LogicFlowConstants;
@@ -35,11 +35,11 @@ import java.util.*;
  * @version v1.0.0
  */
 public class ExecutionContainer {
-    private BDataDefine databusDataDefine;    //将define中的var定义转化成BDataDefine，使用其数据校验逻辑
+    private BDataDefine declareDataDefine;    //将declare中的变量定义转化成BDataDefine，使用其数据校验逻辑
     private Map<String, Object> databus = new HashMap<String, Object>();    //数据总线
     private ProtectedDatabus protectedDatabus;
 
-    private Set<String> importSet = new HashSet<String>();  //记录引用的业务对象
+    private Set<String> modelSet = new HashSet<String>();  //记录引用的业务对象
     private Map<String, Action> actionMap = new HashMap<String, Action>();  //节点名和节点实体映射关系
     private Map<String, Object> nodeResult = new HashMap<String, Object>(); //节点返回数据
 
@@ -57,8 +57,8 @@ public class ExecutionContainer {
     }
 
     private void initGlobalDatabus() {
-        List<Databus> databuses = logicFlow.getDatabuses();
-        Databus bus = databuses.get(0);
+        List<Declare> declares = logicFlow.getDeclares();
+        Declare bus = declares.get(0);
         List<Import> imports = bus.getImports();
         if (imports != null) {
             initGlobalImport(imports);
@@ -69,13 +69,13 @@ public class ExecutionContainer {
 
     private void initGlobalImport(List<Import> imports) {
         for (Import imp : imports) {
-            importSet.add(imp.getModel());
+            modelSet.add(imp.getModel());
         }
     }
 
     private void initGlobalAttr(List<Attr> attrs) {
         if (attrs != null) {
-            this.databusDataDefine = new DtoToDataDefineParser().parseByAttrs(logicFlow.getId(), attrs);
+            this.declareDataDefine = new DtoToDataDefineParser().parseByAttrs(logicFlow.getId(), attrs);
         }
     }
 
@@ -288,11 +288,11 @@ public class ExecutionContainer {
     }
 
     private void checkData(String key, Object value){
-        if(databusDataDefine==null){
+        if(declareDataDefine ==null){
             return;
         }
-        if (databusDataDefine.getDataLimits().containsKey(key)) {
-            databusDataDefine.checkData(key, value);
+        if (declareDataDefine.getDataLimits().containsKey(key)) {
+            declareDataDefine.checkData(key, value);
         }
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="decimal_min_limit" name="小数最小值限制" desc="小数最小值限制">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="decimal_param" type="decimal" name="小数参数">
             <limitDecimal min="7.77"/>
         </attr>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printParam">
         <!-- 逻辑入口参数校验 -->

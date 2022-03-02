@@ -2,7 +2,7 @@
 <logic-flow id="expression_return"
             name="表达式逻辑返回语法"
             desc="表达式逻辑返回语法">
-    <databus/>
+    <declare/>
 
     <start id="start" name="开始节点" next="action_expression_return"/>
 

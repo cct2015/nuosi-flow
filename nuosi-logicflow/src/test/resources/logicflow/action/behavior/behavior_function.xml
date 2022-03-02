@@ -2,10 +2,10 @@
 <logic-flow id="behavior_function"
             name="函数行为调用"
             desc="业务模型函数行为调用">
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="working_hours_entity"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="param_preparation">
         <var key="fill_id"/>

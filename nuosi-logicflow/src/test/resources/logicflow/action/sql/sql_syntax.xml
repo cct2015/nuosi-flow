@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="sql_syntax" name="SQL逻辑调用" desc="SQL逻辑调用范例">
 
-    <databus>
+    <declare>
         <attr id="fill_staff" type="string" name="工号信息">
             <limit size="10"/>
         </attr>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="action_sql_simple">
         <var key="fill_staff" />

@@ -3,8 +3,8 @@
             name="流程返回值为空"
             desc="流程返回值为空">
     <!-- 全局域 -->
-    <databus>
-    </databus>
+    <declare>
+    </declare>
 
     <start id="start" name="开始节点" next="action1">
     </start>

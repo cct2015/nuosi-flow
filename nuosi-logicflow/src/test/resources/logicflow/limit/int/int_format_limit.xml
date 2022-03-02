@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <logic-flow id="int_format_limit" name="整数格式校验" desc="整数格式校验">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <attr id="int_param" type="int" name="整型参数"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="printParam">
         <!-- 逻辑入口参数校验 -->

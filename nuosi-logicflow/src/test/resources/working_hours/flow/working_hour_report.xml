@@ -3,10 +3,10 @@
             name="工时填报"
             desc="工时填报">
     <!-- 全局域 -->
-    <databus>
+    <declare>
         <!-- 引入model定义 -->
         <import model="working_hours_entity"/>
-    </databus>
+    </declare>
 
     <start id="start" name="开始节点" next="parameterVerification">
         <!-- 逻辑入口参数校验 -->

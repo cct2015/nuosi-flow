@@ -2,7 +2,7 @@
 <logic-flow id="foreach_map"
             name="循环哈希结构"
             desc="循环逻辑循环哈希数据结构">
-    <databus/>
+    <declare/>
 
     <start id="start" name="开始节点" next="action_foreach_map"/>
 
