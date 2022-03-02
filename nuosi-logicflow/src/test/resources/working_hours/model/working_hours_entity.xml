@@ -22,7 +22,7 @@
     </behavior>
 
     <behavior id="queryWorkingHoursByPrimaryKey" name="查询工时信息">
-        <function domain="DB" name="select" outkey="working_hours_info">
+        <function domain="DB" name="select">
             <param value="quickbuild" type="string"/>
             <param value="man_hour_fill" type="string"/>
             <param key="param" type="map"/>
@@ -30,7 +30,7 @@
     </behavior>
 
     <behavior id="insertWorkingHours" name="新增工时信息">
-        <function domain="DB" name="insert" outkey="working_hours_num">
+        <function domain="DB" name="insert">
             <param value="quickbuild" type="string"/>
             <param value="man_hour_fill" type="string"/>
             <param key="working_hours" type="map"/>

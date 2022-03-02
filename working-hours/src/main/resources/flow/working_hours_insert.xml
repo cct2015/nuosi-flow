@@ -13,6 +13,9 @@
 
     <action id="insertWorkingHours" name="新增工时信息" next="end">
         <behavior model="working_hours_entity" id="insertWorkingHours"/>
+        <output>
+            <var key="working_hours_num"/>
+        </output>
     </action>
 
     <end id="end" name="结束节点">

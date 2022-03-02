@@ -31,7 +31,7 @@
 
     <!-- 函数行为 -->
     <behavior id="" name="">
-        <function domain="" name="" outkey="">
+        <function domain="" name="">
             <param value="" type=""/>
             <param key="" type=""/>
         </function>

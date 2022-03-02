@@ -14,7 +14,6 @@ import java.util.List;
 public class Function {
     private String domain;
     private String name;
-    private String outkey;
     private List<Param> params;
     private String isContext;
 
@@ -32,14 +31,6 @@ public class Function {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getOutkey() {
-        return outkey;
-    }
-
-    public void setOutkey(String outkey) {
-        this.outkey = outkey;
     }
 
     public List<Param> getParams() {

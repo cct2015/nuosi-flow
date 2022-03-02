@@ -24,11 +24,14 @@
     </action>
 
     <action id="action_function_simple" name="函数功能查询工时信息" next="end">
-        <function domain="DB" name="select" outkey="working_hours_infos">
+        <function domain="DB" name="select">
             <param value="quickbuild" type="string"/>
             <param value="man_hour_fill" type="string"/>
             <param key="param" type="map"/>
         </function>
+        <output>
+            <var key="working_hours_infos"/>
+        </output>
     </action>
 
     <end id="end" name="结束节点">

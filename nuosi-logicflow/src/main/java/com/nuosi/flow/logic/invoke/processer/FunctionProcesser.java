@@ -44,9 +44,6 @@ public class FunctionProcesser implements IActionProcesser, IBehaviorProcesser {
                 Throwable tr = IpuUtility.getBottomException(e);
                 throw (Exception)tr;
             }
-            if (function.getOutkey() != null) {
-                databus.put(function.getOutkey(), result);
-            }
         }
         return result;
     }

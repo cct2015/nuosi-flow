@@ -87,7 +87,7 @@
 
     <!-- 7.函数节点 -->
     <action id="" name="" next="">
-        <function domain="" name="" outkey="">
+        <function domain="" name="">
             <param value="" type=""/>
             <param value="" type=""/>
             <param key="" type=""/>
