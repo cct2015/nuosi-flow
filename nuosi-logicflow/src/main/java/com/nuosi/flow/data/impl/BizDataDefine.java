@@ -1,5 +1,7 @@
 package com.nuosi.flow.data.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
 
@@ -60,6 +62,26 @@ public class BizDataDefine implements BDataDefine {
             dataLimit.checkValidity(bizName, attr, value);
         }
         //BizDataValidityUtil.checkData(bizName, attr, value);
+        return true;
+    }
+
+    @Override
+    public boolean checkData(JSONObject value) {
+        BDataLimit dataLimit;
+        String attr;
+        for (Map.Entry<String, BDataLimit> entry : dataLimits.entrySet()) {
+            dataLimit = entry.getValue();
+            attr = entry.getKey();
+            dataLimit.checkValidity(bizName, attr, value.get(attr));
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkData(JSONArray value) {
+        for(Object model : value){
+            checkData((JSONObject)model);
+        }
         return true;
     }
 }

@@ -4,11 +4,11 @@
         <limit min="0"/>
     </attr>
     <attr id="goods_name" type="string" name="货物名称">
-        <limit size="7"/>
+        <limitString unequal="7"/>
     </attr>
     <attr id="goods_type" type="int" name="货物类型"/>
     <attr id="price" type="decimal" name="货物价格">
-        <limit precision="6" scale="2" maxDecimal="9999" minDecimal="99"/>
+        <limitDecimal precision="6" scale="2" max="9999" min="99"/>
     </attr>
 
     <behavior id="queryGoodsInfo" name="查询货物信息">

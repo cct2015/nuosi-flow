@@ -1,5 +1,7 @@
 package com.nuosi.flow.data;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.impl.BizDataDefine;
 
 import java.util.Map;
@@ -30,4 +32,8 @@ public interface BDataDefine {
 
     /**校验数据的基础类型*/
     public boolean checkData(String key, Object value);
+    /**校验数据的对象类型*/
+    public boolean checkData(JSONObject value);
+
+    public boolean checkData(JSONArray value);
 }

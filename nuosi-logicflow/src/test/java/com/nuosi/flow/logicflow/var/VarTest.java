@@ -2,14 +2,15 @@ package com.nuosi.flow.logicflow.var;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * <p>desc: Var标签测试 </p>
@@ -44,22 +45,63 @@ public class VarTest {
         }
     }
 
+    @Test
+    public void testStartVarModel(){
+        JMap param = new JsonMap();
+        JSONObject user = new JSONObject();
+        user.put("user_id", 123456);
+        user.put("user_name", "张三");
+        user.put("age", 20);
+        user.put("email", "abc@163.com");
+        user.put("phone", "17777777777");
+        param.put("user", user);
+        try {
+            LogicFlowEngine.execute("start_var_model", param);
+            LogicFlowEngine.execute("start_var_model", new JsonMap(param.toJSONString()));
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStartVarModels(){
+        JMap param = new JsonMap();
+        JSONArray users = new JSONArray();
+        for(int i=1;i<3;i++){
+            JSONObject user = new JSONObject();
+            user.put("user_id", 10000+i);
+            user.put("user_name", "张三");
+            user.put("age", 20);
+            user.put("email", "abc@163.com");
+            user.put("phone", "17777777777");
+            users.add(user);
+        }
+        param.put("users", users);
+        try {
+            LogicFlowEngine.execute("start_var_models", param);
+            LogicFlowEngine.execute("start_var_models", new JsonMap(param.toJSONString()));
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(false);
+        }
+    }
+
     @Before
     public void before() throws IOException {
+        String[] modelConfigs = {
+                "model/user_model.xml"
+        };
+        LogicFlowUtil.loadLogicModels(modelConfigs);
+
         String[] flowConfigs = {
                 "logicflow/var/var_initial_method.xml",
-                "logicflow/var/var_calculate_method.xml"
+                "logicflow/var/var_calculate_method.xml",
+                "logicflow/var/start_var_model.xml",
+                "logicflow/var/start_var_models.xml"
         };
-        for(String flowConfig : flowConfigs){
-            InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            try {
-                LogicFlowManager.registerLogicFlow(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(is!=null)
-                    is.close();
-            }
-        }
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }

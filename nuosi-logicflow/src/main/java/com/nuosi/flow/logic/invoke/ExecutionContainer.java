@@ -4,6 +4,8 @@ import com.ai.ipu.basic.util.IpuUtility;
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.ai.ipu.database.conn.SqlSessionManager;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.inject.calculate.CalculateMethodManager;
@@ -127,10 +129,23 @@ public class ExecutionContainer {
             for (Var var : vars) {
                 key = var.getKey();
 
-                if (var.getModel() != null && var.getAttr() != null) {
-                    // 根据引入的业务模型做数据校验
-                    BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
-                    bDataDefine.checkData(var.getAttr(), databus.get(key));
+                if (var.getModel() != null) {
+                    if(var.getAttr() != null){
+                        // 根据引入的业务模型做基础数据校验
+                        BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
+                        bDataDefine.checkData(var.getAttr(), databus.get(key));
+                    }else{
+                        // 根据引入的业务模型做模型数据校验
+                        Object value = databus.get(key);
+                        BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
+                        if(value instanceof JSONObject){
+                            bDataDefine.checkData((JSONObject) databus.get(key));
+                        }else if(value instanceof JSONArray){
+                            bDataDefine.checkData((JSONArray) databus.get(key));
+                        }else{
+                            IpuUtility.error("无正确数据类型");
+                        }
+                    }
                 } else {
                     // 根据定义的数据模型做数据校验
                     checkData(key, databus.get(key));

@@ -32,20 +32,7 @@ public class DtoToDataDefineParser {
     }
 
     public BDataDefine parse(DomainModel domainModel) throws Exception {
-        BDataDefine dataDefine = new BizDataDefine(domainModel.getId());
-        List<Attr> attrs = domainModel.getAttrs();
-        for (Attr attr : attrs) {
-            BDataType dataType = valueOf(attr.getType().toUpperCase());
-            /*List<Limit> limits = attr.getLimits();
-            if (limits == null || limits.isEmpty()) {
-                dataDefine.defineLimit(attr.getId(), BizDataLimitManager.create(dataType));
-            }else{
-                Limit limit = limits.get(0);
-                BDataLimit dataLimit = parseLimitToBDataLimit(dataType, limit);
-                dataDefine.defineLimit(attr.getId(), dataLimit);
-            }*/
-        }
-        return dataDefine;
+        return parseByAttrs(domainModel.getId(), domainModel.getAttrs());
     }
 
     public BDataDefine parseByAttrs(String bizName, List<Attr> attrs){
