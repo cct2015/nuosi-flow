@@ -22,18 +22,16 @@ public interface BDataDefine {
 
     public BizDataDefine defineLimit(String attr, BDataLimit dataLimit);
 
-    public Map<String, BDataLimit> getDataLimits();
-
     public BDataLimit getDataLimit(String bizName);
 
-    public String[] getAttrs();
+    public Map<String, BDataLimit> getDataLimits();
 
     public boolean containsAttr(String attr);
 
     /**校验数据的基础类型*/
     public boolean checkData(String key, Object value);
-    /**校验数据的对象类型*/
+    /**校验单条数据的对象类型*/
     public boolean checkData(JSONObject value);
-
+    /**校验多条数据的对象类型*/
     public boolean checkData(JSONArray value);
 }

@@ -21,13 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version v1.0.0
  */
 public class LogicFlowManager {
-    private static Map<String, DomainModel> domainModelCache;
-    private static Map<String, LogicFlow> logicFlowlCache;
-
-    static {
-        domainModelCache = new ConcurrentHashMap<String, DomainModel>();
-        logicFlowlCache = new ConcurrentHashMap<String, LogicFlow>();
-    }
+    private static Map<String, DomainModel> domainModelCache = new ConcurrentHashMap<String, DomainModel>();
+    private static Map<String, LogicFlow> logicFlowlCache = new ConcurrentHashMap<String, LogicFlow>();
 
     public static void registerDomainModel(DomainModel domainModel) {
         domainModelCache.put(domainModel.getId(), domainModel);

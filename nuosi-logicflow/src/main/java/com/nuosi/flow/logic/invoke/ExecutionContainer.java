@@ -23,7 +23,7 @@ import com.nuosi.flow.logic.model.element.Output;
 import com.nuosi.flow.logic.model.element.Var;
 import com.nuosi.flow.logic.model.global.Declare;
 import com.nuosi.flow.logic.model.global.Import;
-import com.nuosi.flow.logic.parse.DtoToDataDefineParser;
+import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
 import com.nuosi.flow.util.LogicFlowConstants;
 
 import java.util.*;
@@ -37,14 +37,14 @@ import java.util.*;
  * @version v1.0.0
  */
 public class ExecutionContainer {
-    private BDataDefine declareDataDefine;    //将declare中的变量定义转化成BDataDefine，使用其数据校验逻辑
     private Map<String, Object> databus = new HashMap<String, Object>();    //数据总线
     private ProtectedDatabus protectedDatabus;
 
+    private BDataDefine flowDataDefine;    //将declare中的变量定义转化成BDataDefine，使用其数据校验逻辑
     private Set<String> modelSet = new HashSet<String>();  //记录引用的业务对象
     private Map<String, Action> actionMap = new HashMap<String, Action>();  //节点名和节点实体映射关系
-    private Map<String, Object> nodeResult = new HashMap<String, Object>(); //节点返回数据
 
+    private Map<String, Object> nodeResult = new HashMap<String, Object>(); //节点返回数据
     private LogicFlow logicFlow;
 
     public ExecutionContainer(LogicFlow logicFlow) {
@@ -53,12 +53,12 @@ public class ExecutionContainer {
     }
 
     private void init() {
-        initGlobalDatabus();
+        initGlobalDeclare();
         initGlobalAction();
         protectedDatabus = new ProtectedDatabus(databus);
     }
 
-    private void initGlobalDatabus() {
+    private void initGlobalDeclare() {
         List<Declare> declares = logicFlow.getDeclares();
         Declare bus = declares.get(0);
         List<Import> imports = bus.getImports();
@@ -77,7 +77,7 @@ public class ExecutionContainer {
 
     private void initGlobalAttr(List<Attr> attrs) {
         if (attrs != null) {
-            this.declareDataDefine = new DtoToDataDefineParser().parseByAttrs(logicFlow.getId(), attrs);
+            this.flowDataDefine = ModelToDataDefineUtil.parseByFlow(logicFlow, attrs);
         }
     }
 
@@ -303,11 +303,11 @@ public class ExecutionContainer {
     }
 
     private void checkData(String key, Object value){
-        if(declareDataDefine ==null){
+        if(flowDataDefine ==null){
             return;
         }
-        if (declareDataDefine.getDataLimits().containsKey(key)) {
-            declareDataDefine.checkData(key, value);
+        if (flowDataDefine.getDataLimits().containsKey(key)) {
+            flowDataDefine.checkData(key, value);
         }
     }
 }

@@ -36,18 +36,13 @@ public class BizDataDefine implements BDataDefine {
     }
 
     @Override
-    public Map<String, BDataLimit> getDataLimits() {
-        return dataLimits;
-    }
-
-    @Override
     public BDataLimit getDataLimit(String bizName) {
         return dataLimits.get(bizName);
     }
 
     @Override
-    public String[] getAttrs() {
-        return dataLimits.keySet().toArray(new String[]{});
+    public Map<String, BDataLimit> getDataLimits() {
+        return dataLimits;
     }
 
     @Override
@@ -61,7 +56,6 @@ public class BizDataDefine implements BDataDefine {
         if(dataLimit!=null){
             dataLimit.checkValidity(bizName, attr, value);
         }
-        //BizDataValidityUtil.checkData(bizName, attr, value);
         return true;
     }
 

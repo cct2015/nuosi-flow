@@ -6,6 +6,8 @@ import com.nuosi.flow.data.BDataLimit;
 import com.nuosi.flow.data.impl.BizDataDefine;
 import com.nuosi.flow.data.limit.*;
 import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.logic.invoke.check.FlowDataDefine;
+import com.nuosi.flow.logic.model.LogicFlow;
 import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.domain.DomainModel;
 import com.nuosi.flow.logic.model.limit.*;
@@ -21,22 +23,20 @@ import static com.nuosi.flow.data.BDataDefine.BDataType.valueOf;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class DtoToDataDefineParser {
+public class ModelToDataDefineUtil {
 
-    public DtoToDataDefineParser() {
-    }
-
-    public BDataDefine parse(String domainModelName) throws Exception {
+    public static BDataDefine parse(String domainModelName) throws Exception {
         DomainModel domainModel = LogicFlowManager.getDomainModel(domainModelName);
-        return parse(domainModel);
+        BDataDefine bDataDefine = new BizDataDefine(domainModel.getId());
+        return parseByAttrs(bDataDefine, domainModel.getAttrs());
     }
 
-    public BDataDefine parse(DomainModel domainModel) throws Exception {
-        return parseByAttrs(domainModel.getId(), domainModel.getAttrs());
+    public static BDataDefine parseByFlow(LogicFlow logicFlow, List<Attr> flowAttrs){
+        BDataDefine fDataDefine = new FlowDataDefine(logicFlow.getId());
+        return parseByAttrs(fDataDefine, flowAttrs);
     }
 
-    public BDataDefine parseByAttrs(String bizName, List<Attr> attrs){
-        BDataDefine dataDefine = new BizDataDefine(bizName);
+    private static BDataDefine parseByAttrs(BDataDefine dataDefine, List<Attr> attrs){
         for (Attr attr : attrs) {
             BDataType dataType = valueOf(attr.getType().toUpperCase());
 
@@ -92,37 +92,37 @@ public class DtoToDataDefineParser {
         return dataDefine;
     }
 
-    private BDataLimit parseIntegerLimit(LimitInteger limitInt) {
+    private static BDataLimit parseIntegerLimit(LimitInteger limitInt) {
         IntegerLimit integerLimit = new IntegerLimit();
         org.springframework.beans.BeanUtils.copyProperties(limitInt, integerLimit);
         return integerLimit;
     }
 
-    private BDataLimit parseStringLimit(LimitString limitString) {
+    private static BDataLimit parseStringLimit(LimitString limitString) {
         StringLimit stringLimit = new StringLimit();
         org.springframework.beans.BeanUtils.copyProperties(limitString, stringLimit);
         return stringLimit;
     }
 
-    private BDataLimit parseDecimalLimit(LimitDecimal limitDecimal) {
+    private static BDataLimit parseDecimalLimit(LimitDecimal limitDecimal) {
         DecimalLimit decimalLimit = new DecimalLimit();
         org.springframework.beans.BeanUtils.copyProperties(limitDecimal, decimalLimit);
         return decimalLimit;
     }
 
-    private BDataLimit parseDateLimit(LimitDate limitDate) {
+    private static BDataLimit parseDateLimit(LimitDate limitDate) {
         DateLimit dateLimit = new DateLimit();
         org.springframework.beans.BeanUtils.copyProperties(limitDate, dateLimit);
         return dateLimit;
     }
 
-    private BDataLimit parseDatetimeLimit(LimitDatetime limitDatetime) {
+    private static BDataLimit parseDatetimeLimit(LimitDatetime limitDatetime) {
         DatetimeLimit datetimeLimit = new DatetimeLimit();
         org.springframework.beans.BeanUtils.copyProperties(limitDatetime, datetimeLimit);
         return datetimeLimit;
     }
 
-    private BDataLimit createEmptyBDataLimit(BDataType dataType){
+    private static BDataLimit createEmptyBDataLimit(BDataType dataType){
         BDataLimit bdataLimit = null;
         switch(dataType){
             case INT:
@@ -151,5 +151,4 @@ public class DtoToDataDefineParser {
         }
         return bdataLimit;
     }
-
 }

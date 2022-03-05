@@ -6,8 +6,7 @@ import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.LogicFlowEngine;
 import com.nuosi.flow.logic.LogicFlowManager;
-import com.nuosi.flow.logic.parse.DtoToDataDefineParser;
-import org.junit.Assert;
+import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,7 +44,7 @@ public class SubflowSyntaxTest {
         LogicFlowManager.registerDomainModel(is);
 
         try {
-            BDataDefine dataDefine = new DtoToDataDefineParser().parse("working_hours_entity");
+            BDataDefine dataDefine = ModelToDataDefineUtil.parse("working_hours_entity");
             BizDataManager.registerDto(dataDefine, true);
         } catch (Exception e) {
             e.printStackTrace();
