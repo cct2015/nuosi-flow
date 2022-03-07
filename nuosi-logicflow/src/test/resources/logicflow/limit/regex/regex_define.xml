@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="regex_define" name="自定义正则表达式" desc="自定义正则表达式">
+    <!-- 全局域 -->
+    <declare>
+        <attr id="email_regex_param" type="string" name="邮箱正则参数"
+              regex="^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="printParam">
+        <!-- 逻辑入口参数校验 -->
+        <var key="email_regex_param"/>
+    </start>
+
+    <action id="printParam" name="打印参数" next="end">
+        <expression>
+            <![CDATA[
+
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="email_regex_param"/>
+    </end>
+</logic-flow>

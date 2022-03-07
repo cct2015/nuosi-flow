@@ -15,6 +15,7 @@ public class Attr {
     private String id;
     private String type;
     private String name;
+    private String regex;
     private List<Limit> limits;
     private List<LimitInteger> limitIntegers;
     private List<LimitString> limitStrings;
@@ -44,6 +45,14 @@ public class Attr {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
     }
 
     public List<Limit> getLimits() {

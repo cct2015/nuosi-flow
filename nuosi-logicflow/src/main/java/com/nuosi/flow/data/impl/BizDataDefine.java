@@ -54,7 +54,10 @@ public class BizDataDefine implements BDataDefine {
     public boolean checkData(String attr, Object value) {
         BDataLimit dataLimit = this.getDataLimit(attr);
         if(dataLimit!=null){
+            /*1.进行指定规则校验*/
             dataLimit.checkValidity(bizName, attr, value);
+            /*2.进行正则表达式规则校验*/
+            dataLimit.checkRegex(bizName, attr, value);
         }
         return true;
     }
@@ -63,10 +66,15 @@ public class BizDataDefine implements BDataDefine {
     public boolean checkData(JSONObject value) {
         BDataLimit dataLimit;
         String attr;
+        Object val;
         for (Map.Entry<String, BDataLimit> entry : dataLimits.entrySet()) {
             dataLimit = entry.getValue();
             attr = entry.getKey();
-            dataLimit.checkValidity(bizName, attr, value.get(attr));
+            val = value.get(attr);
+            /*1.进行指定规则校验*/
+            dataLimit.checkValidity(bizName, attr, val);
+            /*2.进行正则表达式规则校验*/
+            dataLimit.checkRegex(bizName, attr, val);
         }
         return true;
     }

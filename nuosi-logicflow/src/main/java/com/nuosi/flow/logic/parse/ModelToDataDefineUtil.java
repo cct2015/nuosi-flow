@@ -87,6 +87,7 @@ public class ModelToDataDefineUtil {
             if (bDataLimit == null) {
                 bDataLimit = createEmptyBDataLimit(dataType);    //BDataLimit不为空则可触发基础类型的校验
             }
+            bDataLimit.setRegex(attr.getRegex());
             dataDefine.defineLimit(attr.getId(), bDataLimit);
         }
         return dataDefine;

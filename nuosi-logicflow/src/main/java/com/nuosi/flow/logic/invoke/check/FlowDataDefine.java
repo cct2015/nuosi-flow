@@ -12,7 +12,7 @@ import com.nuosi.flow.data.impl.BizDataDefine;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class FlowDataDefine extends BizDataDefine{
+public class FlowDataDefine extends BizDataDefine {
 
     public FlowDataDefine(String bizName) {
         super(bizName);
@@ -20,14 +20,17 @@ public class FlowDataDefine extends BizDataDefine{
 
     @Override
     public boolean checkData(String attr, Object value) {
-        try{
+        try {
             BDataLimit dataLimit = this.getDataLimit(attr);
-            if(dataLimit!=null){
+            if (dataLimit != null) {
+                /*1.进行指定规则校验*/
                 dataLimit.checkValidity(getBizName(), attr, value);
+                /*2.进行正则表达式规则校验*/
+                dataLimit.checkRegex(getBizName(), attr, value);
             }
-        }catch (Exception e){
-            if(e instanceof IpuBaseException){
-                IpuUtility.error("服务逻辑"+e.getMessage());
+        } catch (Exception e) {
+            if (e instanceof IpuBaseException) {
+                IpuUtility.error("服务逻辑" + e.getMessage());
             }
             throw e;
         }

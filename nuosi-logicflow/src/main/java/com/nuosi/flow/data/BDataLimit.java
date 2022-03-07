@@ -11,4 +11,10 @@ public interface BDataLimit {
     public void checkValidity(String bizName, String attr, Object value);
 
     public BDataDefine.BDataType getDataType();
+
+    public String getRegex();
+
+    public void setRegex(String regex);
+
+    public void checkRegex(String bizName, String attr, Object value);
 }

@@ -22,13 +22,15 @@ public class LimitRegexTest {
     @Test
     public void testRegexDefine(){
         JMap param = new JsonMap();
-        /*try {
+        try {
+            param.put("email_regex_param","abc@");
+            //param.put("email_regex_param","fsofs@163.com");
             LogicFlowEngine.execute("regex_define",param);
             Assert.assertTrue(false);
         } catch (Exception e) {
             System.out.println("校验信息：" + e.getMessage());
             Assert.assertTrue(true);
-        }*/
+        }
     }
 
     @Before

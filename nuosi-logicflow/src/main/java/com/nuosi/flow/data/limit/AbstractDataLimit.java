@@ -1,7 +1,13 @@
 package com.nuosi.flow.data.limit;
 
+import com.ai.ipu.basic.util.IpuUtility;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.util.LogicFlowConstants;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>desc: 业务传输对象数据限制和校验抽象类 </p>
@@ -12,12 +18,48 @@ import com.nuosi.flow.data.BDataLimit;
  */
 public abstract class AbstractDataLimit implements BDataLimit {
     private BDataDefine.BDataType dataType;
+    private String regex;
+    private String escapeRegex;
 
-    public AbstractDataLimit(BDataDefine.BDataType dataType){
+    public AbstractDataLimit(BDataDefine.BDataType dataType) {
         this.dataType = dataType;
     }
 
-    public BDataDefine.BDataType getDataType(){
+    public BDataDefine.BDataType getDataType() {
         return dataType;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+        this.escapeRegex = escapeExprSpecialWord(regex);
+    }
+
+    public void checkRegex(String bizName, String attr, Object value) {
+        if (regex == null) {
+            return;
+        }
+
+        Pattern pattern = Pattern.compile(regex);
+        String val = String.valueOf(value);
+        Matcher matcher = pattern.matcher(val);
+        if (!matcher.matches()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_REGEX, bizName, attr, val, escapeRegex);
+        }
+    }
+
+    public static String escapeExprSpecialWord(String keyword) {
+        if (StringUtils.isNotBlank(keyword)) {
+            String[] fbsArr = {"\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"};
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, "\\" + key);
+                }
+            }
+        }
+        return keyword;
     }
 }
