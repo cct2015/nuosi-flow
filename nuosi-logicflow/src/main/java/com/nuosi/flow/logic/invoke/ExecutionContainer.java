@@ -130,20 +130,20 @@ public class ExecutionContainer {
                 key = var.getKey();
 
                 if (var.getModel() != null) {
-                    if(var.getAttr() != null){
+                    if (var.getAttr() != null) {
                         // 根据引入的业务模型做基础数据校验
                         BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
                         bDataDefine.checkData(var.getAttr(), databus.get(key));
-                    }else{
+                    } else {
                         // 根据引入的业务模型做模型数据校验
                         Object value = databus.get(key);
                         BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
-                        if(value instanceof JSONObject){
+                        if (value instanceof JSONObject) {
                             bDataDefine.checkData((JSONObject) databus.get(key));
-                        }else if(value instanceof JSONArray){
+                        } else if (value instanceof JSONArray) {
                             bDataDefine.checkData((JSONArray) databus.get(key));
-                        }else{
-                            IpuUtility.error("无正确数据类型");
+                        } else {
+                            IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, (String) value);
                         }
                     }
                 } else {
@@ -179,12 +179,12 @@ public class ExecutionContainer {
 
     private Object executeProcesser(Action action, JMap input) throws Exception {
         Object result = null;
-        try{
+        try {
             IActionProcesser actionProcesser = ProcesserManager.getActionProcesser(action.getActionType());
             result = actionProcesser.execute(databus, action, input);
-        }catch (Exception e){
+        } catch (Exception e) {
             /* NullPointerException异常时，e.getMessage()为null,会导致后续异常报错。 */
-            String eMsg = e.getMessage()==null?"空信息":e.getMessage();
+            String eMsg = e.getMessage() == null ? "空信息" : e.getMessage();
             IpuUtility.errorCode(LogicFlowConstants.FLOW_ACTION_ERROR, logicFlow.getId(), action.getId(), eMsg);
         }
         return result;
@@ -207,15 +207,15 @@ public class ExecutionContainer {
             key = var.getKey();
 
             value = databus.get(key);
-            if(value == null){
+            if (value == null) {
                 value = var.getInitial();
             }
-            if(value == null){
+            if (value == null) {
                 String initialMethod = var.getInitialMethod();
-                if(initialMethod!=null){
-                    try{
+                if (initialMethod != null) {
+                    try {
                         value = InitialMethodManager.getInitialMethod().invoke(initialMethod);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Throwable tr = IpuUtility.getBottomException(e);
                         IpuUtility.error(tr);
                     }
@@ -223,10 +223,10 @@ public class ExecutionContainer {
             }
 
             String calculateMethod = var.getCalculateMethod();
-            if(calculateMethod!=null){
-                try{
+            if (calculateMethod != null) {
+                try {
                     value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, protectedDatabus);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Throwable tr = IpuUtility.getBottomException(e);
                     IpuUtility.error(tr);
                 }
@@ -302,8 +302,8 @@ public class ExecutionContainer {
         return ends.get(0);
     }
 
-    private void checkData(String key, Object value){
-        if(flowDataDefine ==null){
+    private void checkData(String key, Object value) {
+        if (flowDataDefine == null) {
             return;
         }
         if (flowDataDefine.getDataLimits().containsKey(key)) {

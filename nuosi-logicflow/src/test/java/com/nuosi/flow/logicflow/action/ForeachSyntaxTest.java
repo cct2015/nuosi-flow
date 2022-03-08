@@ -5,12 +5,10 @@ import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonList;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
 
 /**
  * <p>desc: 循环逻辑相关语法展示 </p>
@@ -56,14 +54,27 @@ public class ForeachSyntaxTest {
         }
     }
 
+    @Test
+    public void testForeachDataTypeExcept() {
+        try {
+            JMap param = new JsonMap();
+            param.put("no_match_data_type", "abc");
+
+            LogicFlowEngine.execute("foreach_data_type_except", param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            Assert.assertTrue(e.getMessage(), true);
+        }
+    }
+
     @Before
     public void setUp() {
-        String flowConfig = "logicflow/action/foreach/foreach_except.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        flowConfig = "logicflow/action/foreach/foreach_map.xml";
-        is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
+        String[] flowConfigs = {
+                "logicflow/action/foreach/foreach_except.xml",
+                "logicflow/action/foreach/foreach_map.xml",
+                "logicflow/action/foreach/foreach_data_type_except.xml"
+        };
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }

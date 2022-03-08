@@ -57,7 +57,7 @@ public class ForeachProcesser implements IActionProcesser{
             vars.put(KEYS, iteratorMap.keySet());
             foreachExpression = createForeachExpressionWithMap(foreach);
         }else{
-            IpuUtility.errorCode(LogicFlowConstants.FOREACH_ITERATOR_TYPE_ERROR);
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_FOREACH_ITERATOR_TYPE_ERROR);
         }
         vars.put(DATABUS, databus);
         vars.put(QB, QuickBuild.getInstance());

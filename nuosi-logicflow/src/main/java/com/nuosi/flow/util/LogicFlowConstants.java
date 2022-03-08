@@ -24,8 +24,12 @@ public class LogicFlowConstants {
     /*LogicFlow异常编码*/
     public static final String FLOW_NO_EXISTS = "FLOW_NO_EXISTS";
     public static final String FLOW_NOT_SUPPORT_MULTIPLE_KEY = "FLOW_NOT_SUPPORT_MULTIPLE_KEY";
+    public static final String FLOW_NO_MATCH_DATA_TYPE = "FLOW_NO_MATCH_DATA_TYPE";
+
+    /*逻辑节点统一执行异常*/
     public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
-    public static final String FOREACH_ITERATOR_TYPE_ERROR = "FOREACH_ITERATOR_TYPE_ERROR";
+    public static final String FLOW_FOREACH_ITERATOR_TYPE_ERROR = "FLOW_FOREACH_ITERATOR_TYPE_ERROR";
+    public static final String FLOW_IF_ERROR = "FLOW_IF_ERROR";
 
     /*BData异常编码*/
     public static final String BDATA_DEFINE_NO_EXISTS = "BDATA_DEFINE_NO_EXISTS";

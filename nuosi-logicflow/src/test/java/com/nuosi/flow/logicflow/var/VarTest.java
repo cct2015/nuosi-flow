@@ -89,6 +89,19 @@ public class VarTest {
         }
     }
 
+    @Test
+    public void testStartVarModelError(){
+        JMap param = new JsonMap();
+        param.put("user", "abc");
+        try {
+            LogicFlowEngine.execute("start_var_model", param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void before() throws IOException {
         String[] modelConfigs = {

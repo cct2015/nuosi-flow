@@ -73,7 +73,7 @@ public class BizDataParser {
                     Behavior behavior = parserBehavior(modelItem.getJSONObject(BEHAVIOR));
                     behaviors.add(behavior);
                 } else{
-                    IpuUtility.error("无可匹配标签："+ modelItem);
+                    //("无可匹配标签："+ modelItem);
                 }
             }
             if(!attrs.isEmpty()){
@@ -132,7 +132,7 @@ public class BizDataParser {
                     sql.setSql(behaviorItem.getJSONObject(SQL).getString(SQL+SUFFIX_TEXT));
                     sqls.add(sql);
                 }else{
-                    IpuUtility.error("无可匹配标签："+ behaviorItem);
+                    //("无可匹配标签："+ behaviorItem);
                 }
             }
             behavior.setSqls(sqls);

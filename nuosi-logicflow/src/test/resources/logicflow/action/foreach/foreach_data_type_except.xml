@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="foreach_data_type_except"
+            name="循环数据类型异常"
+            desc="循环数据类型异常">
+    <declare>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_foreach_data_type_except"/>
+
+    <action id="action_foreach_data_type_except" name="循环数据类型异常" next="end">
+        <foreach iterator="no_match_data_type">
+            <![CDATA[
+            QB.print(INDEX+"==="+ITERATOR);
+        ]]>
+        </foreach>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>
