@@ -3,9 +3,12 @@
             name="循环数据类型异常"
             desc="循环数据类型异常">
     <declare>
+        <attr id="no_match_data_type" type="string"/>
     </declare>
 
-    <start id="start" name="开始节点" next="action_foreach_data_type_except"/>
+    <start id="start" name="开始节点" next="action_foreach_data_type_except">
+        <var key="no_match_data_type"/>
+    </start>
 
     <action id="action_foreach_data_type_except" name="循环数据类型异常" next="end">
         <foreach iterator="no_match_data_type">

@@ -2,6 +2,8 @@ package com.nuosi.flow.util;
 
 import com.ai.ipu.basic.string.StringUtil;
 import com.ai.ipu.basic.util.IpuUtility;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataLimit;
 import com.nuosi.flow.data.BizDataManager;
@@ -274,5 +276,17 @@ public class BizDataValidityUtil {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_BOOLEAN, bizName, attr);
         }
         return "true".equals(value);
+    }
+
+    public static void checkObject(Object value, String bizName, String attr) {
+        if (!(value instanceof JSONObject)) {
+            IpuUtility.error("参数类型异常：" + value);
+        }
+    }
+
+    public static void checkArray(Object value, String bizName, String attr) {
+        if (!(value instanceof JSONArray)) {
+            IpuUtility.error("参数类型异常：" + value);
+        }
     }
 }

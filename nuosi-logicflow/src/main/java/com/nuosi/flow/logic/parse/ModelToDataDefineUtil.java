@@ -79,7 +79,9 @@ public class ModelToDataDefineUtil {
                     break;
                 case BOOLEAN:
                     break;
-                case BDATA:
+                case OBJECT:
+                    break;
+                case ARRAY:
                     break;
                 default:
                     break;
@@ -144,8 +146,11 @@ public class ModelToDataDefineUtil {
             case BOOLEAN:
                 bdataLimit = new BooleanLimit();
                 break;
-            case BDATA:
-                bdataLimit = null;  //有待补充
+            case OBJECT:
+                bdataLimit = new ObjectLimit();
+                break;
+            case ARRAY:
+                bdataLimit = new ArrayLimit();
                 break;
             default:
                 break;

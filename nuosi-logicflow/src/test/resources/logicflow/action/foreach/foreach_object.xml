@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="foreach_object"
+            name="循环对象结构"
+            desc="循环对象结构">
+    <declare>
+        <attr id="input_object" type="object"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_foreach_object">
+        <var key="input_object"/>
+    </start>
+
+    <action id="action_foreach_object" name="循环对象结构" next="end">
+        <foreach iterator="input_object">
+        <![CDATA[
+            QB.printf("第%s行数据：key=%s,value=%s", INDEX, KEY, VALUE);
+        ]]>
+        </foreach>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>

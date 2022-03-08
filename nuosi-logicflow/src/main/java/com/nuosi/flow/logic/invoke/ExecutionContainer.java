@@ -39,6 +39,7 @@ import java.util.*;
 public class ExecutionContainer {
     private Map<String, Object> databus = new HashMap<String, Object>();    //数据总线
     private ProtectedDatabus protectedDatabus;
+    private JMap inputParameters;
 
     private BDataDefine flowDataDefine;    //将declare中的变量定义转化成BDataDefine，使用其数据校验逻辑
     private Set<String> modelSet = new HashSet<String>();  //记录引用的业务对象
@@ -89,9 +90,9 @@ public class ExecutionContainer {
     }
 
     public JMap execute(JMap param) throws Exception {
+        this.inputParameters = param;
         JMap result = null;
         try {
-            storeDatabus(param);
             String next = checkStart();
 
             next = executeAction(next);
@@ -107,7 +108,7 @@ public class ExecutionContainer {
         return result;
     }
 
-    private void storeDatabus(JMap param) {
+    /*private void storeDatabus(JMap param) {
         if (param == null) {
             return;
         }
@@ -118,7 +119,7 @@ public class ExecutionContainer {
             //入参存储到数据总线
             databus.put(key, param.get(key));
         }
-    }
+    }*/
 
     private String checkStart() {
         Start start = getStart();
@@ -126,30 +127,32 @@ public class ExecutionContainer {
         if (vars != null) {
             // 校验调用业务逻辑的入参数据
             String key;
+            Object value;
             for (Var var : vars) {
                 key = var.getKey();
+                value = getValueFromVar(var);
 
                 if (var.getModel() != null) {
                     if (var.getAttr() != null) {
                         // 根据引入的业务模型做基础数据校验
                         BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
-                        bDataDefine.checkData(var.getAttr(), databus.get(key));
+                        bDataDefine.checkData(var.getAttr(), value);
                     } else {
                         // 根据引入的业务模型做模型数据校验
-                        Object value = databus.get(key);
                         BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
                         if (value instanceof JSONObject) {
-                            bDataDefine.checkData((JSONObject) databus.get(key));
+                            bDataDefine.checkData((JSONObject) value);
                         } else if (value instanceof JSONArray) {
-                            bDataDefine.checkData((JSONArray) databus.get(key));
+                            bDataDefine.checkData((JSONArray) value);
                         } else {
                             IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, (String) value);
                         }
                     }
                 } else {
                     // 根据定义的数据模型做数据校验
-                    checkData(key, databus.get(key));
+                    checkData(key, value);
                 }
+                databus.put(key, value);
             }
         }
         return start.getNext();
@@ -206,31 +209,7 @@ public class ExecutionContainer {
         for (Var var : vars) {
             key = var.getKey();
 
-            value = databus.get(key);
-            if (value == null) {
-                value = var.getInitial();
-            }
-            if (value == null) {
-                String initialMethod = var.getInitialMethod();
-                if (initialMethod != null) {
-                    try {
-                        value = InitialMethodManager.getInitialMethod().invoke(initialMethod);
-                    } catch (Exception e) {
-                        Throwable tr = IpuUtility.getBottomException(e);
-                        IpuUtility.error(tr);
-                    }
-                }
-            }
-
-            String calculateMethod = var.getCalculateMethod();
-            if (calculateMethod != null) {
-                try {
-                    value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, protectedDatabus);
-                } catch (Exception e) {
-                    Throwable tr = IpuUtility.getBottomException(e);
-                    IpuUtility.error(tr);
-                }
-            }
+            value = getValueFromVar(var);
 
             // 入参使用默认值的校验
             checkData(key, value);
@@ -309,5 +288,37 @@ public class ExecutionContainer {
         if (flowDataDefine.getDataLimits().containsKey(key)) {
             flowDataDefine.checkData(key, value);
         }
+    }
+
+    private Object getValueFromVar(Var var){
+        String key = var.getKey();
+        Object value = inputParameters.get(key);
+        /*1.初始化值*/
+        if (value == null) {
+            value = var.getInitial();
+        }
+        /*2.初始化方法*/
+        if (value == null) {
+            String initialMethod = var.getInitialMethod();
+            if (initialMethod != null) {
+                try {
+                    value = InitialMethodManager.getInitialMethod().invoke(initialMethod);
+                } catch (Exception e) {
+                    Throwable tr = IpuUtility.getBottomException(e);
+                    IpuUtility.error(tr);
+                }
+            }
+        }
+        /*3.数值计算方法*/
+        String calculateMethod = var.getCalculateMethod();
+        if (calculateMethod != null) {
+            try {
+                value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, protectedDatabus);
+            } catch (Exception e) {
+                Throwable tr = IpuUtility.getBottomException(e);
+                IpuUtility.error(tr);
+            }
+        }
+        return value;
     }
 }

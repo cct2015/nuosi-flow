@@ -1,9 +1,9 @@
 package com.nuosi.flow.logicflow.action;
 
-import com.ai.ipu.data.JList;
 import com.ai.ipu.data.JMap;
-import com.ai.ipu.data.impl.JsonList;
 import com.ai.ipu.data.impl.JsonMap;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.logic.LogicFlowEngine;
 import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
@@ -20,15 +20,15 @@ import org.junit.Test;
 public class ForeachSyntaxTest {
 
     @Test
-    public void testForeachMap() {
+    public void testForeachObject() {
         try {
-            JMap paramMap = new JsonMap();
+            JSONObject paramMap = new JSONObject();
             paramMap.put("name", "zhangsan");
             paramMap.put("age", 18);
             JMap param = new JsonMap();
-            param.put("input_map", paramMap);
+            param.put("input_object", paramMap);
 
-            LogicFlowEngine.execute("foreach_map", param);
+            LogicFlowEngine.execute("foreach_object", param);
             Assert.assertTrue(true);
         } catch (Exception e) {
             System.out.println("抛出信息：" + e.getMessage());
@@ -37,16 +37,18 @@ public class ForeachSyntaxTest {
     }
 
     @Test
-    public void testForeachExcept() {
+    public void testForeachArray() {
         try {
-            JList paramList = new JsonList();
+            JSONArray paramList = new JSONArray();
             for (int i = 0; i < 10; i++) {
-                paramList.add(i);
+                JSONObject p = new JSONObject();
+                p.put("index", i);
+                paramList.add(p);
             }
             JMap param = new JsonMap();
-            param.put("input_list", paramList);
+            param.put("input_array", paramList);
 
-            LogicFlowEngine.execute("foreach_except", param);
+            LogicFlowEngine.execute("foreach_array", param);
             Assert.assertTrue(false);
         } catch (Exception e) {
             System.out.println("抛出信息：" + e.getMessage());
@@ -71,8 +73,8 @@ public class ForeachSyntaxTest {
     @Before
     public void setUp() {
         String[] flowConfigs = {
-                "logicflow/action/foreach/foreach_except.xml",
-                "logicflow/action/foreach/foreach_map.xml",
+                "logicflow/action/foreach/foreach_array.xml",
+                "logicflow/action/foreach/foreach_object.xml",
                 "logicflow/action/foreach/foreach_data_type_except.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);

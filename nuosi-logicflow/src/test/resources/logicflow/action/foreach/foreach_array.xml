@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="foreach_array"
+            name="循环逻辑数组结构"
+            desc="循环逻辑数组结构">
+    <declare>
+        <attr id="input_array" type="array"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_foreach_array">
+        <var key="input_array"/>
+    </start>
+
+    <action id="action_foreach_array" name="循环逻辑数组结构" next="end">
+        <foreach iterator="input_array">
+        <![CDATA[
+            QB.print(INDEX+"==="+ITERATOR);
+            if(INDEX==7){
+                QB.errorCode("FOREACH_DEFINE_HINT");
+            }
+        ]]>
+        </foreach>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>

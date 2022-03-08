@@ -37,7 +37,7 @@ public class IfProcesser implements IActionProcesser {
                 } else if (ifttt.getNext() != null) {
                     return ifttt.getNext();
                 } else {
-                    IpuUtility.error("IF节点属性配置异常");
+                    IpuUtility.errorCode(LogicFlowConstants.FLOW_IF_ERROR);
                 }
             }
         }

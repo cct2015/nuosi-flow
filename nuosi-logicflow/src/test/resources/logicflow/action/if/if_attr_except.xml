@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="if_attr_except"
+            name="分支节点属性异常"
+            desc="分支节点属性异常">
+    <declare>
+        <attr id="param" type="int"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_if_attr_except">
+        <var key="param" initial="100"/>
+    </start>
+
+    <action id="action_if_attr_except" name="条件判断异常" next="end">
+        <if test="param==100" />
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>
