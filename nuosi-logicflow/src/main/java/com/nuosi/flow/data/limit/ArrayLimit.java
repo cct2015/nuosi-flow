@@ -4,7 +4,7 @@ import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.util.BizDataValidityUtil;
 
 /**
- * <p>desc: 数组结构数据限制和校验 </p>
+ * <p>desc: 对象列表结构数据限制和校验 </p>
  * <p>date: 2022/3/9 0:37 </p>
  *
  * @author nuosi fsofs@163.com

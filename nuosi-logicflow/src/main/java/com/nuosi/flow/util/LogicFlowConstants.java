@@ -29,6 +29,7 @@ public class LogicFlowConstants {
     /*逻辑节点统一执行异常*/
     public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
     public static final String FLOW_FOREACH_ITERATOR_TYPE_ERROR = "FLOW_FOREACH_ITERATOR_TYPE_ERROR";
+    public static final String FLOW_FOREACH_ITERATOR_NULL = "FLOW_FOREACH_ITERATOR_NULL";
     public static final String FLOW_IF_ERROR = "FLOW_IF_ERROR";
 
     /*BData异常编码*/
@@ -82,6 +83,9 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DATETIME_NULLABLE = "BDATA_CHECK_DATETIME_NULLABLE";
     /**布尔校验提示信息*/
     public static final String BDATA_CHECK_BOOLEAN = "BDATA_CHECK_BOOLEAN";
+    /**对象校验提示信息*/
+    public static final String BDATA_CHECK_OBJECT = "BDATA_CHECK_OBJECT";
+    public static final String BDATA_CHECK_ARRAY = "BDATA_CHECK_ARRAY";
     /**正则表达式校验提示信息*/
     public static final String BDATA_CHECK_REGEX = "BDATA_CHECK_REGEX";
 

@@ -280,13 +280,13 @@ public class BizDataValidityUtil {
 
     public static void checkObject(Object value, String bizName, String attr) {
         if (!(value instanceof JSONObject)) {
-            IpuUtility.error("参数类型异常：" + value);
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_OBJECT, bizName, attr); //需要想value展示到详细信息中心
         }
     }
 
     public static void checkArray(Object value, String bizName, String attr) {
         if (!(value instanceof JSONArray)) {
-            IpuUtility.error("参数类型异常：" + value);
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_ARRAY, bizName, attr);  //需要想value展示到详细信息中心
         }
     }
 }

@@ -70,12 +70,25 @@ public class ForeachSyntaxTest {
         }
     }
 
+    @Test
+    public void testForeachIteratorNull() {
+        try {
+            JMap param = new JsonMap();
+            LogicFlowEngine.execute("foreach_iterator_null", param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            Assert.assertTrue(e.getMessage(), true);
+        }
+    }
+
     @Before
     public void setUp() {
         String[] flowConfigs = {
                 "logicflow/action/foreach/foreach_array.xml",
                 "logicflow/action/foreach/foreach_object.xml",
-                "logicflow/action/foreach/foreach_data_type_except.xml"
+                "logicflow/action/foreach/foreach_data_type_except.xml",
+                "logicflow/action/foreach/foreach_iterator_null.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);
     }

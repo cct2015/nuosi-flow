@@ -43,7 +43,7 @@ public class ForeachProcesser implements IActionProcesser{
         Object iterator = databus.get(foreach.getIterator());
         if (iterator == null) {
             /*日志：记录迭代数据为空*/
-            IpuUtility.error("循环迭代数据为空：" + foreach.getIterator());
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_FOREACH_ITERATOR_NULL, foreach.getIterator());
         }
 
         Map<String, Object> vars = new HashMap<String, Object>();
