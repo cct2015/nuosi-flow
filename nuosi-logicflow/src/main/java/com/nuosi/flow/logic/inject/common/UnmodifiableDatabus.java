@@ -11,10 +11,10 @@ import java.util.Map;
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
-public class ProtectedDatabus {
+public class UnmodifiableDatabus {
     private Map<String, Object> databus = new HashMap<String, Object>();
 
-    public ProtectedDatabus(Map<String, Object> databus){
+    public UnmodifiableDatabus(Map<String, Object> databus){
         this.databus = databus;
 
     }

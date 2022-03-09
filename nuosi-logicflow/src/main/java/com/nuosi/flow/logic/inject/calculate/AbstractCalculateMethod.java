@@ -1,7 +1,7 @@
 package com.nuosi.flow.logic.inject.calculate;
 
 import com.ai.ipu.basic.reflect.ReflectUtil;
-import com.nuosi.flow.logic.inject.common.ProtectedDatabus;
+import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AbstractCalculateMethod {
     private Map<String, Method> methodMap = new ConcurrentHashMap<String, Method>();
 
-    public Object invoke(String methodName, Object value, ProtectedDatabus databus) throws Exception {
+    public Object invoke(String methodName, Object value, UnmodifiableDatabus databus) throws Exception {
         Method method = getMethod(methodName);
         return method.invoke(this, value, databus);
     }
@@ -28,7 +28,7 @@ public class AbstractCalculateMethod {
         if(method==null){
             synchronized (methodName){
                 if(method==null){
-                    method = ReflectUtil.getMethod(this.getClass(), methodName, new Class[]{Object.class, ProtectedDatabus.class});
+                    method = ReflectUtil.getMethod(this.getClass(), methodName, new Class[]{Object.class, UnmodifiableDatabus.class});
                     methodMap.put(key, method);
                 }
             }

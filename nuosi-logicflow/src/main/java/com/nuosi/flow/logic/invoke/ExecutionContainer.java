@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.inject.calculate.CalculateMethodManager;
-import com.nuosi.flow.logic.inject.common.ProtectedDatabus;
+import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
 import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
 import com.nuosi.flow.logic.invoke.processer.IActionProcesser;
 import com.nuosi.flow.logic.invoke.processer.ProcesserManager;
@@ -38,8 +38,8 @@ import java.util.*;
  */
 public class ExecutionContainer {
     private Map<String, Object> databus = new HashMap<String, Object>();    //数据总线
-    private ProtectedDatabus protectedDatabus;
-    private JMap inputParameters;
+    private UnmodifiableDatabus unmodifiableDatabus;
+    private Map<String, Object> inputParameters;
 
     private BDataDefine flowDataDefine;    //将declare中的变量定义转化成BDataDefine，使用其数据校验逻辑
     private Set<String> modelSet = new HashSet<String>();  //记录引用的业务对象
@@ -56,7 +56,7 @@ public class ExecutionContainer {
     private void init() {
         initGlobalDeclare();
         initGlobalAction();
-        protectedDatabus = new ProtectedDatabus(databus);
+        unmodifiableDatabus = new UnmodifiableDatabus(databus);
     }
 
     private void initGlobalDeclare() {
@@ -130,28 +130,10 @@ public class ExecutionContainer {
             Object value;
             for (Var var : vars) {
                 key = var.getKey();
-                value = getValueFromVar(var);
 
-                if (var.getModel() != null) {
-                    if (var.getAttr() != null) {
-                        // 根据引入的业务模型做基础数据校验
-                        BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
-                        bDataDefine.checkData(var.getAttr(), value);
-                    } else {
-                        // 根据引入的业务模型做模型数据校验
-                        BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
-                        if (value instanceof JSONObject) {
-                            bDataDefine.checkData((JSONObject) value);
-                        } else if (value instanceof JSONArray) {
-                            bDataDefine.checkData((JSONArray) value);
-                        } else {
-                            IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, (String) value);
-                        }
-                    }
-                } else {
-                    // 根据定义的数据模型做数据校验
-                    checkData(key, value);
-                }
+                value = getValueFromVar(inputParameters, var);
+                checkDataFromVar(var, key, value);
+
                 databus.put(key, value);
             }
         }
@@ -209,10 +191,9 @@ public class ExecutionContainer {
         for (Var var : vars) {
             key = var.getKey();
 
-            value = getValueFromVar(var);
+            value = getValueFromVar(databus, var);
+            checkDataFromVar(var, key, value);
 
-            // 入参使用默认值的校验
-            checkData(key, value);
             key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
             param.put(key, value);
         }
@@ -264,7 +245,6 @@ public class ExecutionContainer {
             String key;
             for (Var var : vars) {
                 key = var.getKey();
-                checkData(key, databus.get(key));
                 result.put(key, databus.get(key));
             }
         }
@@ -290,9 +270,9 @@ public class ExecutionContainer {
         }
     }
 
-    private Object getValueFromVar(Var var){
+    private Object getValueFromVar(Map<String, Object> varParams, Var var){
         String key = var.getKey();
-        Object value = inputParameters.get(key);
+        Object value = varParams.get(key);
         /*1.初始化值*/
         if (value == null) {
             value = var.getInitial();
@@ -313,12 +293,35 @@ public class ExecutionContainer {
         String calculateMethod = var.getCalculateMethod();
         if (calculateMethod != null) {
             try {
-                value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, protectedDatabus);
+                value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, unmodifiableDatabus); //start传参时，数据总线为空
             } catch (Exception e) {
                 Throwable tr = IpuUtility.getBottomException(e);
                 IpuUtility.error(tr);
             }
         }
         return value;
+    }
+
+    private void checkDataFromVar(Var var, String key, Object value) {
+        if (var.getModel() != null) {
+            if (var.getAttr() != null) {
+                // 根据引入的业务模型做基础数据校验
+                BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
+                bDataDefine.checkData(var.getAttr(), value);
+            } else {
+                // 根据引入的业务模型做模型数据校验
+                BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
+                if (value instanceof JSONObject) {
+                    bDataDefine.checkData((JSONObject) value);
+                } else if (value instanceof JSONArray) {
+                    bDataDefine.checkData((JSONArray) value);
+                } else {
+                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, (String) value);
+                }
+            }
+        } else {
+            // 根据定义的数据模型做数据校验
+            checkData(key, value);
+        }
     }
 }
