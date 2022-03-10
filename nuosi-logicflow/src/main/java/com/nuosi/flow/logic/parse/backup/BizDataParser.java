@@ -1,13 +1,11 @@
 package com.nuosi.flow.logic.parse.backup;
 
-import com.ai.ipu.basic.util.IpuUtility;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.logic.model.action.Sql;
 import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.domain.Behavior;
 import com.nuosi.flow.logic.model.domain.DomainModel;
-import com.nuosi.flow.logic.model.domain.Limit;
 import com.nuosi.flow.logic.util.XmlToJsonHelper;
 
 import java.io.InputStream;
@@ -34,7 +32,7 @@ public class BizDataParser {
     public static final String SUFFIX_ATTR = com.ai.ipu.common.xml.Dom4jHelper.SUFFIX_ATTR;
     public static final String SUFFIX_TEXT = com.ai.ipu.common.xml.Dom4jHelper.SUFFIX_TEXT;
 
-    public static final String LIMIT = "limit";
+    public static final String LIMIT = "validate";
     public static final String MAX = "max";
     public static final String MIN = "min";
     public static final String SIZE = "size";
@@ -91,30 +89,30 @@ public class BizDataParser {
         JSONObject attrJson = attrObject.getJSONObject(ATTR + SUFFIX_ATTR);
         Attr attr = attrJson.toJavaObject(Attr.class);
 
-        JSONArray children = attrObject.getJSONArray(CHILDREN);
+        /*JSONArray children = attrObject.getJSONArray(CHILDREN);
         if (children != null && !children.isEmpty()) {
-            Limit limit = parserLimit(children.getJSONObject(0));
-            List<Limit> limits = null;
+            Validator limit = parserValidate(children.getJSONObject(0));
+            List<Validator> limits = null;
             if(limit!=null){
-                limits = new ArrayList<Limit>();
+                limits = new ArrayList<Validator>();
                 limits.add(limit);
             }
-            attr.setLimits(limits);
-        }
+            attr.setValidators(limits);
+        }*/
         return attr;
     }
 
-    public Limit parserLimit(JSONObject limitObject){
+    /*public Validator parserValidate(JSONObject limitObject){
         JSONObject limitItem = limitObject.getJSONObject(LIMIT);
         JSONObject limitAttr = limitItem.getJSONObject(LIMIT + SUFFIX_ATTR);
         if(limitAttr!=null){
-            Limit limit = limitAttr.toJavaObject(Limit.class);
+            Validator limit = limitAttr.toJavaObject(Validator.class);
             return limit;
         }else{
             return null;
         }
 
-    }
+    }*/
 
     public Behavior parserBehavior(JSONObject behaviorObject){
         JSONObject behaviorJson = behaviorObject.getJSONObject(BEHAVIOR + SUFFIX_ATTR);

@@ -3,7 +3,7 @@ package com.nuosi.flow.data.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.data.BDataValidator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +17,11 @@ import java.util.Map;
  */
 public class BizDataDefine implements BDataDefine {
     private final String bizName;
-    private final Map<String, BDataLimit> dataLimits;
+    private final Map<String, BDataValidator> dataValidators;
 
     public BizDataDefine(String bizName) {
         this.bizName = bizName;
-        this.dataLimits = new HashMap<String, BDataLimit>();
+        this.dataValidators = new HashMap<String, BDataValidator>();
     }
 
     @Override
@@ -30,51 +30,51 @@ public class BizDataDefine implements BDataDefine {
     }
 
     @Override
-    public BizDataDefine defineLimit(String attr, BDataLimit dataLimit) {
-        dataLimits.put(attr, dataLimit);
+    public BizDataDefine defineValidator(String attr, BDataValidator dataValidator) {
+        dataValidators.put(attr, dataValidator);
         return this;
     }
 
     @Override
-    public BDataLimit getDataLimit(String bizName) {
-        return dataLimits.get(bizName);
+    public BDataValidator getDataValidator(String bizName) {
+        return dataValidators.get(bizName);
     }
 
     @Override
-    public Map<String, BDataLimit> getDataLimits() {
-        return dataLimits;
+    public Map<String, BDataValidator> getDataValidators() {
+        return dataValidators;
     }
 
     @Override
     public boolean containsAttr(String attr) {
-        return dataLimits.containsKey(attr);
+        return dataValidators.containsKey(attr);
     }
 
     @Override
     public boolean checkData(String attr, Object value) {
-        BDataLimit dataLimit = this.getDataLimit(attr);
-        if(dataLimit!=null){
+        BDataValidator dataValidator = this.getDataValidator(attr);
+        if(dataValidator!=null){
             /*1.进行指定规则校验*/
-            dataLimit.checkValidity(bizName, attr, value);
+            dataValidator.checkValidity(bizName, attr, value);
             /*2.进行正则表达式规则校验*/
-            dataLimit.checkRegex(bizName, attr, value);
+            dataValidator.checkRegex(bizName, attr, value);
         }
         return true;
     }
 
     @Override
     public boolean checkData(JSONObject value) {
-        BDataLimit dataLimit;
+        BDataValidator dataValidator;
         String attr;
         Object val;
-        for (Map.Entry<String, BDataLimit> entry : dataLimits.entrySet()) {
-            dataLimit = entry.getValue();
+        for (Map.Entry<String, BDataValidator> entry : dataValidators.entrySet()) {
+            dataValidator = entry.getValue();
             attr = entry.getKey();
             val = value.get(attr);
             /*1.进行指定规则校验*/
-            dataLimit.checkValidity(bizName, attr, val);
+            dataValidator.checkValidity(bizName, attr, val);
             /*2.进行正则表达式规则校验*/
-            dataLimit.checkRegex(bizName, attr, val);
+            dataValidator.checkRegex(bizName, attr, val);
         }
         return true;
     }

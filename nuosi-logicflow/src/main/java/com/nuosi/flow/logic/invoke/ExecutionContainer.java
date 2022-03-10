@@ -265,7 +265,7 @@ public class ExecutionContainer {
         if (flowDataDefine == null) {
             return;
         }
-        if (flowDataDefine.getDataLimits().containsKey(key)) {
+        if (flowDataDefine.getDataValidators().containsKey(key)) {
             flowDataDefine.checkData(key, value);
         }
     }

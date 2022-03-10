@@ -2,7 +2,7 @@ package com.nuosi.flow.logic.invoke.check;
 
 import com.ai.ipu.basic.util.IpuBaseException;
 import com.ai.ipu.basic.util.IpuUtility;
-import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.data.BDataValidator;
 import com.nuosi.flow.data.impl.BizDataDefine;
 
 /**
@@ -21,12 +21,12 @@ public class FlowDataDefine extends BizDataDefine {
     @Override
     public boolean checkData(String attr, Object value) {
         try {
-            BDataLimit dataLimit = this.getDataLimit(attr);
-            if (dataLimit != null) {
+            BDataValidator dataValidator = this.getDataValidator(attr);
+            if (dataValidator != null) {
                 /*1.进行指定规则校验*/
-                dataLimit.checkValidity(getBizName(), attr, value);
+                dataValidator.checkValidity(getBizName(), attr, value);
                 /*2.进行正则表达式规则校验*/
-                dataLimit.checkRegex(getBizName(), attr, value);
+                dataValidator.checkRegex(getBizName(), attr, value);
             }
         } catch (Exception e) {
             if (e instanceof IpuBaseException) {

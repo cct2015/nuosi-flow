@@ -20,11 +20,11 @@ public interface BDataDefine {
 
     public String getBizName();
 
-    public BizDataDefine defineLimit(String attr, BDataLimit dataLimit);
+    public BizDataDefine defineValidator(String attr, BDataValidator dataValidator);
 
-    public BDataLimit getDataLimit(String bizName);
+    public BDataValidator getDataValidator(String bizName);
 
-    public Map<String, BDataLimit> getDataLimits();
+    public Map<String, BDataValidator> getDataValidators();
 
     public boolean containsAttr(String attr);
 

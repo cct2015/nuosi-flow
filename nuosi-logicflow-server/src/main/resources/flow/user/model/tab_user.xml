@@ -2,13 +2,13 @@
 <model id="tab_user" name="用户信息">
     <attr id="user_id" type="int" name="用户标识"/>
     <attr id="user_name" type="string" name="用户名称">
-        <limitString size="10"/>
+        <validateString size="10"/>
     </attr>
     <attr id="gender" type="string" name="性别"/>
     <attr id="user_state" type="string" name="用户状态"/>
     <attr id="email" type="string" name="邮箱"/>
     <attr id="link_phone" type="string" name="电话号码">
-        <limitString equal="11"/>
+        <validateString equal="11"/>
     </attr>
     <attr id="valid_date" type="datetime" name="生效日期"/>
 

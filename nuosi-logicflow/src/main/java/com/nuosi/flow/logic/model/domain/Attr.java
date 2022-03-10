@@ -1,6 +1,6 @@
 package com.nuosi.flow.logic.model.domain;
 
-import com.nuosi.flow.logic.model.limit.*;
+import com.nuosi.flow.logic.model.validate.*;
 
 import java.util.List;
 
@@ -16,12 +16,11 @@ public class Attr {
     private String type;
     private String name;
     private String regex;
-    private List<Limit> limits;
-    private List<LimitInteger> limitIntegers;
-    private List<LimitString> limitStrings;
-    private List<LimitDecimal> LimitDecimals;
-    private List<LimitDate> LimitDates;
-    private List<LimitDatetime> LimitDatetimes;
+    private List<ValidateInteger> validateIntegers;
+    private List<ValidateString> validateStrings;
+    private List<ValidateDecimal> validateDecimals;
+    private List<ValidateDate> validateDates;
+    private List<ValidateDatetime> validateDatetimes;
 
     public String getId() {
         return id;
@@ -55,51 +54,43 @@ public class Attr {
         this.regex = regex;
     }
 
-    public List<Limit> getLimits() {
-        return limits;
+    public List<ValidateInteger> getValidateIntegers() {
+        return validateIntegers;
     }
 
-    public void setLimits(List<Limit> limits) {
-        this.limits = limits;
+    public void setValidateIntegers(List<ValidateInteger> validateIntegers) {
+        this.validateIntegers = validateIntegers;
     }
 
-    public List<LimitInteger> getLimitIntegers() {
-        return limitIntegers;
+    public List<ValidateString> getValidateStrings() {
+        return validateStrings;
     }
 
-    public void setLimitIntegers(List<LimitInteger> limitIntegers) {
-        this.limitIntegers = limitIntegers;
+    public void setValidateStrings(List<ValidateString> validateStrings) {
+        this.validateStrings = validateStrings;
     }
 
-    public List<LimitString> getLimitStrings() {
-        return limitStrings;
+    public List<ValidateDecimal> getValidateDecimals() {
+        return validateDecimals;
     }
 
-    public void setLimitStrings(List<LimitString> limitStrings) {
-        this.limitStrings = limitStrings;
+    public void setValidateDecimals(List<ValidateDecimal> validateDecimals) {
+        this.validateDecimals = validateDecimals;
     }
 
-    public List<LimitDecimal> getLimitDecimals() {
-        return LimitDecimals;
+    public List<ValidateDate> getValidateDates() {
+        return validateDates;
     }
 
-    public void setLimitDecimals(List<LimitDecimal> limitDecimals) {
-        LimitDecimals = limitDecimals;
+    public void setValidateDates(List<ValidateDate> validateDates) {
+        this.validateDates = validateDates;
     }
 
-    public List<LimitDate> getLimitDates() {
-        return LimitDates;
+    public List<ValidateDatetime> getValidateDatetimes() {
+        return validateDatetimes;
     }
 
-    public void setLimitDates(List<LimitDate> limitDates) {
-        LimitDates = limitDates;
-    }
-
-    public List<LimitDatetime> getLimitDatetimes() {
-        return LimitDatetimes;
-    }
-
-    public void setLimitDatetimes(List<LimitDatetime> limitDatetimes) {
-        LimitDatetimes = limitDatetimes;
+    public void setValidateDatetimes(List<ValidateDatetime> validateDatetimes) {
+        this.validateDatetimes = validateDatetimes;
     }
 }

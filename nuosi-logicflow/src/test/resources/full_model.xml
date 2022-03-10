@@ -4,23 +4,23 @@
     <attr id="" type="" name=""/>
     <!-- 定义整型的限制条件 -->
     <attr id="" type="int" name="">
-        <limitInteger max="" min="" more="" less="" equal="" unequal=""/>
+        <validateInteger max="" min="" more="" less="" equal="" unequal=""/>
     </attr>
     <!-- 定义字符串型的限制条件 -->
     <attr id="" type="string" name="">
-        <limitString max="" min="" more="" less="" equal="" unequal="" nullable=""/>
+        <validateString max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
     <!-- 定义小数型的限制条件 -->
     <attr id="" type="decimal" name="">
-        <limitDecimal scale="" precision="" max="" min="" more="" less="" equal="" unequal=""/>
+        <validateDecimal scale="" precision="" max="" min="" more="" less="" equal="" unequal=""/>
     </attr>
     <!-- 定义日期类型的限制条件 -->
     <attr id="" type="date" name="">
-        <limitDate max="" min="" more="" less="" equal="" unequal="" nullable=""/>
+        <validateDate max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
     <!-- 定义时间戳类型的限制条件 -->
     <attr id="" type="datetime" name="">
-        <limitDatetime max="" min="" more="" less="" equal="" unequal="" nullable=""/>
+        <validateDatetime max="" min="" more="" less="" equal="" unequal="" nullable=""/>
     </attr>
 
     <!-- sql行为 -->

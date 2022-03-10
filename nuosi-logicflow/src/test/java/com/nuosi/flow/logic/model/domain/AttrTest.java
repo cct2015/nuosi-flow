@@ -1,7 +1,7 @@
 package com.nuosi.flow.logic.model.domain;
 
 import com.alibaba.fastjson.JSON;
-import com.nuosi.flow.data.BizDataLimitManager;
+import com.nuosi.flow.data.BizDataValidatorManager;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.data.impl.BizData;
 import com.nuosi.flow.data.impl.BizDataDefine;
@@ -22,9 +22,9 @@ public class AttrTest {
     @Before
     public void before(){
         BizDataDefine bizDataDefine = new BizDataDefine("Attr");
-        bizDataDefine.defineLimit("id", BizDataLimitManager.createStringLimit());
-        bizDataDefine.defineLimit("type",BizDataLimitManager.createStringLimit());
-        bizDataDefine.defineLimit("name",BizDataLimitManager.createStringLimit());
+        bizDataDefine.defineValidator("id", BizDataValidatorManager.createStringValidator());
+        bizDataDefine.defineValidator("type", BizDataValidatorManager.createStringValidator());
+        bizDataDefine.defineValidator("name", BizDataValidatorManager.createStringValidator());
         BizDataManager.registerDto(bizDataDefine);
     }
 

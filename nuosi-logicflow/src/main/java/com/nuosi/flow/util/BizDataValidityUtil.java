@@ -5,9 +5,9 @@ import com.ai.ipu.basic.util.IpuUtility;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.data.BDataValidator;
 import com.nuosi.flow.data.BizDataManager;
-import com.nuosi.flow.data.limit.*;
+import com.nuosi.flow.data.validate.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -31,32 +31,32 @@ public class BizDataValidityUtil {
      */
     public static void checkData(String bizName, String attr, Object value) {
         BDataDefine dataDefine = BizDataManager.getDataDefine(bizName);
-        BDataLimit dataLimit = dataDefine.getDataLimit(attr);
-        switch (dataLimit.getDataType()) {
+        BDataValidator dataValidator = dataDefine.getDataValidator(attr);
+        switch (dataValidator.getDataType()) {
             /*校验整数类型*/
             case INT:
                 Integer intValue = checkInt(value, bizName, attr);
-                checkIntLimit(intValue, dataLimit, bizName, attr);
+                checkIntValidate(intValue, dataValidator, bizName, attr);
                 break;
             /*校验字符类型*/
             case STRING:
                 String stringValue = checkString(value, bizName, attr);
-                checkStringLimit(stringValue, dataLimit, bizName, attr);
+                checkStringValidate(stringValue, dataValidator, bizName, attr);
                 break;
             /*校验小数类型*/
             case DECIMAL:
                 BigDecimal decimalValue = checkDecimal(value, bizName, attr);
-                checkDecimalLimit(decimalValue, dataLimit, bizName, attr);
+                checkDecimalValidate(decimalValue, dataValidator, bizName, attr);
                 break;
             /*校验日期类型*/
             case DATE:
                 java.sql.Date dateValue = checkDate(value, bizName, attr);
-                checkDateLimit(dateValue, dataLimit, bizName, attr);
+                checkDateValidate(dateValue, dataValidator, bizName, attr);
                 break;
             /*校验日期时间类型*/
             case DATETIME:
                 Timestamp timestampValue = checkDatetime(value, bizName, attr);
-                checkDatetimeLimit(timestampValue, dataLimit, bizName, attr);
+                checkDatetimeValidate(timestampValue, dataValidator, bizName, attr);
                 break;
             default:
                 break;
@@ -73,28 +73,28 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkIntLimit(Integer val, BDataLimit bdataLimit, String bizName, String attr) {
-        if (bdataLimit == null) {
+    public static void checkIntValidate(Integer val, BDataValidator bdataValidator, String bizName, String attr) {
+        if (bdataValidator == null) {
             return;
         }
-        IntegerLimit dataLimit = (IntegerLimit) bdataLimit;
-        if (dataLimit.getMax() != null && val > dataLimit.getMax()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        IntegerValidator dataValidator = (IntegerValidator) bdataValidator;
+        if (dataValidator.getMax() != null && val > dataValidator.getMax()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MAX, bizName, attr, String.valueOf(dataValidator.getMax()));
         }
-        if (dataLimit.getMin() != null && val < dataLimit.getMin()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        if (dataValidator.getMin() != null && val < dataValidator.getMin()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MIN, bizName, attr, String.valueOf(dataValidator.getMin()));
         }
-        if (dataLimit.getMore() != null && val >= dataLimit.getMore()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        if (dataValidator.getMore() != null && val >= dataValidator.getMore()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MORE, bizName, attr, String.valueOf(dataValidator.getMore()));
         }
-        if (dataLimit.getLess() != null && val <= dataLimit.getLess()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        if (dataValidator.getLess() != null && val <= dataValidator.getLess()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_LESS, bizName, attr, String.valueOf(dataValidator.getLess()));
         }
-        if (dataLimit.getEqual() != null && val >= dataLimit.getEqual()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        if (dataValidator.getEqual() != null && val >= dataValidator.getEqual()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()));
         }
-        if (dataLimit.getUnequal() != null && val <= dataLimit.getUnequal()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        if (dataValidator.getUnequal() != null && val <= dataValidator.getUnequal()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()));
         }
     }
 
@@ -103,36 +103,36 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkStringLimit(String val, BDataLimit bdataLimit, String bizName, String attr) {
-        if (bdataLimit == null) {
+    public static void checkStringValidate(String val, BDataValidator bdataValidator, String bizName, String attr) {
+        if (bdataValidator == null) {
             return;
         }
-        StringLimit dataLimit = (StringLimit) bdataLimit;
+        StringValidator dataValidator = (StringValidator) bdataValidator;
 
         if(StringUtil.isEmpty(val)){
-            if(dataLimit.isNullable()==false){
+            if(dataValidator.isNullable()==false){
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr);
             }
             return;
         }
 
-        if (dataLimit.getMin() != null && val.length() < dataLimit.getMin()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        if (dataValidator.getMin() != null && val.length() < dataValidator.getMin()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MIN, bizName, attr, String.valueOf(dataValidator.getMin()));
         }
-        if (dataLimit.getMax() != null && val.length() > dataLimit.getMax()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        if (dataValidator.getMax() != null && val.length() > dataValidator.getMax()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MAX, bizName, attr, String.valueOf(dataValidator.getMax()));
         }
-        if (dataLimit.getLess() != null && val.length() <= dataLimit.getLess()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        if (dataValidator.getLess() != null && val.length() <= dataValidator.getLess()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_LESS, bizName, attr, String.valueOf(dataValidator.getLess()));
         }
-        if (dataLimit.getMore() != null && val.length() >= dataLimit.getMore()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        if (dataValidator.getMore() != null && val.length() >= dataValidator.getMore()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MORE, bizName, attr, String.valueOf(dataValidator.getMore()));
         }
-        if (dataLimit.getEqual() != null && val.length()!=dataLimit.getEqual()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        if (dataValidator.getEqual() != null && val.length()!=dataValidator.getEqual()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()));
         }
-        if (dataLimit.getUnequal() != null && val.length()==dataLimit.getUnequal()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        if (dataValidator.getUnequal() != null && val.length()==dataValidator.getUnequal()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()));
         }
     }
 
@@ -146,35 +146,35 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDecimalLimit(BigDecimal val, BDataLimit bdataLimit, String bizName, String attr) {
-        if (bdataLimit == null) {
+    public static void checkDecimalValidate(BigDecimal val, BDataValidator bdataValidator, String bizName, String attr) {
+        if (bdataValidator == null) {
             return;
         }
-        DecimalLimit dataLimit = (DecimalLimit) bdataLimit;
+        DecimalValidator dataValidator = (DecimalValidator) bdataValidator;
 
-        if (dataLimit.getPrecision() != null && val.precision() > dataLimit.getPrecision()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_PRECISION, bizName, attr, String.valueOf(dataLimit.getPrecision()));
+        if (dataValidator.getPrecision() != null && val.precision() > dataValidator.getPrecision()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_PRECISION, bizName, attr, String.valueOf(dataValidator.getPrecision()));
         }
-        if (dataLimit.getScale() != null && val.scale() > dataLimit.getScale()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_SCALE, bizName, attr, String.valueOf(dataLimit.getScale()));
+        if (dataValidator.getScale() != null && val.scale() > dataValidator.getScale()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_SCALE, bizName, attr, String.valueOf(dataValidator.getScale()));
         }
-        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        if (dataValidator.getMin() != null && val.compareTo(dataValidator.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MIN, bizName, attr, String.valueOf(dataValidator.getMin()));
         }
-        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        if (dataValidator.getMax() != null && val.compareTo(dataValidator.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MAX, bizName, attr, String.valueOf(dataValidator.getMax()));
         }
-        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        if (dataValidator.getLess() != null && val.compareTo(dataValidator.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_LESS, bizName, attr, String.valueOf(dataValidator.getLess()));
         }
-        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        if (dataValidator.getMore() != null && val.compareTo(dataValidator.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_MORE, bizName, attr, String.valueOf(dataValidator.getMore()));
         }
-        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        if (dataValidator.getEqual() != null && val.compareTo(dataValidator.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()));
         }
-        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        if (dataValidator.getUnequal() != null && val.compareTo(dataValidator.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()));
         }
     }
 
@@ -191,36 +191,36 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDateLimit(java.sql.Date val, BDataLimit bdataLimit, String bizName, String attr) {
-        if (bdataLimit == null) {
+    public static void checkDateValidate(java.sql.Date val, BDataValidator bdataValidator, String bizName, String attr) {
+        if (bdataValidator == null) {
             return;
         }
-        DateLimit dataLimit = (DateLimit) bdataLimit;
+        DateValidator dataValidator = (DateValidator) bdataValidator;
 
         if(val==null){
-            if(dataLimit.isNullable()==false){
+            if(dataValidator.isNullable()==false){
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
             }
             return;
         }
 
-        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        if (dataValidator.getMin() != null && val.compareTo(dataValidator.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MIN, bizName, attr, String.valueOf(dataValidator.getMin()));
         }
-        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        if (dataValidator.getMax() != null && val.compareTo(dataValidator.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MAX, bizName, attr, String.valueOf(dataValidator.getMax()));
         }
-        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        if (dataValidator.getLess() != null && val.compareTo(dataValidator.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_LESS, bizName, attr, String.valueOf(dataValidator.getLess()));
         }
-        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        if (dataValidator.getMore() != null && val.compareTo(dataValidator.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_MORE, bizName, attr, String.valueOf(dataValidator.getMore()));
         }
-        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        if (dataValidator.getEqual() != null && val.compareTo(dataValidator.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()));
         }
-        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        if (dataValidator.getUnequal() != null && val.compareTo(dataValidator.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()));
         }
     }
 
@@ -238,36 +238,36 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDatetimeLimit(Timestamp val, BDataLimit bdataLimit, String bizName, String attr) {
-        if (bdataLimit == null) {
+    public static void checkDatetimeValidate(Timestamp val, BDataValidator bdataValidator, String bizName, String attr) {
+        if (bdataValidator == null) {
             return;
         }
-        DatetimeLimit dataLimit = (DatetimeLimit) bdataLimit;
+        DatetimeValidator dataValidator = (DatetimeValidator) bdataValidator;
 
         if(val==null){
-            if(dataLimit.isNullable()==false){
+            if(dataValidator.isNullable()==false){
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
             }
             return;
         }
 
-        if (dataLimit.getMin() != null && val.compareTo(dataLimit.getMin()) < 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MIN, bizName, attr, String.valueOf(dataLimit.getMin()));
+        if (dataValidator.getMin() != null && val.compareTo(dataValidator.getMin()) < 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MIN, bizName, attr, String.valueOf(dataValidator.getMin()));
         }
-        if (dataLimit.getMax() != null && val.compareTo(dataLimit.getMax()) > 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MAX, bizName, attr, String.valueOf(dataLimit.getMax()));
+        if (dataValidator.getMax() != null && val.compareTo(dataValidator.getMax()) > 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MAX, bizName, attr, String.valueOf(dataValidator.getMax()));
         }
-        if (dataLimit.getLess() != null && val.compareTo(dataLimit.getLess()) <= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_LESS, bizName, attr, String.valueOf(dataLimit.getLess()));
+        if (dataValidator.getLess() != null && val.compareTo(dataValidator.getLess()) <= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_LESS, bizName, attr, String.valueOf(dataValidator.getLess()));
         }
-        if (dataLimit.getMore() != null && val.compareTo(dataLimit.getMore()) >= 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MORE, bizName, attr, String.valueOf(dataLimit.getMore()));
+        if (dataValidator.getMore() != null && val.compareTo(dataValidator.getMore()) >= 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_MORE, bizName, attr, String.valueOf(dataValidator.getMore()));
         }
-        if (dataLimit.getEqual() != null && val.compareTo(dataLimit.getEqual()) != 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_EQUAL, bizName, attr, String.valueOf(dataLimit.getEqual()));
+        if (dataValidator.getEqual() != null && val.compareTo(dataValidator.getEqual()) != 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()));
         }
-        if (dataLimit.getUnequal() != null && val.compareTo(dataLimit.getUnequal()) == 0) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_UNEQUAL, bizName, attr, String.valueOf(dataLimit.getUnequal()));
+        if (dataValidator.getUnequal() != null && val.compareTo(dataValidator.getUnequal()) == 0) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()));
         }
     }
 

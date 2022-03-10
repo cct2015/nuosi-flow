@@ -3,7 +3,7 @@
     <attr id="user_id" type="int" name="用户标识"/>
     <attr id="user_name" type="string" name="用户名称"/>
     <attr id="age" type="int" name="年龄">
-        <limitInteger more="200" less="0"/>
+        <validateInteger more="200" less="0"/>
     </attr>
     <attr id="email" type="string" name="邮箱">
     </attr>

@@ -2,15 +2,15 @@ package com.nuosi.flow.logic.parse;
 
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataDefine.BDataType;
-import com.nuosi.flow.data.BDataLimit;
+import com.nuosi.flow.data.BDataValidator;
 import com.nuosi.flow.data.impl.BizDataDefine;
-import com.nuosi.flow.data.limit.*;
+import com.nuosi.flow.data.validate.*;
 import com.nuosi.flow.logic.LogicFlowManager;
 import com.nuosi.flow.logic.invoke.check.FlowDataDefine;
 import com.nuosi.flow.logic.model.LogicFlow;
 import com.nuosi.flow.logic.model.domain.Attr;
 import com.nuosi.flow.logic.model.domain.DomainModel;
-import com.nuosi.flow.logic.model.limit.*;
+import com.nuosi.flow.logic.model.validate.*;
 
 import java.util.List;
 
@@ -40,41 +40,41 @@ public class ModelToDataDefineUtil {
         for (Attr attr : attrs) {
             BDataType dataType = valueOf(attr.getType().toUpperCase());
 
-            BDataLimit bDataLimit = null;
+            BDataValidator bDataValidator = null;
             switch (dataType) {
                 case STRING:
-                    List<LimitString> limitStrings = attr.getLimitStrings();
-                    if (limitStrings != null && !limitStrings.isEmpty()) {
-                        LimitString limitString = limitStrings.get(0);
-                        bDataLimit = parseStringLimit(limitString);
+                    List<ValidateString> validateStrings = attr.getValidateStrings();
+                    if (validateStrings != null && !validateStrings.isEmpty()) {
+                        ValidateString validateString = validateStrings.get(0);
+                        bDataValidator = parseStringValidate(validateString);
                     }
                     break;
                 case INT:
-                    List<LimitInteger> limitIntegers = attr.getLimitIntegers();
-                    if (limitIntegers != null && !limitIntegers.isEmpty()) {
-                        LimitInteger limitInt = limitIntegers.get(0);
-                        bDataLimit = parseIntegerLimit(limitInt);
+                    List<ValidateInteger> validateIntegers = attr.getValidateIntegers();
+                    if (validateIntegers != null && !validateIntegers.isEmpty()) {
+                        ValidateInteger validateInt = validateIntegers.get(0);
+                        bDataValidator = parseIntegerValidate(validateInt);
                     }
                     break;
                 case DECIMAL:
-                    List<LimitDecimal> LimitDecimals = attr.getLimitDecimals();
-                    if (LimitDecimals != null && !LimitDecimals.isEmpty()) {
-                        LimitDecimal limitDecimal = LimitDecimals.get(0);
-                        bDataLimit = parseDecimalLimit(limitDecimal);
+                    List<ValidateDecimal> validateDecimals = attr.getValidateDecimals();
+                    if (validateDecimals != null && !validateDecimals.isEmpty()) {
+                        ValidateDecimal validateDecimal = validateDecimals.get(0);
+                        bDataValidator = parseDecimalValidate(validateDecimal);
                     }
                     break;
                 case DATE:
-                    List<LimitDate> LimitDates = attr.getLimitDates();
-                    if (LimitDates != null && !LimitDates.isEmpty()) {
-                        LimitDate limitDate = LimitDates.get(0);
-                        bDataLimit = parseDateLimit(limitDate);
+                    List<ValidateDate> validateDates = attr.getValidateDates();
+                    if (validateDates != null && !validateDates.isEmpty()) {
+                        ValidateDate validateDate = validateDates.get(0);
+                        bDataValidator = parseDateValidate(validateDate);
                     }
                     break;
                 case DATETIME:
-                    List<LimitDatetime> LimitDatetimes = attr.getLimitDatetimes();
-                    if (LimitDatetimes != null && !LimitDatetimes.isEmpty()) {
-                        LimitDatetime limitDatetime = LimitDatetimes.get(0);
-                        bDataLimit = parseDatetimeLimit(limitDatetime);
+                    List<ValidateDatetime> validateDatetimes = attr.getValidateDatetimes();
+                    if (validateDatetimes != null && !validateDatetimes.isEmpty()) {
+                        ValidateDatetime validateDatetime = validateDatetimes.get(0);
+                        bDataValidator = parseDatetimeValidate(validateDatetime);
                     }
                     break;
                 case BOOLEAN:
@@ -86,75 +86,75 @@ public class ModelToDataDefineUtil {
                 default:
                     break;
             }
-            if (bDataLimit == null) {
-                bDataLimit = createEmptyBDataLimit(dataType);    //BDataLimit不为空则可触发基础类型的校验
+            if (bDataValidator == null) {
+                bDataValidator = createEmptyBDataValidate(dataType);    //BDataValidator不为空则可触发基础类型的校验
             }
-            bDataLimit.setRegex(attr.getRegex());
-            dataDefine.defineLimit(attr.getId(), bDataLimit);
+            bDataValidator.setRegex(attr.getRegex());
+            dataDefine.defineValidator(attr.getId(), bDataValidator);
         }
         return dataDefine;
     }
 
-    private static BDataLimit parseIntegerLimit(LimitInteger limitInt) {
-        IntegerLimit integerLimit = new IntegerLimit();
-        org.springframework.beans.BeanUtils.copyProperties(limitInt, integerLimit);
-        return integerLimit;
+    private static BDataValidator parseIntegerValidate(ValidateInteger validateInt) {
+        IntegerValidator integerValidator = new IntegerValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateInt, integerValidator);
+        return integerValidator;
     }
 
-    private static BDataLimit parseStringLimit(LimitString limitString) {
-        StringLimit stringLimit = new StringLimit();
-        org.springframework.beans.BeanUtils.copyProperties(limitString, stringLimit);
-        return stringLimit;
+    private static BDataValidator parseStringValidate(ValidateString validateString) {
+        StringValidator stringValidator = new StringValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateString, stringValidator);
+        return stringValidator;
     }
 
-    private static BDataLimit parseDecimalLimit(LimitDecimal limitDecimal) {
-        DecimalLimit decimalLimit = new DecimalLimit();
-        org.springframework.beans.BeanUtils.copyProperties(limitDecimal, decimalLimit);
-        return decimalLimit;
+    private static BDataValidator parseDecimalValidate(ValidateDecimal validateDecimal) {
+        DecimalValidator decimalValidator = new DecimalValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateDecimal, decimalValidator);
+        return decimalValidator;
     }
 
-    private static BDataLimit parseDateLimit(LimitDate limitDate) {
-        DateLimit dateLimit = new DateLimit();
-        org.springframework.beans.BeanUtils.copyProperties(limitDate, dateLimit);
-        return dateLimit;
+    private static BDataValidator parseDateValidate(ValidateDate validateDate) {
+        DateValidator dateValidator = new DateValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateDate, dateValidator);
+        return dateValidator;
     }
 
-    private static BDataLimit parseDatetimeLimit(LimitDatetime limitDatetime) {
-        DatetimeLimit datetimeLimit = new DatetimeLimit();
-        org.springframework.beans.BeanUtils.copyProperties(limitDatetime, datetimeLimit);
-        return datetimeLimit;
+    private static BDataValidator parseDatetimeValidate(ValidateDatetime validateDatetime) {
+        DatetimeValidator datetimeValidator = new DatetimeValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateDatetime, datetimeValidator);
+        return datetimeValidator;
     }
 
-    private static BDataLimit createEmptyBDataLimit(BDataType dataType){
-        BDataLimit bdataLimit = null;
+    private static BDataValidator createEmptyBDataValidate(BDataType dataType){
+        BDataValidator bdataValidator = null;
         switch(dataType){
             case INT:
-                bdataLimit = new IntegerLimit();
+                bdataValidator = new IntegerValidator();
                 break;
             case STRING:
-                bdataLimit = new StringLimit();
+                bdataValidator = new StringValidator();
                 break;
             case DECIMAL:
-                bdataLimit = new DecimalLimit();
+                bdataValidator = new DecimalValidator();
                 break;
             case DATE:
-                bdataLimit = new DateLimit();
+                bdataValidator = new DateValidator();
                 break;
             case DATETIME:
-                bdataLimit = new DatetimeLimit();
+                bdataValidator = new DatetimeValidator();
                 break;
             case BOOLEAN:
-                bdataLimit = new BooleanLimit();
+                bdataValidator = new BooleanValidator();
                 break;
             case OBJECT:
-                bdataLimit = new ObjectLimit();
+                bdataValidator = new ObjectValidator();
                 break;
             case ARRAY:
-                bdataLimit = new ArrayLimit();
+                bdataValidator = new ArrayValidator();
                 break;
             default:
                 break;
         }
-        return bdataLimit;
+        return bdataValidator;
     }
 }

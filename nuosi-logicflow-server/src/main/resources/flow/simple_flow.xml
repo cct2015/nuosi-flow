@@ -7,7 +7,7 @@
         <!-- 引入model定义 -->
         <import model="goods_info"/>
         <attr id="goods_type" type="int" name="货物类型">
-            <limit max="10"/>
+            <validateInteger max="10"/>
         </attr>
         <attr id="user_id" type="int" name="用户标识"/>
         <attr id="user_name" type="string" name="用户名称"/>

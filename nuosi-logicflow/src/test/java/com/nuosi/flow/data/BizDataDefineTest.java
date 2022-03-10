@@ -22,11 +22,11 @@ public class BizDataDefineTest {
         bizName = "User";
         // 注册User结构的业务对象
         BDataDefine userDefine = new BizDataDefine(bizName);
-        userDefine.defineLimit("name", BizDataLimitManager.createStringLimit());
-        userDefine.defineLimit("age", BizDataLimitManager.createIntegerLimit());
-        userDefine.defineLimit("height", BizDataLimitManager.createDecimalLimit());
-        userDefine.defineLimit("birthday", BizDataLimitManager.createDateLimit());
-        userDefine.defineLimit("create_date", BizDataLimitManager.createDatetimeLimit());
+        userDefine.defineValidator("name", BizDataValidatorManager.createStringValidator());
+        userDefine.defineValidator("age", BizDataValidatorManager.createIntegerValidator());
+        userDefine.defineValidator("height", BizDataValidatorManager.createDecimalValidator());
+        userDefine.defineValidator("birthday", BizDataValidatorManager.createDateValidator());
+        userDefine.defineValidator("create_date", BizDataValidatorManager.createDatetimeValidator());
         BizDataManager.registerDto(userDefine, true);
     }
 

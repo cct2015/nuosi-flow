@@ -3,7 +3,7 @@
     <attr id="fill_id" type="int" name="填报ID"/>
     <attr id="fill_date" type="datetime" name="填报日期"/>
     <attr id="fill_hours" type="int" name="填报时长">
-        <limit min="0" max="24"/>
+        <validateInteger min="0" max="24"/>
     </attr>
     <attr id="fill_staff" type="string" name="填报人"/>
     <attr id="project_name" type="string" name="项目名称"/>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="date_less_validate" name="日期小于等于值限制" desc="日期小于等于值限制">
+    <!-- 全局域 -->
+    <declare>
+        <attr id="date_param" type="date" name="日期参数">
+            <validateDate less="2021-07-07"/>
+        </attr>
+    </declare>
+
+    <start id="start" name="开始节点" next="printParam">
+        <!-- 逻辑入口参数校验 -->
+        <var key="date_param"/>
+    </start>
+
+    <action id="printParam" name="打印参数" next="end">
+        <expression>
+        <![CDATA[
+
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="date_param"/>
+    </end>
+</logic-flow>
