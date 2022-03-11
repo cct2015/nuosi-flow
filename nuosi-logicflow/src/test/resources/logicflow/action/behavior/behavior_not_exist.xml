@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="behavior_not_exist"
+            name="模型行为不存在"
+            desc="模型行为不存在">
+    <declare>
+        <!-- 引入model定义 -->
+        <import model="working_hours_entity"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_behavior_not_exist">
+    </start>
+    <action id="action_behavior_not_exist" name="行为不存在" next="end">
+        <input>
+            <var key="fill_staff"/>
+        </input>
+        <behavior model="working_hours_entity" id="behaviorNotExist"/>
+        <output>
+            <var key="working_hours_infos"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="working_hours_infos"/>
+    </end>
+</logic-flow>

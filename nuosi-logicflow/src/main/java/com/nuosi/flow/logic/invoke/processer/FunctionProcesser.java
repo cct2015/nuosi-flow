@@ -7,6 +7,7 @@ import com.nuosi.flow.logic.inject.function.IDomainFunction;
 import com.nuosi.flow.logic.model.action.Function;
 import com.nuosi.flow.logic.model.body.Action;
 import com.nuosi.flow.logic.model.domain.Behavior;
+import com.nuosi.flow.util.LogicFlowConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class FunctionProcesser implements IActionProcesser, IBehaviorProcesser {
             }catch (Exception e){
                 /*在反射处需要单独捕获异常，并抓取底部异常*/
                 Throwable tr = IpuUtility.getBottomException(e);
-                throw (Exception)tr;
+                IpuUtility.errorCode(LogicFlowConstants.FLOW_FUNCTION_EXECUTE_EXCEPTION, function.getDomain(), function.getName(), tr.getMessage());
             }
         }
         return result;

@@ -99,7 +99,7 @@ public class BizDataValidityUtil {
     }
 
     public static String checkString(Object value, String bizName, String attr) {
-        String val = (String)value;
+        String val = value == null ? (String) value : String.valueOf(value);
         return val;
     }
 
@@ -180,7 +180,7 @@ public class BizDataValidityUtil {
 
     public static java.sql.Date checkDate(Object value, String bizName, String attr) {
         java.sql.Date val = null;
-        if(StringUtil.isEmpty((String)value)){
+        if(StringUtil.isEmpty(String.valueOf(value))){
             return null;
         }
         try {
@@ -227,7 +227,7 @@ public class BizDataValidityUtil {
 
     public static Timestamp checkDatetime(Object value, String bizName, String attr) {
         Timestamp val = null;
-        if(StringUtil.isEmpty((String)value)){
+        if(StringUtil.isEmpty(String.valueOf(value))){
             return null;
         }
         try {

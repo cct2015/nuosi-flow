@@ -50,7 +50,7 @@ public class BizData extends JsonMap implements BData {
     public Object get(Object attr) {
         if (!dataDefine.containsAttr((String) attr)) {
             //业务属性不存在时抛出异常
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_ATTR_DEFINE_NO_EXISTS, bizName, (String) attr);
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_ATTR_DEFINE_NO_EXISTS, bizName, String.valueOf(attr));
         }
         return super.get(attr);
     }

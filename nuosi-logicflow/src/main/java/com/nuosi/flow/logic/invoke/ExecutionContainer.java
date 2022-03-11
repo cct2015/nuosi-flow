@@ -316,7 +316,7 @@ public class ExecutionContainer {
                 } else if (value instanceof JSONArray) {
                     bDataDefine.checkData((JSONArray) value);
                 } else {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, (String) value);
+                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, String.valueOf(value));
                 }
             }
         } else {

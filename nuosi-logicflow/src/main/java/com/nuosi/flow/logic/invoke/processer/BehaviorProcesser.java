@@ -1,9 +1,11 @@
 package com.nuosi.flow.logic.invoke.processer;
 
+import com.ai.ipu.basic.util.IpuUtility;
 import com.ai.ipu.data.JMap;
 import com.nuosi.flow.logic.model.body.Action;
 import com.nuosi.flow.logic.model.domain.Behavior;
 import com.nuosi.flow.logic.model.domain.BehaviorManager;
+import com.nuosi.flow.util.LogicFlowConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,9 @@ public class BehaviorProcesser implements IActionProcesser {
         List<Behavior> behaviors = action.getBehaviors();
         Behavior behavior = behaviors.get(0);
         Behavior modelBehavior = getModelBehavior(behavior.getModel(), behavior.getId());
-
+        if(modelBehavior==null){
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_BEHAVIOR_NOT_EXIST, behavior.getModel(), behavior.getId());
+        }
         IBehaviorProcesser behaviorProcesser = ProcesserManager.getBehaviorProcesser(modelBehavior.getActionType());
         Object result = behaviorProcesser.execute(databus, modelBehavior, input, param);
         return result;

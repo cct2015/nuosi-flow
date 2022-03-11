@@ -31,6 +31,8 @@ public class LogicFlowConstants {
     public static final String FLOW_FOREACH_ITERATOR_TYPE_ERROR = "FLOW_FOREACH_ITERATOR_TYPE_ERROR";
     public static final String FLOW_FOREACH_ITERATOR_NULL = "FLOW_FOREACH_ITERATOR_NULL";
     public static final String FLOW_IF_ERROR = "FLOW_IF_ERROR";
+    public static final String FLOW_BEHAVIOR_NOT_EXIST = "FLOW_BEHAVIOR_NOT_EXIST";
+    public static final String FLOW_FUNCTION_EXECUTE_EXCEPTION = "FLOW_FUNCTION_EXECUTE_EXCEPTION";
 
     /*BData异常编码*/
     public static final String BDATA_DEFINE_NO_EXISTS = "BDATA_DEFINE_NO_EXISTS";

@@ -2,15 +2,11 @@ package com.nuosi.flow.logicflow.action;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
-import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
-import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
+import com.nuosi.flow.util.LogicFlowUtil;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
 
 /**
  * <p>desc: 业务行为逻辑相关语法展示 </p>
@@ -38,6 +34,19 @@ public class BehaviorSyntaxTest {
     }
 
     @Test
+    public void testBehaviorNotExist(){
+        JMap param = new JsonMap();
+        Object result = null;
+        try {
+            result = LogicFlowEngine.execute("behavior_not_exist",param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            Assert.assertTrue(true);
+            System.out.println("错误信息：" + e.getMessage());
+        }
+    }
+
+    @Test
     public void testModelBehaviorFunction() {
         /*JMap param = new JsonMap();
         JMap data = new JsonMap();
@@ -56,27 +65,17 @@ public class BehaviorSyntaxTest {
 
     @Before
     public void setUp() {
-        String flowConfig = "logicflow/action/behavior/behavior_sql.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
+        String[] modelConfigs = {
+                "working_hours/model/working_hours_entity.xml"
+        };
+        LogicFlowUtil.loadLogicModels(modelConfigs);
 
-        flowConfig = "logicflow/action/behavior/behavior_function.xml";
-        is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        flowConfig = "working_hours/flow/working_hours_query.xml";
-        is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        String modelConfig = "working_hours/model/working_hours_entity.xml";
-        is = getClass().getClassLoader().getResourceAsStream(modelConfig);
-        LogicFlowManager.registerDomainModel(is);
-
-        try {
-            BDataDefine dataDefine = ModelToDataDefineUtil.parse("working_hours_entity");
-            BizDataManager.registerDto(dataDefine, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String[] flowConfigs = {
+                "logicflow/action/behavior/behavior_sql.xml",
+                "logicflow/action/behavior/behavior_function.xml",
+                "working_hours/flow/working_hours_query.xml",
+                "logicflow/action/behavior/behavior_not_exist.xml"
+        };
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }
