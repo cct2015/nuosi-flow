@@ -29,8 +29,8 @@ public class DateValidator extends AbstractDataValidator {
 
     @Override
     public void checkValidity(String bizName, String attr, Object value){
-        java.sql.Date dateValue = BizDataValidityUtil.checkDate(value, bizName, attr);
-        BizDataValidityUtil.checkDateValidate(dateValue, this, bizName, attr);
+        java.sql.Date dateValue = BizDataValidityUtil.checkDate(this, value, bizName, attr);
+        BizDataValidityUtil.checkDateValidate(this, dateValue, bizName, attr);
     }
 
     public Date getMin() {

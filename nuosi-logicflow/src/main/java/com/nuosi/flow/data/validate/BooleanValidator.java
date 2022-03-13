@@ -18,6 +18,6 @@ public class BooleanValidator extends AbstractDataValidator {
 
     @Override
     public void checkValidity(String bizName, String attr, Object value) {
-        Boolean booleanValue = BizDataValidityUtil.checkBoolean(value, bizName, attr);
+        BizDataValidityUtil.checkBoolean(value, bizName, attr);
     }
 }

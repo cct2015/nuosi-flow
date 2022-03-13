@@ -28,8 +28,8 @@ public class DecimalValidator extends AbstractDataValidator {
 
     @Override
     public void checkValidity(String bizName, String attr, Object value) {
-        BigDecimal decimalValue = BizDataValidityUtil.checkDecimal(value, bizName, attr);
-        BizDataValidityUtil.checkDecimalValidate(decimalValue, this, bizName, attr);
+        BigDecimal decimalValue = BizDataValidityUtil.checkDecimal(this, value, bizName, attr);
+        BizDataValidityUtil.checkDecimalValidate(this, decimalValue, bizName, attr);
     }
 
     public Integer getPrecision() {

@@ -1,6 +1,5 @@
 package com.nuosi.flow.util;
 
-import com.ai.ipu.basic.string.StringUtil;
 import com.ai.ipu.basic.util.IpuUtility;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -15,6 +14,7 @@ import java.sql.Timestamp;
 /**
  * <p>desc: 数据类型校验工具类</p>
  * <p>date: 2021/3/16 23:24</p>
+ *
  * @author nuosi fsofs@163.com
  * @version v1.0.0
  */
@@ -23,6 +23,7 @@ public class BizDataValidityUtil {
     /**
      * <p>desc: 描述这个方法功能的注释</p>
      * <p>date: 2021/3/20 20:15</p>
+     *
      * @param bizName 业务对象名
      * @param attr    业务对象属性
      * @param value   业务对象属性值
@@ -36,27 +37,27 @@ public class BizDataValidityUtil {
             /*校验整数类型*/
             case INT:
                 Integer intValue = checkInt(value, bizName, attr);
-                checkIntValidate(intValue, dataValidator, bizName, attr);
+                checkIntValidate((IntegerValidator) dataValidator, intValue, bizName, attr);
                 break;
             /*校验字符类型*/
             case STRING:
-                String stringValue = checkString(value, bizName, attr);
-                checkStringValidate(stringValue, dataValidator, bizName, attr);
+                String stringValue = checkString((StringValidator) dataValidator, value, bizName, attr);
+                checkStringValidate((StringValidator) dataValidator, stringValue, bizName, attr);
                 break;
             /*校验小数类型*/
             case DECIMAL:
-                BigDecimal decimalValue = checkDecimal(value, bizName, attr);
-                checkDecimalValidate(decimalValue, dataValidator, bizName, attr);
+                BigDecimal decimalValue = checkDecimal((DecimalValidator) dataValidator, value, bizName, attr);
+                checkDecimalValidate((DecimalValidator) dataValidator, decimalValue, bizName, attr);
                 break;
             /*校验日期类型*/
             case DATE:
-                java.sql.Date dateValue = checkDate(value, bizName, attr);
-                checkDateValidate(dateValue, dataValidator, bizName, attr);
+                java.sql.Date dateValue = checkDate((DateValidator) dataValidator, value, bizName, attr);
+                checkDateValidate((DateValidator) dataValidator, dateValue, bizName, attr);
                 break;
             /*校验日期时间类型*/
             case DATETIME:
-                Timestamp timestampValue = checkDatetime(value, bizName, attr);
-                checkDatetimeValidate(timestampValue, dataValidator, bizName, attr);
+                Timestamp timestampValue = checkDatetime((DatetimeValidator) dataValidator, value, bizName, attr);
+                checkDatetimeValidate((DatetimeValidator) dataValidator, timestampValue, bizName, attr);
                 break;
             default:
                 break;
@@ -73,11 +74,10 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkIntValidate(Integer val, BDataValidator bdataValidator, String bizName, String attr) {
-        if (bdataValidator == null) {
+    public static void checkIntValidate(IntegerValidator dataValidator, Integer val, String bizName, String attr) {
+        if (dataValidator == null) {
             return;
         }
-        IntegerValidator dataValidator = (IntegerValidator) bdataValidator;
         if (dataValidator.getMax() != null && val > dataValidator.getMax()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_INT_MAX, bizName, attr, String.valueOf(dataValidator.getMax()), String.valueOf(val));
         }
@@ -98,21 +98,18 @@ public class BizDataValidityUtil {
         }
     }
 
-    public static String checkString(Object value, String bizName, String attr) {
+    public static String checkString(StringValidator dataValidator, Object value, String bizName, String attr) {
+        if (value == null) {
+            if (dataValidator.isNullable() == false) {
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr, String.valueOf(value));
+            }
+        }
         String val = value == null ? (String) value : String.valueOf(value);
         return val;
     }
 
-    public static void checkStringValidate(String val, BDataValidator bdataValidator, String bizName, String attr) {
-        if (bdataValidator == null) {
-            return;
-        }
-        StringValidator dataValidator = (StringValidator) bdataValidator;
-
-        if(StringUtil.isEmpty(val)){
-            if(dataValidator.isNullable()==false){
-                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr, String.valueOf(val));
-            }
+    public static void checkStringValidate(StringValidator dataValidator, String val, String bizName, String attr) {
+        if (dataValidator == null) {
             return;
         }
 
@@ -128,15 +125,15 @@ public class BizDataValidityUtil {
         if (dataValidator.getMore() != null && val.length() >= dataValidator.getMore()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_MORE, bizName, attr, String.valueOf(dataValidator.getMore()), String.valueOf(val));
         }
-        if (dataValidator.getEqual() != null && val.length()!=dataValidator.getEqual()) {
+        if (dataValidator.getEqual() != null && val.length() != dataValidator.getEqual()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()), String.valueOf(val));
         }
-        if (dataValidator.getUnequal() != null && val.length()==dataValidator.getUnequal()) {
+        if (dataValidator.getUnequal() != null && val.length() == dataValidator.getUnequal()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_LENGTH_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()), String.valueOf(val));
         }
     }
 
-    public static BigDecimal checkDecimal(Object value, String bizName, String attr) {
+    public static BigDecimal checkDecimal(DecimalValidator dataValidator, Object value, String bizName, String attr) {
         BigDecimal val = null;
         try {
             val = new BigDecimal(String.valueOf(value));
@@ -146,11 +143,10 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDecimalValidate(BigDecimal val, BDataValidator bdataValidator, String bizName, String attr) {
-        if (bdataValidator == null) {
+    public static void checkDecimalValidate(DecimalValidator dataValidator, BigDecimal val, String bizName, String attr) {
+        if (dataValidator == null) {
             return;
         }
-        DecimalValidator dataValidator = (DecimalValidator) bdataValidator;
 
         if (dataValidator.getPrecision() != null && val.precision() > dataValidator.getPrecision()) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DECIMAL_PRECISION, bizName, attr, String.valueOf(dataValidator.getPrecision()), String.valueOf(val));
@@ -178,11 +174,14 @@ public class BizDataValidityUtil {
         }
     }
 
-    public static java.sql.Date checkDate(Object value, String bizName, String attr) {
-        java.sql.Date val = null;
-        if(StringUtil.isEmpty(String.valueOf(value))){
-            return null;
+    public static java.sql.Date checkDate(DateValidator dataValidator, Object value, String bizName, String attr) {
+        if (value == null) {
+            if (dataValidator.isNullable() == false) {
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
+            }
         }
+
+        java.sql.Date val = null;
         try {
             val = java.sql.Date.valueOf(String.valueOf(value));
         } catch (Exception e) {
@@ -191,16 +190,8 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDateValidate(java.sql.Date val, BDataValidator bdataValidator, String bizName, String attr) {
-        if (bdataValidator == null) {
-            return;
-        }
-        DateValidator dataValidator = (DateValidator) bdataValidator;
-
-        if(val==null){
-            if(dataValidator.isNullable()==false){
-                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
-            }
+    public static void checkDateValidate(DateValidator dataValidator, java.sql.Date val, String bizName, String attr) {
+        if (dataValidator == null) {
             return;
         }
 
@@ -225,11 +216,14 @@ public class BizDataValidityUtil {
     }
 
 
-    public static Timestamp checkDatetime(Object value, String bizName, String attr) {
-        Timestamp val = null;
-        if(StringUtil.isEmpty(String.valueOf(value))){
-            return null;
+    public static Timestamp checkDatetime(DatetimeValidator dataValidator, Object value, String bizName, String attr) {
+        if (value == null) {
+            if (dataValidator.isNullable() == false) {
+                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
+            }
         }
+
+        Timestamp val = null;
         try {
             val = Timestamp.valueOf(String.valueOf(value));
         } catch (Exception e) {
@@ -238,16 +232,8 @@ public class BizDataValidityUtil {
         return val;
     }
 
-    public static void checkDatetimeValidate(Timestamp val, BDataValidator bdataValidator, String bizName, String attr) {
-        if (bdataValidator == null) {
-            return;
-        }
-        DatetimeValidator dataValidator = (DatetimeValidator) bdataValidator;
-
-        if(val==null){
-            if(dataValidator.isNullable()==false){
-                IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
-            }
+    public static void checkDatetimeValidate(DatetimeValidator dataValidator, Timestamp val, String bizName, String attr) {
+        if (dataValidator == null) {
             return;
         }
 
@@ -272,7 +258,7 @@ public class BizDataValidityUtil {
     }
 
     public static Boolean checkBoolean(Object value, String bizName, String attr) {
-        if(!"true".equals(value)&&!"false".equals(value)&&!(value instanceof Boolean)){
+        if (!"true".equals(value) && !"false".equals(value) && !(value instanceof Boolean)) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_BOOLEAN, bizName, attr, String.valueOf(value));
         }
         return "true".equals(value);

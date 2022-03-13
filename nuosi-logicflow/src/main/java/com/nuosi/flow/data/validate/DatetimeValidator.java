@@ -29,8 +29,8 @@ public class DatetimeValidator extends AbstractDataValidator {
 
     @Override
     public void checkValidity(String bizName, String attr, Object value) {
-        Timestamp timestampValue = BizDataValidityUtil.checkDatetime(value, bizName, attr);
-        BizDataValidityUtil.checkDatetimeValidate(timestampValue, this, bizName, attr);
+        Timestamp timestampValue = BizDataValidityUtil.checkDatetime(this, value, bizName, attr);
+        BizDataValidityUtil.checkDatetimeValidate(this, timestampValue, bizName, attr);
     }
 
     public Timestamp getMin() {

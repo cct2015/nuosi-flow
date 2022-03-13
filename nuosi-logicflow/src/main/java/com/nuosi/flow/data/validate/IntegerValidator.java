@@ -25,7 +25,7 @@ public class IntegerValidator extends AbstractDataValidator {
     @Override
     public void checkValidity(String bizName, String attr, Object value) {
         Integer intValue = BizDataValidityUtil.checkInt(value, bizName, attr);
-        BizDataValidityUtil.checkIntValidate(intValue, this, bizName, attr);
+        BizDataValidityUtil.checkIntValidate(this, intValue, bizName, attr);
     }
 
     public Integer getMax() {

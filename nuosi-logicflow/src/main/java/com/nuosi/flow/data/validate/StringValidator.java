@@ -24,8 +24,8 @@ public class StringValidator extends AbstractDataValidator {
 
     @Override
     public void checkValidity(String bizName, String attr, Object value) {
-        String stringValue = BizDataValidityUtil.checkString(value, bizName, attr);
-        BizDataValidityUtil.checkStringValidate(stringValue, this, bizName, attr);
+        String stringValue = BizDataValidityUtil.checkString(this, value, bizName, attr);
+        BizDataValidityUtil.checkStringValidate(this, stringValue, bizName, attr);
     }
 
     public Integer getMin() {
