@@ -31,7 +31,7 @@ public interface BDataDefine {
     /**校验数据的基础类型*/
     public boolean checkData(String key, Object value);
     /**校验单条数据的对象类型*/
-    public boolean checkData(JSONObject value);
+    public boolean checkData(JSONObject value, boolean isAttrExists);
     /**校验多条数据的对象类型*/
-    public boolean checkData(JSONArray value);
+    public boolean checkData(JSONArray value, boolean isAttrExists);
 }

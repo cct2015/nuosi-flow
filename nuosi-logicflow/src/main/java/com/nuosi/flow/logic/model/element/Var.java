@@ -14,6 +14,7 @@ public class Var {
     private String initial;
     private String initialMethod;
     private String calculateMethod;
+    private boolean attrExists = true; // 默认模型属性都校验，严谨
 
     public String getModel() {
         return model;
@@ -69,5 +70,13 @@ public class Var {
 
     public void setCalculateMethod(String calculateMethod) {
         this.calculateMethod = calculateMethod;
+    }
+
+    public boolean isAttrExists() {
+        return attrExists;
+    }
+
+    public void setAttrExists(boolean attrExists) {
+        this.attrExists = attrExists;
     }
 }

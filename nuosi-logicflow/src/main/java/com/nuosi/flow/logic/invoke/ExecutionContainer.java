@@ -312,9 +312,9 @@ public class ExecutionContainer {
                 // 根据引入的业务模型做模型数据校验
                 BDataDefine bDataDefine = BizDataManager.getDataDefine(var.getModel());
                 if (value instanceof JSONObject) {
-                    bDataDefine.checkData((JSONObject) value);
+                    bDataDefine.checkData((JSONObject) value, var.isAttrExists());
                 } else if (value instanceof JSONArray) {
-                    bDataDefine.checkData((JSONArray) value);
+                    bDataDefine.checkData((JSONArray) value, var.isAttrExists());
                 } else {
                     IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, String.valueOf(value));
                 }
