@@ -135,8 +135,10 @@ public class DbDomainFunction extends AbstractDomainFunction {
 
     public int updateByCond(String connName, String tableName, Map<String, Object> data, Map<String, Object> condition, String conver) throws Exception {
         if (uppercase.equals(conver)) {
+            data = keyToUpperCase(data);
             condition = keyToUpperCase(condition);
         } else if (lowercase.equals(conver)) {
+            data = keyToLowerCase(data);
             condition = keyToLowerCase(condition);
         }
         CrudDao dao = IpuDaoManager.takeCrudDao(connName);

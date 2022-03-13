@@ -2,6 +2,8 @@ package com.nuosi.flow.logic.invoke.processer;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.logic.model.action.Aggregate;
 import com.nuosi.flow.logic.model.body.Action;
 import com.nuosi.flow.util.JsonConvert;
@@ -21,12 +23,12 @@ public class AggregateProcesser implements IActionProcesser {
     public Object execute(Map<String, Object> databus, Action action, JMap input, Object... param) throws Exception {
         Aggregate aggregate = action.getAggregates().get(0);
         String convert = aggregate.getConvert();
-        JMap result = null;
+        Object result = null;
         if(convert!=null){
             String json = JsonConvert.convert(convert, input);
-            result = new JsonMap(json);
+            result = JSON.parse(json);
         }else{
-            result = input; //不转换时直接聚合为JMap
+            result = new JSONObject(input); //不转换时直接聚合为JMap
         }
         /*if("map".equals(aggregate.getType())){
         }*/

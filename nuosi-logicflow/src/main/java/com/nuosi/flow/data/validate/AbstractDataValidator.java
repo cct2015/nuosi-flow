@@ -47,7 +47,7 @@ public abstract class AbstractDataValidator implements BDataValidator {
         String val = String.valueOf(value);
         Matcher matcher = pattern.matcher(val);
         if (!matcher.matches()) {
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_REGEX, bizName, attr, val, escapeRegex);
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_REGEX, bizName, attr, escapeRegex, val);
         }
     }
 
