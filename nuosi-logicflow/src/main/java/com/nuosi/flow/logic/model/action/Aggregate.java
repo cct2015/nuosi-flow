@@ -8,23 +8,13 @@ package com.nuosi.flow.logic.model.action;
  * @version v1.0.0
  */
 public class Aggregate {
-    private String convert;
-    private String type;
-//    private String model;
+    private String aggregate;
 
-    public String getType() {
-        return type;
+    public String getAggregate() {
+        return aggregate;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getConvert() {
-        return convert;
-    }
-
-    public void setConvert(String convert) {
-        this.convert = convert;
+    public void setAggregate(String aggregate) {
+        this.aggregate = aggregate == null ? aggregate : aggregate.trim();
     }
 }

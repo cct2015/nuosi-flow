@@ -113,7 +113,10 @@
             <var key=""/>
             <var key=""/>
         </input>
-        <aggregate convert="" type=""/>
+        <aggregate>
+            <![CDATA[
+        ]]>
+        </aggregate>
         <output>
             <var key=""/>
         </output>

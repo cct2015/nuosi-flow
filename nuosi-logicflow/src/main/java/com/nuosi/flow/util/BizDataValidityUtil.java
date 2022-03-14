@@ -102,9 +102,11 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr, String.valueOf(value));
+            }else{
+                return null;
             }
         }
-        String val = value == null ? (String) value : String.valueOf(value);
+        String val = String.valueOf(value);
         return val;
     }
 
@@ -178,6 +180,8 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
+            }else{
+                return null;
             }
         }
 
@@ -220,6 +224,8 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
+            }else{
+                return null;
             }
         }
 
