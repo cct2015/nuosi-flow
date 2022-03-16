@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="start_var_model_attr_exists"
+            name="传参模型属性存在"
+            desc="传参模型属性存在">
+    <!-- 全局域 -->
+    <declare>
+        <import model="user_model"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="printUser">
+        <var key="user" model="user_model" attrExists="false"/>
+    </start>
+
+    <action id="printUser" name="打印用户信息" next="end">
+        <input>
+            <var key="user"/>
+        </input>
+        <expression>
+            <![CDATA[
+            System.out.println("user==="+INPUT.user);
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点">
+    </end>
+</logic-flow>

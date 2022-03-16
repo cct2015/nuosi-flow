@@ -17,4 +17,8 @@ public interface BDataValidator {
     public void setRegex(String regex);
 
     public void checkRegex(String bizName, String attr, Object value);
+
+    public boolean isExists();
+
+    public void setExists(boolean exists);
 }

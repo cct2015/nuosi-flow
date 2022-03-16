@@ -90,6 +90,7 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_ARRAY = "BDATA_CHECK_ARRAY";
     /**正则表达式校验提示信息*/
     public static final String BDATA_CHECK_REGEX = "BDATA_CHECK_REGEX";
+    public static final String BDATA_CHECK_ATTR_NOT_EXISTS = "BDATA_CHECK_ATTR_NOT_EXISTS";
 
     public static final String VALIDATE_ACTION_NULL = "VALIDATE_ACTION_NULL";
     public static final String VALIDATE_START_VAR_ATTR_UNDEFINE = "VALIDATE_START_VAR_ATTR_UNDEFINE";

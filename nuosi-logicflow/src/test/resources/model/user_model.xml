@@ -2,11 +2,11 @@
 <model id="user_model" name="用户资料">
     <attr id="user_id" type="int" name="用户标识"/>
     <attr id="user_name" type="string" name="用户名称"/>
-    <attr id="age" type="int" name="年龄">
+    <attr id="age" type="int" name="年龄" exists="false">
         <validateInteger more="200" less="0"/>
     </attr>
-    <attr id="email" type="string" name="邮箱">
+    <attr id="email" type="string" name="邮箱" exists="false">
     </attr>
-    <attr id="phone" type="string" name="电话">
+    <attr id="phone" type="string" name="电话" exists="false">
     </attr>
 </model>

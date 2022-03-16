@@ -20,6 +20,7 @@ public abstract class AbstractDataValidator implements BDataValidator {
     private BDataDefine.BDataType dataType;
     private String regex;
     private String escapeRegex;
+    private boolean exists;
 
     public AbstractDataValidator(BDataDefine.BDataType dataType) {
         this.dataType = dataType;
@@ -61,5 +62,13 @@ public abstract class AbstractDataValidator implements BDataValidator {
             }
         }
         return keyword;
+    }
+
+    public boolean isExists() {
+        return exists;
+    }
+
+    public void setExists(boolean exists) {
+        this.exists = exists;
     }
 }

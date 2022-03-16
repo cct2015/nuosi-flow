@@ -102,6 +102,36 @@ public class VarTest {
         }
     }
 
+    @Test
+    public void testStartVarModelAttrExists(){
+        JMap param = new JsonMap();
+        JSONObject user = new JSONObject();
+        user.put("user_id", 123456);
+        param.put("user", user);
+        try {
+            LogicFlowEngine.execute("start_var_model_attr_exists", param);
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStartVarModelAttrMissing(){
+        JMap param = new JsonMap();
+        JSONObject user = new JSONObject();
+        user.put("user_id", 123456);
+        param.put("user", user);
+        try {
+            LogicFlowEngine.execute("start_var_model", param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("校验信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void before() throws IOException {
         String[] modelConfigs = {
@@ -113,7 +143,8 @@ public class VarTest {
                 "logicflow/var/var_initial_method.xml",
                 "logicflow/var/var_calculate_method.xml",
                 "logicflow/var/start_var_model.xml",
-                "logicflow/var/start_var_models.xml"
+                "logicflow/var/start_var_models.xml",
+                "logicflow/var/start_var_model_attr_exists.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);
     }

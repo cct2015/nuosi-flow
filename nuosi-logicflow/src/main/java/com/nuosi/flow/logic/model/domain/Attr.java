@@ -16,6 +16,7 @@ public class Attr {
     private String type;
     private String name;
     private String regex;
+    private boolean exists = true; // 默认模型属性要校验，严谨
     private List<ValidateInteger> validateIntegers;
     private List<ValidateString> validateStrings;
     private List<ValidateDecimal> validateDecimals;
@@ -52,6 +53,14 @@ public class Attr {
 
     public void setRegex(String regex) {
         this.regex = regex;
+    }
+
+    public boolean isExists() {
+        return exists;
+    }
+
+    public void setExists(boolean exists) {
+        this.exists = exists;
     }
 
     public List<ValidateInteger> getValidateIntegers() {

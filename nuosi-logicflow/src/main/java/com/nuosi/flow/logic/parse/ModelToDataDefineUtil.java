@@ -90,6 +90,7 @@ public class ModelToDataDefineUtil {
                 bDataValidator = createEmptyBDataValidate(dataType);    //BDataValidator不为空则可触发基础类型的校验
             }
             bDataValidator.setRegex(attr.getRegex());
+            bDataValidator.setExists(attr.isExists());
             dataDefine.defineValidator(attr.getId(), bDataValidator);
         }
         return dataDefine;

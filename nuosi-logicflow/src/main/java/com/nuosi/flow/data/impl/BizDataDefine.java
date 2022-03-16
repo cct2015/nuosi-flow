@@ -1,9 +1,11 @@
 package com.nuosi.flow.data.impl;
 
+import com.ai.ipu.basic.util.IpuUtility;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataValidator;
+import com.nuosi.flow.util.LogicFlowConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,6 +74,14 @@ public class BizDataDefine implements BDataDefine {
             for (Map.Entry<String, BDataValidator> entry : dataValidators.entrySet()) {
                 dataValidator = entry.getValue();
                 attr = entry.getKey();
+                if(!value.containsKey(attr)){
+                    if(dataValidator.isExists()){
+                        IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_ATTR_NOT_EXISTS, bizName, attr); //入参不包含模型属性则报错
+                    }else{
+                        continue; //入参不包含模型则跳过校验
+                    }
+                }
+
                 val = value.get(attr);
                 /*1.进行指定规则校验*/
                 dataValidator.checkValidity(bizName, attr, val);
@@ -82,7 +92,7 @@ public class BizDataDefine implements BDataDefine {
             for (Map.Entry<String, BDataValidator> entry : dataValidators.entrySet()) {
                 dataValidator = entry.getValue();
                 attr = entry.getKey();
-                if(!value.containsKey(attr)){   //入参不包含模型属性则不做校验
+                if(!value.containsKey(attr)){   //入参不包含模型属性则跳过校验
                     continue;
                 }
 
