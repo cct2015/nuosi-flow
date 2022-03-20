@@ -48,7 +48,7 @@ public class BizDataManager {
     public static BDataDefine getDataDefine(String bizName){
         BDataDefine bDataDefine = bizDataDefine.get(bizName);
         if(bDataDefine==null){
-            IpuUtility.errorCode(LogicFlowConstants.BDATA_DEFINE_NO_EXISTS, bizName);
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_DEFINE_NOT_EXISTS, bizName);
         }
         return bizDataDefine.get(bizName);
     }
