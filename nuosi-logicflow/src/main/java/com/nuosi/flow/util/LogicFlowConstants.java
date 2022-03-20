@@ -22,9 +22,9 @@ public class LogicFlowConstants {
     }
 
     /*LogicFlow异常编码*/
-    public static final String FLOW_NO_EXISTS = "FLOW_NO_EXISTS";
+    public static final String FLOW_NOT_EXISTS = "FLOW_NO_EXISTS";
     public static final String FLOW_NOT_SUPPORT_MULTIPLE_KEY = "FLOW_NOT_SUPPORT_MULTIPLE_KEY";
-    public static final String FLOW_NO_MATCH_DATA_TYPE = "FLOW_NO_MATCH_DATA_TYPE";
+    public static final String FLOW_NOT_MATCH_DATA_TYPE = "FLOW_NO_MATCH_DATA_TYPE";
 
     /*逻辑节点统一执行异常*/
     public static final String FLOW_ACTION_ERROR = "FLOW_ACTION_ERROR";
@@ -33,6 +33,7 @@ public class LogicFlowConstants {
     public static final String FLOW_IF_ERROR = "FLOW_IF_ERROR";
     public static final String FLOW_BEHAVIOR_NOT_EXIST = "FLOW_BEHAVIOR_NOT_EXIST";
     public static final String FLOW_FUNCTION_EXECUTE_EXCEPTION = "FLOW_FUNCTION_EXECUTE_EXCEPTION";
+    public static final String FLOW_FUNCTION_METHOD_NOT_EXISTS = "FLOW_FUNCTION_METHOD_NOT_EXISTS";
 
     /*BData异常编码*/
     public static final String BDATA_DEFINE_NO_EXISTS = "BDATA_DEFINE_NO_EXISTS";

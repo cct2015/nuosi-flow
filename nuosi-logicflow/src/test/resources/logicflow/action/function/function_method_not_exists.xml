@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="function_method_not_exists" name="函数方法不存在" desc="函数方法不存在">
+
+    <declare>
+    </declare>
+
+    <start id="start" name="开始节点" next="function_method_param">
+    </start>
+
+    <action id="function_method_param" name="参数预处理" next="function_method_invoke">
+        <expression>
+            <![CDATA[
+            java.util.Map result = new java.util.HashMap();
+            return result;
+        ]]>
+        </expression>
+        <output>
+            <var key="param"/>
+        </output>
+    </action>
+
+    <action id="function_method_invoke" name="函数方法调用" next="end">
+        <function domain="DB" name="MethodNotExists">
+            <param value="quickbuild" type="string"/>
+            <param value="man_hour_fill" type="string"/>
+            <param key="param" type="map"/>
+        </function>
+        <output>
+            <var key="result"/>
+        </output>
+    </action>
+
+    <end id="end" name="结束节点">
+        <var key="result"/>
+    </end>
+</logic-flow>

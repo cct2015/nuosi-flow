@@ -43,7 +43,8 @@ public class FunctionProcesser implements IActionProcesser, IBehaviorProcesser {
             }catch (Exception e){
                 /*在反射处需要单独捕获异常，并抓取底部异常*/
                 Throwable tr = IpuUtility.getBottomException(e);
-                IpuUtility.errorCode(LogicFlowConstants.FLOW_FUNCTION_EXECUTE_EXCEPTION, function.getDomain(), function.getName(), tr.getMessage());
+                String trMessage = tr.getMessage() == null ? "空信息" : tr.getMessage();
+                IpuUtility.errorCode(LogicFlowConstants.FLOW_FUNCTION_EXECUTE_EXCEPTION, function.getDomain(), function.getName(), trMessage);
             }
         }
         return result;

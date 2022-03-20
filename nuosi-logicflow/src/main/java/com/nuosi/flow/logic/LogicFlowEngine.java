@@ -33,24 +33,28 @@ public class LogicFlowEngine {
         CalculateMethodManager.init();
     }
 
-    public static JMap execute(String flowName, JMap param) throws Exception {
+    public static JMap execute(String flowName, JMap param, boolean isTransactionCommit) throws Exception {
         /*1.获取逻辑流程的配置*/
         LogicFlow logicFlow = LogicFlowManager.getLogicFlow(flowName);
         if(logicFlow==null){
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_EXISTS, flowName);
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_NOT_EXISTS, flowName);
         }
         /*2.校验服务逻辑流配置*/
         //new ExecutionValidator(logicFlow).validate();
         /*3.解析配置执行逻辑*/
-        JMap result = new ExecutionContainer(logicFlow).execute(param);
+        JMap result = new ExecutionContainer(logicFlow).execute(param, isTransactionCommit);
         return result;
+    }
+
+    public static JMap execute(String flowName, JMap param) throws Exception {
+        return execute(flowName, param, true);
     }
 
     public static void validate(String flowName) throws Exception {
         /*1.获取逻辑流程的配置*/
         LogicFlow logicFlow = LogicFlowManager.getLogicFlow(flowName);
         if(logicFlow==null){
-            IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_EXISTS, flowName);
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_NOT_EXISTS, flowName);
         }
         /*2.校验服务逻辑流配置*/
         new ExecutionValidator(logicFlow).validate();

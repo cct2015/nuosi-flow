@@ -89,7 +89,7 @@ public class ExecutionContainer {
         }
     }
 
-    public JMap execute(JMap param) throws Exception {
+    public JMap execute(JMap param, boolean isTransactionCommit) throws Exception {
         this.inputParameters = param;
         JMap result = null;
         try {
@@ -98,7 +98,12 @@ public class ExecutionContainer {
             next = executeAction(next);
 
             result = checkEnd(next);
-            SqlSessionManager.commitAll();
+
+            if (isTransactionCommit) {  //事务开关
+                SqlSessionManager.commitAll();
+            } else {
+                SqlSessionManager.rollbackAll();
+            }
         } catch (Exception e) {
             SqlSessionManager.rollbackAll();
             throw e;
@@ -106,6 +111,10 @@ public class ExecutionContainer {
             SqlSessionManager.closeAll();
         }
         return result;
+    }
+
+    public JMap execute(JMap param) throws Exception {
+        return execute(param, true);
     }
 
     /*private void storeDatabus(JMap param) {
@@ -270,7 +279,7 @@ public class ExecutionContainer {
         }
     }
 
-    private Object getValueFromVar(Map<String, Object> varParams, Var var){
+    private Object getValueFromVar(Map<String, Object> varParams, Var var) {
         String key = var.getKey();
         Object value = varParams.get(key);
         /*1.初始化值*/
@@ -316,7 +325,7 @@ public class ExecutionContainer {
                 } else if (value instanceof JSONArray) {
                     bDataDefine.checkData((JSONArray) value, var.isAttrExists());
                 } else {
-                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NO_MATCH_DATA_TYPE, logicFlow.getId(), key, String.valueOf(value));
+                    IpuUtility.errorCode(LogicFlowConstants.FLOW_NOT_MATCH_DATA_TYPE, logicFlow.getId(), key, String.valueOf(value));
                 }
             }
         } else {

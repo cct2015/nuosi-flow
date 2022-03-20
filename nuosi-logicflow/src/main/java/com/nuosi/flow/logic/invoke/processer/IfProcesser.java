@@ -29,7 +29,7 @@ public class IfProcesser implements IActionProcesser {
 
         Object result = null;
         for (If ifttt : ifs) {
-            result = MVEL.eval(ifttt.getTest(), databus);
+            result = MVEL.eval(ifttt.getTest(), input);
             if (TURE.equals(result)) {
                 if (ifttt.getInterrupt() != null) {
                     String interrupt = IfUtil.renderTemplate(ifttt.getInterrupt(), databus);

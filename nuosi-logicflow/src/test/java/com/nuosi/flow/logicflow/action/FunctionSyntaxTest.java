@@ -2,15 +2,13 @@ package com.nuosi.flow.logicflow.action;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
-import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
-import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
+import com.nuosi.flow.util.LogicFlowUtil;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.IOException;
 
 /**
  * <p>desc: 函数功能逻辑相关语法展示 </p>
@@ -29,25 +27,31 @@ public class FunctionSyntaxTest {
         System.out.println("result===" + result);
     }
 
-    @Before
-    public void setUp() {
-        String flowConfig = "logicflow/action/function/function_syntax.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        flowConfig = "working_hours/flow/working_hours_query.xml";
-        is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        String modelConfig = "working_hours/model/working_hours_entity.xml";
-        is = getClass().getClassLoader().getResourceAsStream(modelConfig);
-        LogicFlowManager.registerDomainModel(is);
-
+    @Test
+    public void testFunctionMethodNotExists() throws Exception {
         try {
-            BDataDefine dataDefine = ModelToDataDefineUtil.parse("working_hours_entity");
-            BizDataManager.registerDto(dataDefine, true);
+            JMap param = new JsonMap();
+            LogicFlowEngine.execute("function_method_not_exists", param);
+            Assert.assertTrue(false);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("错误信息：" + e.getMessage());
+            Assert.assertTrue(true);
         }
+    }
+
+    @Before
+    public void before() throws IOException {
+        String[] models = {
+                "working_hours/model/working_hours_entity.xml"
+        };
+        LogicFlowUtil.loadLogicModels(models);
+
+        String[] flows = {
+                "logicflow/action/function/function_syntax.xml",
+                "working_hours/flow/working_hours_query.xml",
+                "logicflow/action/function/function_method_not_exists.xml",
+        };
+
+        LogicFlowUtil.loadLogicFlows(flows);
     }
 }
