@@ -5,34 +5,35 @@
         <!-- 引入模型 -->
         <import model=""/>
         <!-- 定义属性类型 -->
-        <attr id="" type="" name=""/>
+        <attr id="" type="" name="" regex="" exists=""/>
         <!-- 定义整型的限制条件 -->
-        <attr id="" type="int" name="">
+        <attr id="" type="int" name="" regex="" exists="">
             <validateInteger max="" min="" more="" less="" equal="" unequal=""/>
         </attr>
         <!-- 定义字符串型的限制条件 -->
-        <attr id="" type="string" name="">
+        <attr id="" type="string" name="" regex="" exists="">
             <validateString max="" min="" more="" less="" equal="" unequal="" nullable=""/>
         </attr>
         <!-- 定义小数型的限制条件 -->
-        <attr id="" type="decimal" name="">
+        <attr id="" type="decimal" name="" regex="" exists="">
             <validateDecimal scale="" precision="" max="" min="" more="" less="" equal="" unequal=""/>
         </attr>
         <!-- 定义日期类型的限制条件 -->
-        <attr id="" type="date" name="">
+        <attr id="" type="date" name="" regex="" exists="">
             <validateDate max="" min="" more="" less="" equal="" unequal="" nullable=""/>
         </attr>
         <!-- 定义时间戳类型的限制条件 -->
-        <attr id="" type="datetime" name="">
+        <attr id="" type="datetime" name="" regex="" exists="">
             <validateDatetime max="" min="" more="" less="" equal="" unequal="" nullable=""/>
         </attr>
     </declare>
 
     <!-- 1.开始节点 -->
     <start id="" name="" next="">
-        <!-- 使用模型属性做校验 -->
-        <var model="" attr=""/>
-        <var key=""/>
+        <var key="" model="" attr="" alias="" attrExists="" initial="" initialMethod="" calculateMethod=""/>
+        <var key="" />    <!-- 使用声明中的属性校验 -->
+        <var key="" model="" attr=""/>    <!-- 使用声明中的业务模型的属性校验 -->
+        <var key="" model=""/>    <!-- 使用声明中的业务模型校验 -->
     </start>
 
     <!-- 2.sql节点 -->
@@ -125,5 +126,6 @@
     <!-- 结束节点 -->
     <end id="" name="">
         <var key=""/>
+        <var key="" alias=""/>
     </end>
 </logic-flow>

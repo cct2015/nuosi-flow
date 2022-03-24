@@ -11,6 +11,7 @@ import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.inject.calculate.CalculateMethodManager;
 import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
 import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
+import com.nuosi.flow.logic.invoke.check.FlowDataDefine;
 import com.nuosi.flow.logic.invoke.processer.IActionProcesser;
 import com.nuosi.flow.logic.invoke.processer.ProcesserManager;
 import com.nuosi.flow.logic.model.LogicFlow;
@@ -79,6 +80,8 @@ public class ExecutionContainer {
     private void initGlobalAttr(List<Attr> attrs) {
         if (attrs != null) {
             this.flowDataDefine = ModelToDataDefineUtil.parseByFlow(logicFlow, attrs);
+        }else{
+            this.flowDataDefine = new FlowDataDefine(logicFlow.getId()); //初始化，修复入参没有检测是否声明的BUG。
         }
     }
 
@@ -143,6 +146,7 @@ public class ExecutionContainer {
                 value = getValueFromVar(inputParameters, var);
                 checkDataFromVar(var, key, value);
 
+                key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
                 databus.put(key, value);
             }
         }
@@ -252,9 +256,12 @@ public class ExecutionContainer {
         if (vars != null) {
             result = new JsonMap();
             String key;
+            Object value;
             for (Var var : vars) {
                 key = var.getKey();
-                result.put(key, databus.get(key));
+                value = databus.get(key);
+                key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
+                result.put(key, value);
             }
         }
         return result;
@@ -271,9 +278,6 @@ public class ExecutionContainer {
     }
 
     private void checkData(String key, Object value) {
-        if (flowDataDefine == null) {
-            return;
-        }
         if (flowDataDefine.getDataValidators().containsKey(key)) {
             flowDataDefine.checkData(key, value);
         }

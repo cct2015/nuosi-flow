@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model id="goods_info" name="货物信息">
+<model id="goods_info" name="货物信息" desc="">
     <!-- 定义属性类型 -->
     <attr id="" type="" name=""/>
     <!-- 定义整型的限制条件 -->
