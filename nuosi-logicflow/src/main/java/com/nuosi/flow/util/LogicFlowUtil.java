@@ -3,6 +3,7 @@ package com.nuosi.flow.util;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.logic.model.LogicFlow;
 import com.nuosi.flow.logic.model.domain.DomainModel;
 import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
 
@@ -20,14 +21,15 @@ import java.io.InputStream;
  */
 public class LogicFlowUtil {
 
-    public static void loadLogicFlow(String logicflowPath){
+    public static String loadLogicFlow(String logicflowPath) {
         InputStream is = LogicFlowUtil.class.getClassLoader().getResourceAsStream(logicflowPath);
         try {
-            LogicFlowManager.registerLogicFlow(is);
+            LogicFlow logicFlow = LogicFlowManager.registerLogicFlow(is);
+            return logicFlow.getId();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(is!=null) {
+            if (is != null) {
                 try {
                     is.close();
                 } catch (IOException e) {
@@ -35,35 +37,48 @@ public class LogicFlowUtil {
                 }
             }
         }
+        return null;
     }
 
-    public static void loadLogicModel(String logicModelPath){
+    public static String loadLogicModel(String logicModelPath) {
         InputStream is = LogicFlowUtil.class.getClassLoader().getResourceAsStream(logicModelPath);
         try {
-            DomainModel domainModel =LogicFlowManager.registerDomainModel(is);
+            DomainModel domainModel = LogicFlowManager.registerDomainModel(is);
             BDataDefine dataDefine = ModelToDataDefineUtil.parse(domainModel.getId());
             BizDataManager.registerDto(dataDefine, true);
+            return domainModel.getId();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(is!=null)
+                if (is != null)
                     is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
-    public static void loadLogicFlows(String[] logicflows){
-        for(String logicflow : logicflows){
+    public static String[] loadLogicFlows(String[] logicFlows) {
+        if (logicFlows == null) {
+            return null;
+        }
+        String[] logicFlowIds = new String[logicFlows.length];
+        for (String logicflow : logicFlows) {
             loadLogicFlow(logicflow);
         }
+        return logicFlowIds;
     }
 
-    public static void loadLogicModels(String[] logicmodels){
-        for(String logicmodel : logicmodels){
+    public static String[] loadLogicModels(String[] logicModels) {
+        if (logicModels == null) {
+            return null;
+        }
+        String[] LogicModelIds = new String[logicModels.length];
+        for (String logicmodel : logicModels) {
             loadLogicModel(logicmodel);
         }
+        return LogicModelIds;
     }
 }

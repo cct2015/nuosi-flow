@@ -11,6 +11,7 @@ import com.nuosi.flow.logic.parse.XmlToLogicFlowParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -78,5 +79,13 @@ public class LogicFlowManager {
 
     public static LogicFlow getLogicFlow(String logicFlow) {
         return logicFlowlCache.get(logicFlow);
+    }
+
+    public static Set<String> getLogicFlowlList() {
+        return logicFlowlCache.keySet();
+    }
+
+    public static Set<String> getDomainModelList() {
+        return domainModelCache.keySet();
     }
 }
