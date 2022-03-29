@@ -3,13 +3,12 @@ package com.nuosi.flow.logicflow.validate;
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * <p>desc: 字符串限制的测试类 </p>
@@ -121,17 +120,7 @@ public class ValidateStringTest {
                 "logicflow/validate/string/string_unequal_validate.xml",
                 "logicflow/validate/string/string_nullable_validate.xml"
         };
-        for(String flowConfig : flowConfigs){
-            InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            try {
-                LogicFlowManager.registerLogicFlow(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(is!=null)
-                    is.close();
-            }
-        }
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 
 }

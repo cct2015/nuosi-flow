@@ -4,6 +4,7 @@ import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
 import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -149,16 +150,6 @@ public class ValidateDecimalTest {
                 "logicflow/validate/decimal/decimal_equal_validate.xml",
                 "logicflow/validate/decimal/decimal_unequal_validate.xml"
         };
-        for(String flowConfig : flowConfigs){
-            InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            try {
-                LogicFlowManager.registerLogicFlow(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(is!=null)
-                    is.close();
-            }
-        }
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }

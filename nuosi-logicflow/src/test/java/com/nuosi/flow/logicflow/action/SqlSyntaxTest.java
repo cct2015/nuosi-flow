@@ -3,11 +3,9 @@ package com.nuosi.flow.logicflow.action;
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
 
 /**
  * <p>desc: SQL逻辑相关语法展示 </p>
@@ -29,7 +27,6 @@ public class SqlSyntaxTest {
     @Before
     public void setUp() {
         String flowConfig = "logicflow/action/sql/sql_syntax.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
+        LogicFlowUtil.loadLogicFlow(flowConfig);
     }
 }

@@ -3,14 +3,13 @@ package com.nuosi.flow.extend;
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
 import com.nuosi.flow.logic.inject.function.FunctionManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * <p>desc: 自定义方法使用范例 </p>
@@ -41,16 +40,6 @@ public class DefineFunctionTest {
         String[] flowConfigs = {
                 "extend/function/extend_function.xml"
         };
-        for(String flowConfig : flowConfigs){
-            InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            try {
-                LogicFlowManager.registerLogicFlow(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(is!=null)
-                    is.close();
-            }
-        }
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }

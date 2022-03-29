@@ -3,11 +3,9 @@ package com.nuosi.flow.logicflow.action;
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
 
 /**
  * <p>desc: http请求逻辑相关语法展示 </p>
@@ -29,7 +27,6 @@ public class HttpSyntaxTest {
     @Before
     public void setUp() {
         String flowConfig = "logicflow/action/http/http_syntax.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
+        LogicFlowUtil.loadLogicFlow(flowConfig);
     }
 }

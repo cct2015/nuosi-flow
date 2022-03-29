@@ -35,27 +35,6 @@ public class XmlToBizDataParserTest {
     }
 
     @Test
-    public void testDomainModelIsEquals(){
-        /*try{
-            String flowConfig = "model/goods_model.xml";
-            InputStream is1 = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            XmlToBizDataParser parser = new XmlToBizDataParser(is1);
-            DomainModel domainModel1 = parser.getDomainModel();
-            System.out.println("domainModel1==="+JSON.toJSONString(domainModel1));
-
-            InputStream is2 = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            DomainModel domainModel2 = new BizDataParser().parser(is2);
-            System.out.println("domainModel2==="+JSON.toJSONString(domainModel2));
-
-            Assert.assertEquals("两个DomainModel转换格式不一致",
-                    JSON.toJSONString(domainModel1), JSON.toJSONString(domainModel2));
-        }catch (Exception e){
-            e.printStackTrace();
-            Assert.assertTrue(false);
-        }*/
-    }
-
-    @Test
     public void testDomainModeAction(){
         try{
             String flowConfig = "working_hours/model/working_hours_entity.xml";

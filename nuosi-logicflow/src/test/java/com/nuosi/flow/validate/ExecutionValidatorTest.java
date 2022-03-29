@@ -1,13 +1,12 @@
 package com.nuosi.flow.validate;
 
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * <p>desc: 逻辑编排DSL合理性校验单元测试 </p>
@@ -154,16 +153,6 @@ public class ExecutionValidatorTest {
                 "validate/start_multiple.xml",
                 "validate/end_multiple.xml"
         };
-        for(String flowConfig : flowConfigs){
-            InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-            try {
-                LogicFlowManager.registerLogicFlow(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(is!=null)
-                    is.close();
-            }
-        }
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
     }
 }

@@ -2,15 +2,10 @@ package com.nuosi.flow.logicflow.action;
 
 import com.ai.ipu.data.JMap;
 import com.ai.ipu.data.impl.JsonMap;
-import com.nuosi.flow.data.BDataDefine;
-import com.nuosi.flow.data.BizDataManager;
 import com.nuosi.flow.logic.LogicFlowEngine;
-import com.nuosi.flow.logic.LogicFlowManager;
-import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
+import com.nuosi.flow.util.LogicFlowUtil;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
 
 /**
  * <p>desc: 子流程逻辑相关语法展示 </p>
@@ -31,23 +26,15 @@ public class SubflowSyntaxTest {
 
     @Before
     public void setUp() {
-        String flowConfig = "logicflow/action/subflow/subflow_syntax.xml";
-        InputStream is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
+        String[] flowConfigs = {
+                "logicflow/action/subflow/subflow_syntax.xml",
+                "working_hours/flow/working_hours_query.xml"
+        };
 
-        flowConfig = "working_hours/flow/working_hours_query.xml";
-        is = getClass().getClassLoader().getResourceAsStream(flowConfig);
-        LogicFlowManager.registerLogicFlow(is);
-
-        String modelConfig = "working_hours/model/working_hours_entity.xml";
-        is = getClass().getClassLoader().getResourceAsStream(modelConfig);
-        LogicFlowManager.registerDomainModel(is);
-
-        try {
-            BDataDefine dataDefine = ModelToDataDefineUtil.parse("working_hours_entity");
-            BizDataManager.registerDto(dataDefine, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String[] modelConfigs = {
+                "working_hours/model/working_hours_entity.xml"
+        };
+        LogicFlowUtil.loadLogicFlows(flowConfigs);
+        LogicFlowUtil.loadLogicModels(modelConfigs);
     }
 }

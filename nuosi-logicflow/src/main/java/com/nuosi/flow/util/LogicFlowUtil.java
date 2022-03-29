@@ -23,6 +23,10 @@ public class LogicFlowUtil {
 
     public static String loadLogicFlow(String logicflowPath) {
         InputStream is = LogicFlowUtil.class.getClassLoader().getResourceAsStream(logicflowPath);
+        return loadLogicFlow(is);
+    }
+
+    public static String loadLogicFlow(InputStream is) {
         try {
             LogicFlow logicFlow = LogicFlowManager.registerLogicFlow(is);
             return logicFlow.getId();
@@ -42,6 +46,10 @@ public class LogicFlowUtil {
 
     public static String loadLogicModel(String logicModelPath) {
         InputStream is = LogicFlowUtil.class.getClassLoader().getResourceAsStream(logicModelPath);
+        return loadLogicModel(is);
+    }
+
+    public static String loadLogicModel(InputStream is) {
         try {
             DomainModel domainModel = LogicFlowManager.registerDomainModel(is);
             BDataDefine dataDefine = ModelToDataDefineUtil.parse(domainModel.getId());

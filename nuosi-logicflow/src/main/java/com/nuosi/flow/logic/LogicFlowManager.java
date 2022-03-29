@@ -25,16 +25,32 @@ public class LogicFlowManager {
     private static Map<String, DomainModel> domainModelCache = new ConcurrentHashMap<String, DomainModel>();
     private static Map<String, LogicFlow> logicFlowlCache = new ConcurrentHashMap<String, LogicFlow>();
 
-    public static void registerDomainModel(DomainModel domainModel) {
-        domainModelCache.put(domainModel.getId(), domainModel);
-    }
-
     public static DomainModel registerDomainModel(InputStream is) {
         try {
             JSONObject beanJson = new XmlToBizDataParser(is).getBeanJson();
             DomainModel domainModel = JSON.toJavaObject(beanJson, DomainModel.class);
-            LogicFlowManager.registerDomainModel(domainModel);
+            domainModelCache.put(domainModel.getId(), domainModel);
             return domainModel;
+        } catch (Exception e) {
+            IpuUtility.error(e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    IpuUtility.error(e);
+                }
+            }
+        }
+        return null;
+    }
+
+    public static LogicFlow registerLogicFlow(InputStream is) {
+        try {
+            JSONObject flowJson = new XmlToLogicFlowParser(is).getBeanJson();
+            LogicFlow logicFlow = JSON.toJavaObject(flowJson, LogicFlow.class);
+            logicFlowlCache.put(logicFlow.getId(), logicFlow);
+            return logicFlow;
         } catch (Exception e) {
             IpuUtility.error(e);
         } finally {
@@ -51,30 +67,6 @@ public class LogicFlowManager {
 
     public static DomainModel getDomainModel(String dtoName) {
         return domainModelCache.get(dtoName);
-    }
-
-    public static void registerLogicFlow(LogicFlow logicFlow) {
-        logicFlowlCache.put(logicFlow.getId(), logicFlow);
-    }
-
-    public static LogicFlow registerLogicFlow(InputStream is) {
-        try {
-            JSONObject flowJson = new XmlToLogicFlowParser(is).getBeanJson();
-            LogicFlow logicFlow = JSON.toJavaObject(flowJson, LogicFlow.class);
-            LogicFlowManager.registerLogicFlow(logicFlow);
-            return logicFlow;
-        } catch (Exception e) {
-            IpuUtility.error(e);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    IpuUtility.error(e);
-                }
-            }
-        }
-        return null;
     }
 
     public static LogicFlow getLogicFlow(String logicFlow) {
