@@ -3,6 +3,7 @@ package com.nuosi.flow.data.validate;
 import com.ai.ipu.basic.util.IpuUtility;
 import com.nuosi.flow.data.BDataDefine;
 import com.nuosi.flow.data.BDataValidator;
+import com.nuosi.flow.logic.util.RegexUtil;
 import com.nuosi.flow.util.LogicFlowConstants;
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,7 +45,7 @@ public abstract class AbstractDataValidator implements BDataValidator {
             return;
         }
 
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = RegexUtil.getPattern(regex);
         String val = String.valueOf(value);
         Matcher matcher = pattern.matcher(val);
         if (!matcher.matches()) {
