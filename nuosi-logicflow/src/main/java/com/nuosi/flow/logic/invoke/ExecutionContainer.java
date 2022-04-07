@@ -298,7 +298,7 @@ public class ExecutionContainer {
                     value = InitialMethodManager.getInitialMethod().invoke(initialMethod);
                 } catch (Exception e) {
                     Throwable tr = IpuUtility.getBottomException(e);
-                    IpuUtility.error(tr);
+                    IpuUtility.errorCode(LogicFlowConstants.FLOW_INITIAL_METHOD_ERROR, logicFlow.getId(), var.getKey(), initialMethod, tr.getMessage());
                 }
             }
         }
@@ -309,7 +309,7 @@ public class ExecutionContainer {
                 value = CalculateMethodManager.getCalculateMethod().invoke(calculateMethod, value, unmodifiableDatabus); //start传参时，数据总线为空
             } catch (Exception e) {
                 Throwable tr = IpuUtility.getBottomException(e);
-                IpuUtility.error(tr);
+                IpuUtility.errorCode(LogicFlowConstants.FLOW_CALCULATE_METHOD_ERROR, logicFlow.getId(), var.getKey(), calculateMethod, tr.getMessage());
             }
         }
         return value;

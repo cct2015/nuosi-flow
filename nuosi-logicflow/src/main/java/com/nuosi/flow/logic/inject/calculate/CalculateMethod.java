@@ -1,6 +1,6 @@
 package com.nuosi.flow.logic.inject.calculate;
 
-import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
+import java.util.Map;
 
 /**
  * <p>desc: Var标签数值计算方法默认类 </p>
@@ -11,7 +11,7 @@ import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
  */
 public class CalculateMethod extends AbstractCalculateMethod{
 
-    public Object executeOffset(Object value, UnmodifiableDatabus databus){
+    public Object executeOffset(Object value, Map<String, Object> databus){
         return Integer.valueOf(value.toString())+1; //判null
     }
 }

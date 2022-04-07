@@ -34,6 +34,9 @@ public class LogicFlowConstants {
     public static final String FLOW_BEHAVIOR_NOT_EXIST = "FLOW_BEHAVIOR_NOT_EXIST";
     public static final String FLOW_FUNCTION_EXECUTE_EXCEPTION = "FLOW_FUNCTION_EXECUTE_EXCEPTION";
     public static final String FLOW_FUNCTION_METHOD_NOT_EXISTS = "FLOW_FUNCTION_METHOD_NOT_EXISTS";
+    public static final String FLOW_DATABUS_CANNOT_OPERATED = "FLOW_DATABUS_CANNOT_OPERATED";
+    public static final String FLOW_CALCULATE_METHOD_ERROR = "FLOW_CALCULATE_METHOD_ERROR";
+    public static final String FLOW_INITIAL_METHOD_ERROR = "FLOW_INITIAL_METHOD_ERROR";
 
     /*BData异常编码*/
     public static final String BDATA_DEFINE_NOT_EXISTS = "BDATA_DEFINE_NOT_EXISTS";
