@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="expression_databus_unmodifiable"
+            name="表达式中数据总线不可修改"
+            desc="表达式中数据总线不可修改">
+    <declare/>
+
+    <start id="start" name="开始节点" next="action_databus_unmodifiable"/>
+
+    <action id="action_databus_unmodifiable" name="数据总线不可修改" next="end">
+        <expression>
+            <![CDATA[
+            DATABUS.put("key","value"); //异常报错
+        ]]>
+        </expression>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>

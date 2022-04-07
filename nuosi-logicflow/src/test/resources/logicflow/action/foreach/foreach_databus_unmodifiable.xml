@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logic-flow id="foreach_databus_unmodifiable"
+            name="循环中数据总线不可修改"
+            desc="循环中数据总线不可修改">
+    <declare>
+        <attr id="input_object" type="object"/>
+    </declare>
+
+    <start id="start" name="开始节点" next="action_databus_unmodifiable">
+        <var key="input_object"/>
+    </start>
+
+    <action id="action_databus_unmodifiable" name="数据总线不可修改" next="end">
+        <foreach iterator="input_object">
+            <![CDATA[
+            DATABUS.put("key","value"); //异常报错
+        ]]>
+        </foreach>
+    </action>
+
+    <end id="end" name="结束节点"/>
+</logic-flow>

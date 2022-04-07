@@ -38,7 +38,7 @@ public class DefineFunctionTest {
     @Before
     public void before() throws IOException {
         String[] flowConfigs = {
-                "extend/function/extend_function.xml"
+                "extend/function/define_function.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);
     }

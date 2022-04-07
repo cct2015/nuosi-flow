@@ -31,7 +31,6 @@ public class ForeachSyntaxTest {
             LogicFlowEngine.execute("foreach_object", param);
             Assert.assertTrue(true);
         } catch (Exception e) {
-            System.out.println("抛出信息：" + e.getMessage());
             Assert.assertTrue(e.getMessage(), false);
         }
     }
@@ -52,7 +51,7 @@ public class ForeachSyntaxTest {
             Assert.assertTrue(false);
         } catch (Exception e) {
             System.out.println("抛出信息：" + e.getMessage());
-            Assert.assertTrue(e.getMessage(), true);
+            Assert.assertTrue(true);
         }
     }
 
@@ -65,8 +64,8 @@ public class ForeachSyntaxTest {
             LogicFlowEngine.execute("foreach_data_type_except", param);
             Assert.assertTrue(false);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Assert.assertTrue(e.getMessage(), true);
+            System.out.println("抛出信息：" + e.getMessage());
+            Assert.assertTrue(true);
         }
     }
 
@@ -77,8 +76,25 @@ public class ForeachSyntaxTest {
             LogicFlowEngine.execute("foreach_iterator_null", param);
             Assert.assertTrue(false);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Assert.assertTrue(e.getMessage(), true);
+            System.out.println("抛出信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void testForeachDatabusUnmodifiable() {
+        try {
+            JSONObject paramMap = new JSONObject();
+            paramMap.put("name", "zhangsan");
+            paramMap.put("age", 18);
+            JMap param = new JsonMap();
+            param.put("input_object", paramMap);
+
+            LogicFlowEngine.execute("foreach_databus_unmodifiable", param);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("抛出信息：" + e.getMessage());
+            Assert.assertTrue(true);
         }
     }
 
@@ -88,7 +104,8 @@ public class ForeachSyntaxTest {
                 "logicflow/action/foreach/foreach_array.xml",
                 "logicflow/action/foreach/foreach_object.xml",
                 "logicflow/action/foreach/foreach_data_type_except.xml",
-                "logicflow/action/foreach/foreach_iterator_null.xml"
+                "logicflow/action/foreach/foreach_iterator_null.xml",
+                "logicflow/action/foreach/foreach_databus_unmodifiable.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);
     }

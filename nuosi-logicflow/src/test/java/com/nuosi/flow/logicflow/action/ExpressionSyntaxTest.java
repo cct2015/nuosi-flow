@@ -41,11 +41,24 @@ public class ExpressionSyntaxTest {
         }
     }
 
+    @Test
+    public void testExpressionDatabusUnmodifiable() {
+        try {
+            JMap jmap = LogicFlowEngine.execute("expression_databus_unmodifiable", null);
+            System.out.println("返回结果：" + jmap);
+            Assert.assertTrue(false);
+        } catch (Exception e) {
+            System.out.println("抛出信息：" + e.getMessage());
+            Assert.assertTrue(true);
+        }
+    }
+
     @Before
     public void setUp() throws IOException {
         String[] flowConfigs = {
                 "logicflow/action/expression/expression_except.xml",
-                "logicflow/action/expression/expression_return.xml"
+                "logicflow/action/expression/expression_return.xml",
+                "logicflow/action/expression/expression_databus_unmodifiable.xml"
         };
         LogicFlowUtil.loadLogicFlows(flowConfigs);
     }

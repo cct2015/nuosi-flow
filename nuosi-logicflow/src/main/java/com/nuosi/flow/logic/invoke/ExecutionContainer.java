@@ -179,7 +179,7 @@ public class ExecutionContainer {
         Object result = null;
         try {
             IActionProcesser actionProcesser = ProcesserManager.getActionProcesser(action.getActionType());
-            result = actionProcesser.execute(databus, action, input);
+            result = actionProcesser.execute(unmodifiableDatabus, action, input);
         } catch (Exception e) {
             /* NullPointerException异常时，e.getMessage()为null,会导致后续异常报错。 */
             String eMsg = e.getMessage() == null ? "空信息" : e.getMessage();

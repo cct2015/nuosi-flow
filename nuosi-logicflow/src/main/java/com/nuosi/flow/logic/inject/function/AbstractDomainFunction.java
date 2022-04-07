@@ -40,8 +40,8 @@ public abstract class AbstractDomainFunction implements IDomainFunction {
         if (function.getIsContext() != null) {
             if ("true".equals(function.getIsContext())) {
                 //深度克隆使用对象，防止被串改
-                inputLocal.set((JMap) InstanceUtil.deepClone(input));
-                databusLocal.set((Map<String, Object>) InstanceUtil.deepClone(databus));
+                inputLocal.set(input);
+                databusLocal.set(databus);
             } else {
                 inputLocal.set(null);
                 databusLocal.set(null);

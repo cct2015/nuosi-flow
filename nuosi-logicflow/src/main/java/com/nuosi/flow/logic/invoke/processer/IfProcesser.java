@@ -19,8 +19,6 @@ import java.util.Map;
  * @version v1.0.0
  */
 public class IfProcesser implements IActionProcesser {
-    private static final String INPUT = LogicFlowConstants.INPUT;
-    private static final String DATABUS = LogicFlowConstants.DATABUS;
     private static final Boolean TURE = Boolean.valueOf(true);
 
     @Override
