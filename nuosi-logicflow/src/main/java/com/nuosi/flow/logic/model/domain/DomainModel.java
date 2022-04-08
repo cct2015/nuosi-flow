@@ -12,6 +12,7 @@ public class DomainModel {
     private String id;
     private String name;
     private String desc;
+    private String version;
     private List<Attr> attrs;
     private List<Behavior> behaviors;
 
@@ -38,6 +39,14 @@ public class DomainModel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public List<Attr> getAttrs() {

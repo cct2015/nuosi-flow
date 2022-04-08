@@ -11,6 +11,7 @@ public class Param {
     private String key;
     private String type;
     private String value;
+    private String desc;
 
     public String getKey() {
         return key;
@@ -34,5 +35,13 @@ public class Param {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

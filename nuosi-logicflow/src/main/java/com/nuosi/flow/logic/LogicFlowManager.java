@@ -10,6 +10,7 @@ import com.nuosi.flow.logic.parse.XmlToLogicFlowParser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -73,11 +74,23 @@ public class LogicFlowManager {
         return logicFlowlCache.get(logicFlow);
     }
 
-    public static Set<String> getLogicFlowlList() {
+    /*获取服务逻辑名称的列表*/
+    public static Set<String> getLogicFlowList() {
         return logicFlowlCache.keySet();
     }
 
+    /*获取业务模型名称的列表*/
     public static Set<String> getDomainModelList() {
         return domainModelCache.keySet();
+    }
+
+    /*获取服务逻辑对象的列表*/
+    public static Collection<LogicFlow> getLogicFlows() {
+        return logicFlowlCache.values();
+    }
+
+    /*获取业务模型对象的列表*/
+    public static Collection<DomainModel> getDomainModels() {
+        return domainModelCache.values();
     }
 }

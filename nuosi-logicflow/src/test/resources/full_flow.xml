@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<logic-flow id="" name="" desc="">
+<logic-flow id="" name="" desc="" version="">
     <!-- 全局域 -->
     <declare>
         <!-- 引入模型 -->

@@ -17,6 +17,7 @@ public class LogicFlow {
     private String id;
     private String name;
     private String desc;
+    private String version;
     private List<Declare> declares;
     private List<Start> starts;
     private List<End> ends;
@@ -44,6 +45,14 @@ public class LogicFlow {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public List<Declare> getDeclares() {
