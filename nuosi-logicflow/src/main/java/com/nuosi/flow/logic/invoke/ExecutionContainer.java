@@ -12,6 +12,7 @@ import com.nuosi.flow.logic.inject.calculate.CalculateMethodManager;
 import com.nuosi.flow.logic.inject.common.UnmodifiableDatabus;
 import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
 import com.nuosi.flow.logic.invoke.check.FlowDataDefine;
+import com.nuosi.flow.logic.invoke.debug.LogicDebugManager;
 import com.nuosi.flow.logic.invoke.processer.IActionProcesser;
 import com.nuosi.flow.logic.invoke.processer.ProcesserManager;
 import com.nuosi.flow.logic.model.LogicFlow;
@@ -55,6 +56,9 @@ public class ExecutionContainer {
     }
 
     private void init() {
+        if(LogicDebugManager.isDebug()){
+            LogicDebugManager.init(logicFlow.getId());
+        }
         initGlobalDeclare();
         initGlobalAction();
         unmodifiableDatabus = new UnmodifiableDatabus(databus);
@@ -80,7 +84,7 @@ public class ExecutionContainer {
     private void initGlobalAttr(List<Attr> attrs) {
         if (attrs != null) {
             this.flowDataDefine = ModelToDataDefineUtil.parseByFlow(logicFlow, attrs);
-        }else{
+        } else {
             this.flowDataDefine = new FlowDataDefine(logicFlow.getId()); //初始化，修复入参没有检测是否声明的BUG。
         }
     }
@@ -137,6 +141,10 @@ public class ExecutionContainer {
         Start start = getStart();
         List<Var> vars = start.getVars();
         if (vars != null) {
+            Map<String, Object> startInput = null;
+            if (LogicDebugManager.isDebug()) {
+                startInput = new HashMap<String, Object>();
+            }
             // 校验调用业务逻辑的入参数据
             String key;
             Object value;
@@ -148,6 +156,14 @@ public class ExecutionContainer {
 
                 key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
                 databus.put(key, value);
+
+                if (LogicDebugManager.isDebug()) {
+                    startInput.put(key, value);
+                }
+            }
+
+            if (LogicDebugManager.isDebug()) {
+                LogicDebugManager.recordStartData(startInput);
             }
         }
         return start.getNext();
@@ -210,10 +226,18 @@ public class ExecutionContainer {
             key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
             param.put(key, value);
         }
+
+        if(LogicDebugManager.isDebug()){
+            LogicDebugManager.recordInputData(action.getId(), param);
+        }
         return param;
     }
 
     private void prepareNodeOutput(Action action, Object result) {
+        if(LogicDebugManager.isDebug()){
+            LogicDebugManager.recordOutputData(action.getId(), result);
+        }
+
         if (result == null) {
             return;
         }
@@ -262,6 +286,10 @@ public class ExecutionContainer {
                 value = databus.get(key);
                 key = var.getAlias() != null ? var.getAlias() : key; //alias不为空时，代替key成为入参别名
                 result.put(key, value);
+            }
+
+            if (LogicDebugManager.isDebug()) {
+                LogicDebugManager.recordEndData(result);
             }
         }
         return result;
