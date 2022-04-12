@@ -5,6 +5,7 @@ import com.ai.ipu.data.impl.JsonMap;
 import com.nuosi.flow.logic.LogicFlowEngine;
 import com.nuosi.flow.logic.invoke.debug.LogicDebugManager;
 import com.nuosi.flow.util.LogicFlowUtil;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,14 +25,15 @@ public class LogicFlowDebugTest {
         LogicDebugManager.openUserSwitch("zhangsan");     // 打开指定用户开关
 
         JMap param = new JsonMap();
-        param.put("goods_name","橙汁");
-        param.put("goods_type",1);
-        Object result = LogicFlowEngine.execute("simple_logic_flow_example",param);
+        param.put("goods_name", "橙汁");
+        param.put("goods_type", 1);
+        Object result = LogicFlowEngine.execute("simple_logic_flow_example", param);
         System.out.println("调试信息：" + LogicDebugManager.getLogicDebugData());
+        Assert.assertTrue(LogicDebugManager.getLogicDebugData() != null);
     }
 
     @Before
-    public void before(){
+    public void before() {
         String[] modelConfigs = {
                 "model/goods_model.xml"
         };

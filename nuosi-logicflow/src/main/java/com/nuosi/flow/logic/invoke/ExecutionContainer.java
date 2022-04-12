@@ -29,6 +29,10 @@ import com.nuosi.flow.logic.parse.ModelToDataDefineUtil;
 import com.nuosi.flow.util.LogicFlowConstants;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -49,6 +53,7 @@ public class ExecutionContainer {
 
     private Map<String, Object> nodeResult = new HashMap<String, Object>(); //节点返回数据
     private LogicFlow logicFlow;
+    private ExecutorService debugExecutor;
 
     public ExecutionContainer(LogicFlow logicFlow) {
         this.logicFlow = logicFlow;
@@ -57,7 +62,16 @@ public class ExecutionContainer {
 
     private void init() {
         if(LogicDebugManager.isDebug()){
-            LogicDebugManager.init(logicFlow.getId());
+            // 等同newSingleThreadExecutor
+            debugExecutor = new ThreadPoolExecutor(1, 1,
+                    0L, TimeUnit.MILLISECONDS,
+                    new LinkedBlockingQueue<Runnable>());
+            debugExecutor.execute(new Runnable(){
+                @Override
+                public void run() {
+                    LogicDebugManager.init(logicFlow.getId());
+                }
+            });
         }
         initGlobalDeclare();
         initGlobalAction();
@@ -163,7 +177,13 @@ public class ExecutionContainer {
             }
 
             if (LogicDebugManager.isDebug()) {
-                LogicDebugManager.recordStartData(startInput);
+                final Map<String, Object> _startInput = startInput;
+                debugExecutor.execute(new Runnable(){
+                    @Override
+                    public void run() {
+                        LogicDebugManager.recordStartData(_startInput);
+                    }
+                });
             }
         }
         return start.getNext();
@@ -228,14 +248,24 @@ public class ExecutionContainer {
         }
 
         if(LogicDebugManager.isDebug()){
-            LogicDebugManager.recordInputData(action.getId(), param);
+            debugExecutor.execute(new Runnable(){
+                @Override
+                public void run() {
+                    LogicDebugManager.recordInputData(action.getId(), param);
+                }
+            });
         }
         return param;
     }
 
     private void prepareNodeOutput(Action action, Object result) {
         if(LogicDebugManager.isDebug()){
-            LogicDebugManager.recordOutputData(action.getId(), result);
+            debugExecutor.execute(new Runnable(){
+                @Override
+                public void run() {
+                    LogicDebugManager.recordOutputData(action.getId(), result);
+                }
+            });
         }
 
         if (result == null) {
@@ -289,7 +319,13 @@ public class ExecutionContainer {
             }
 
             if (LogicDebugManager.isDebug()) {
-                LogicDebugManager.recordEndData(result);
+                final JMap _result = result;
+                debugExecutor.execute(new Runnable(){
+                    @Override
+                    public void run() {
+                        LogicDebugManager.recordEndData(_result);
+                    }
+                });
             }
         }
         return result;

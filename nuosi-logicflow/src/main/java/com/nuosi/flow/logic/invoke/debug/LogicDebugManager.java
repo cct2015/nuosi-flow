@@ -21,8 +21,8 @@ public class LogicDebugManager {
     private static boolean mainSwitch = false; //调试总开关，默认关闭
     private static Map<String, Boolean> logicDebugSwitch = new HashMap<String, Boolean>();
     private static Map<String, LinkedHashMap> logicDebugData = new HashMap<String, LinkedHashMap>();
-    private static ThreadLocal<String> userThreadLocal = new ThreadLocal<String>();
-    private static ThreadLocal<String> logicThreadLocal = new ThreadLocal<String>();
+    private static ThreadLocal<String> userThreadLocal = new InheritableThreadLocal<String>();
+    private static ThreadLocal<String> logicThreadLocal = new InheritableThreadLocal<String>();
 
     public static Map<String, LinkedHashMap> getLogicDebugData() {
         String userId = userThreadLocal.get();
