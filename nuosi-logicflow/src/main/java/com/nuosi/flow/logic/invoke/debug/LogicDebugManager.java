@@ -1,5 +1,7 @@
 package com.nuosi.flow.logic.invoke.debug;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,8 +23,8 @@ public class LogicDebugManager {
     private static boolean mainSwitch = false; //调试总开关，默认关闭
     private static Map<String, Boolean> logicDebugSwitch = new HashMap<String, Boolean>();
     private static Map<String, LinkedHashMap> logicDebugData = new HashMap<String, LinkedHashMap>();
-    private static ThreadLocal<String> userThreadLocal = new InheritableThreadLocal<String>();
-    private static ThreadLocal<String> logicThreadLocal = new InheritableThreadLocal<String>();
+    private static ThreadLocal<String> userThreadLocal = new TransmittableThreadLocal<String>();
+    private static ThreadLocal<String> logicThreadLocal = new TransmittableThreadLocal<String>();
 
     public static Map<String, LinkedHashMap> getLogicDebugData() {
         String userId = userThreadLocal.get();

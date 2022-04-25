@@ -34,6 +34,7 @@
         <junit>4.12</junit>
         <mvel2>2.4.10.Final</mvel2>
         <spring-beans>5.3.9</spring-beans>
+        <ttl>2.12.2</ttl>
     </properties>
     <!-- IPU Jar引入 -->
     <dependencies>
@@ -74,6 +75,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring-beans}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+            <version>${ttl}</version>
         </dependency>
     </dependencies>
 
