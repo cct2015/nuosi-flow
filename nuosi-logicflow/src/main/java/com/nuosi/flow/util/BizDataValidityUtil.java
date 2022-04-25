@@ -102,7 +102,7 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_STRING_NULLABLE, bizName, attr, String.valueOf(value));
-            }else{
+            } else {
                 return null;
             }
         }
@@ -180,7 +180,7 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATE_NULLABLE, bizName, attr);
-            }else{
+            } else {
                 return null;
             }
         }
@@ -224,7 +224,7 @@ public class BizDataValidityUtil {
         if (value == null) {
             if (dataValidator.isNullable() == false) {
                 IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_NULLABLE, bizName, attr);
-            }else{
+            } else {
                 return null;
             }
         }
@@ -260,6 +260,40 @@ public class BizDataValidityUtil {
         }
         if (dataValidator.getUnequal() != null && val.compareTo(dataValidator.getUnequal()) == 0) {
             IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_DATETIME_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()), String.valueOf(val));
+        }
+    }
+
+    public static Long checkLong(Object value, String bizName, String attr) {
+        Long val = null;
+        try {
+            val = Long.parseLong(String.valueOf(value));
+        } catch (Exception e) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG, bizName, attr, String.valueOf(value));
+        }
+        return val;
+    }
+
+    public static void checkLongValidate(LongValidator dataValidator, Long val, String bizName, String attr) {
+        if (dataValidator == null) {
+            return;
+        }
+        if (dataValidator.getMax() != null && val > dataValidator.getMax()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_MAX, bizName, attr, String.valueOf(dataValidator.getMax()), String.valueOf(val));
+        }
+        if (dataValidator.getMin() != null && val < dataValidator.getMin()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_MIN, bizName, attr, String.valueOf(dataValidator.getMin()), String.valueOf(val));
+        }
+        if (dataValidator.getMore() != null && val >= dataValidator.getMore()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_MORE, bizName, attr, String.valueOf(dataValidator.getMore()), String.valueOf(val));
+        }
+        if (dataValidator.getLess() != null && val <= dataValidator.getLess()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_LESS, bizName, attr, String.valueOf(dataValidator.getLess()), String.valueOf(val));
+        }
+        if (dataValidator.getEqual() != null && val >= dataValidator.getEqual()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_EQUAL, bizName, attr, String.valueOf(dataValidator.getEqual()), String.valueOf(val));
+        }
+        if (dataValidator.getUnequal() != null && val <= dataValidator.getUnequal()) {
+            IpuUtility.errorCode(LogicFlowConstants.BDATA_CHECK_LONG_UNEQUAL, bizName, attr, String.valueOf(dataValidator.getUnequal()), String.valueOf(val));
         }
     }
 

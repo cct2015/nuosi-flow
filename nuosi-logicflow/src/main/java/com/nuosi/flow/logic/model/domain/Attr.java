@@ -22,6 +22,7 @@ public class Attr {
     private List<ValidateDecimal> validateDecimals;
     private List<ValidateDate> validateDates;
     private List<ValidateDatetime> validateDatetimes;
+    private List<ValidateLong> validateLongs;
 
     public String getId() {
         return id;
@@ -101,5 +102,13 @@ public class Attr {
 
     public void setValidateDatetimes(List<ValidateDatetime> validateDatetimes) {
         this.validateDatetimes = validateDatetimes;
+    }
+
+    public List<ValidateLong> getValidateLongs() {
+        return validateLongs;
+    }
+
+    public void setValidateLongs(List<ValidateLong> validateLongs) {
+        this.validateLongs = validateLongs;
     }
 }

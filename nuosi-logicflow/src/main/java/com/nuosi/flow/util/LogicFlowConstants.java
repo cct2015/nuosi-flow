@@ -87,6 +87,14 @@ public class LogicFlowConstants {
     public static final String BDATA_CHECK_DATETIME_EQUAL = "BDATA_CHECK_DATETIME_EQUAL";
     public static final String BDATA_CHECK_DATETIME_UNEQUAL = "BDATA_CHECK_DATETIME_UNEQUAL";
     public static final String BDATA_CHECK_DATETIME_NULLABLE = "BDATA_CHECK_DATETIME_NULLABLE";
+    /**长整数校验提示信息*/
+    public static final String BDATA_CHECK_LONG = "BDATA_CHECK_LONG";
+    public static final String BDATA_CHECK_LONG_MAX = "BDATA_CHECK_LONG_MAX";
+    public static final String BDATA_CHECK_LONG_MIN = "BDATA_CHECK_LONG_MIN";
+    public static final String BDATA_CHECK_LONG_MORE = "BDATA_CHECK_LONG_MORE";
+    public static final String BDATA_CHECK_LONG_LESS = "BDATA_CHECK_LONG_LESS";
+    public static final String BDATA_CHECK_LONG_EQUAL = "BDATA_CHECK_LONG_EQUAL";
+    public static final String BDATA_CHECK_LONG_UNEQUAL = "BDATA_CHECK_LONG_UNEQUAL";
     /**布尔校验提示信息*/
     public static final String BDATA_CHECK_BOOLEAN = "BDATA_CHECK_BOOLEAN";
     /**对象校验提示信息*/

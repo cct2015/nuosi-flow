@@ -31,12 +31,12 @@ public class ModelToDataDefineUtil {
         return parseByAttrs(bDataDefine, domainModel.getAttrs());
     }
 
-    public static BDataDefine parseByFlow(LogicFlow logicFlow, List<Attr> flowAttrs){
+    public static BDataDefine parseByFlow(LogicFlow logicFlow, List<Attr> flowAttrs) {
         BDataDefine fDataDefine = new FlowDataDefine(logicFlow.getId());
         return parseByAttrs(fDataDefine, flowAttrs);
     }
 
-    private static BDataDefine parseByAttrs(BDataDefine dataDefine, List<Attr> attrs){
+    private static BDataDefine parseByAttrs(BDataDefine dataDefine, List<Attr> attrs) {
         for (Attr attr : attrs) {
             BDataType dataType = valueOf(attr.getType().toUpperCase());
 
@@ -75,6 +75,13 @@ public class ModelToDataDefineUtil {
                     if (validateDatetimes != null && !validateDatetimes.isEmpty()) {
                         ValidateDatetime validateDatetime = validateDatetimes.get(0);
                         bDataValidator = parseDatetimeValidate(validateDatetime);
+                    }
+                    break;
+                case LONG:
+                    List<ValidateLong> validateLongs = attr.getValidateLongs();
+                    if (validateLongs != null && !validateLongs.isEmpty()) {
+                        ValidateLong validateLong = validateLongs.get(0);
+                        bDataValidator = parseLongValidate(validateLong);
                     }
                     break;
                 case BOOLEAN:
@@ -126,9 +133,15 @@ public class ModelToDataDefineUtil {
         return datetimeValidator;
     }
 
-    private static BDataValidator createEmptyBDataValidate(BDataType dataType){
+    private static BDataValidator parseLongValidate(ValidateLong validateLong) {
+        LongValidator longValidator = new LongValidator();
+        org.springframework.beans.BeanUtils.copyProperties(validateLong, longValidator);
+        return longValidator;
+    }
+
+    private static BDataValidator createEmptyBDataValidate(BDataType dataType) {
         BDataValidator bdataValidator = null;
-        switch(dataType){
+        switch (dataType) {
             case INT:
                 bdataValidator = new IntegerValidator();
                 break;
@@ -143,6 +156,9 @@ public class ModelToDataDefineUtil {
                 break;
             case DATETIME:
                 bdataValidator = new DatetimeValidator();
+                break;
+            case LONG:
+                bdataValidator = new LongValidator();
                 break;
             case BOOLEAN:
                 bdataValidator = new BooleanValidator();
