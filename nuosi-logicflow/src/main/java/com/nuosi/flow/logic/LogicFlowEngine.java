@@ -7,6 +7,7 @@ import com.nuosi.flow.logic.inject.calculate.CalculateMethodManager;
 import com.nuosi.flow.logic.inject.function.FunctionManager;
 import com.nuosi.flow.logic.inject.initial.InitialMethodManager;
 import com.nuosi.flow.logic.invoke.ExecutionContainer;
+import com.nuosi.flow.logic.invoke.ExecutionContainerAsync;
 import com.nuosi.flow.logic.invoke.validate.ExecutionValidator;
 import com.nuosi.flow.logic.model.LogicFlow;
 import com.nuosi.flow.mgmt.message.MessageManager;
@@ -48,6 +49,23 @@ public class LogicFlowEngine {
 
     public static JMap execute(String flowName, JMap param) throws Exception {
         return execute(flowName, param, true);
+    }
+
+    public static JMap executeAsync(String flowName, JMap param, boolean isTransactionCommit) throws Exception {
+        /*1.获取逻辑流程的配置*/
+        LogicFlow logicFlow = LogicFlowManager.getLogicFlow(flowName);
+        if(logicFlow==null){
+            IpuUtility.errorCode(LogicFlowConstants.FLOW_NOT_EXISTS, flowName);
+        }
+        /*2.校验服务逻辑流配置*/
+        //new ExecutionValidator(logicFlow).validate();
+        /*3.解析配置执行逻辑*/
+        JMap result = new ExecutionContainerAsync(logicFlow).execute(param, isTransactionCommit);
+        return result;
+    }
+
+    public static JMap executeAsync(String flowName, JMap param) throws Exception {
+        return executeAsync(flowName, param, true);
     }
 
     public static void validate(String flowName) throws Exception {

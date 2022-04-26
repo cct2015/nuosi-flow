@@ -20,7 +20,6 @@ import java.util.Map;
  */
 public class HttpProcesser implements IActionProcesser {
     private static String REQUEST_TYPE_GET = "get";
-    private static String REQUEST_TYPE_POST = "post";
 
     @Override
     public Object execute(Map<String, Object> databus, Action action, JMap input, Object... param) throws Exception {
@@ -53,9 +52,9 @@ public class HttpProcesser implements IActionProcesser {
 
         String result;
         if (REQUEST_TYPE_GET.equals(http.getType())) {
-            result = UnirestUtil.requestByPost(url, input, headerParam);
-        } else {
             result = UnirestUtil.requestByGet(url, input, headerParam);
+        } else {
+            result = UnirestUtil.requestByPost(url, input, headerParam);
         }
         return result;
     }

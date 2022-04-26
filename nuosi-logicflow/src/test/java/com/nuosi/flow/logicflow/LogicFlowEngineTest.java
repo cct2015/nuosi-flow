@@ -24,6 +24,15 @@ public class LogicFlowEngineTest {
         System.out.println("result===" + result);
     }
 
+    @Test
+    public void testExecuteAsync() throws Exception {
+        JMap param = new JsonMap();
+        param.put("goods_name","橙汁");
+        param.put("goods_type",1);
+        Object result = LogicFlowEngine.executeAsync("simple_logic_flow_example",param);
+        System.out.println("result===" + result);
+    }
+
     @Before
     public void before(){
         String[] modelConfigs = {

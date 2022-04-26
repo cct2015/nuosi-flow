@@ -35,6 +35,7 @@
         <mvel2>2.4.10.Final</mvel2>
         <spring-beans>5.3.9</spring-beans>
         <ttl>2.12.2</ttl>
+        <guava>31.1-jre</guava>
     </properties>
     <!-- IPU Jar引入 -->
     <dependencies>
@@ -80,6 +81,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>transmittable-thread-local</artifactId>
             <version>${ttl}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava}</version>
         </dependency>
     </dependencies>
 
